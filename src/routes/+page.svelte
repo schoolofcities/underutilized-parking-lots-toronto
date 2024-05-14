@@ -1,2 +1,15 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+
+import Top from "$lib/TopSofC.svelte";
+import "../assets/styles.css";
+
+</script>
+
+
+
+
+<Top/>
+
+<div class="title">
+	<h1>Hello!</h1>
+</div>
