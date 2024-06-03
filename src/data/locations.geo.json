@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "locations",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Location": "Front Campus" }, "geometry": { "type": "Point", "coordinates": [ -79.395144045310872, 43.661702088831248 ] } },
+{ "type": "Feature", "properties": { "Location": "Centre Island" }, "geometry": { "type": "Point", "coordinates": [ -79.335039692013595, 43.621808848554913 ] } },
+{ "type": "Feature", "properties": { "Location": "Dufferin Grove Park" }, "geometry": { "type": "Point", "coordinates": [ -79.432420995345439, 43.656155296043686 ] } },
+{ "type": "Feature", "properties": { "Location": "Brickworks Park" }, "geometry": { "type": "Point", "coordinates": [ -79.365696898705082, 43.686067067480138 ] } }
+]
+}

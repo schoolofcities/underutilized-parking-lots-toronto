@@ -17,7 +17,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"maplibre-gl": "^4.2.0",
+		"maplibre-gl": "^4.3.1",
 		"pmtiles": "^3.0.5"
 	}
 }
