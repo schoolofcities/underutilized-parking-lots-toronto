@@ -105,8 +105,9 @@
 				"source": "massing",
 				"source-layer": "modified_3DMassingTorontoEPSG4326",
 				"paint": {
-					"fill-extrusion-color": "#D3D3D3",
+					"fill-extrusion-color": "#D0D1C9",
 					"fill-extrusion-height": ["get", "avg_height"],
+					"fill-extrusion-opacity": 0.9
 				}
 			});
 
