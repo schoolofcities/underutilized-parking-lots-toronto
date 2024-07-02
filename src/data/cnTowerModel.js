@@ -23,8 +23,8 @@ const modelTransform = {
   scale: modelAsMercatorCoordinate.meterInMercatorCoordinateUnits()
 };
 
-const customLayer = {
-  id: '3d-model',
+const CNTower = {
+  id: 'cn-tower-3d-model',
   type: 'custom',
   renderingMode: '3d',
   onAdd: function (map, gl) {
@@ -95,4 +95,4 @@ const customLayer = {
   }
 };
 
-export default customLayer;
+export default CNTower;

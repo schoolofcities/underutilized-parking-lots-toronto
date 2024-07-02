@@ -5,6 +5,7 @@
     import BaseLayer from "../data/toronto.json";
     import "../assets/maplibre-gl.css";
     import CNTower from '../data/cnTowerModel.js';
+    import SkyDome from '../data/skyDomeModel.js';
   
     let map;
     let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
@@ -82,9 +83,12 @@
             protoLayers.forEach((e) => {
                 map.addLayer(e);
             });
-
+          
             // CN Tower 3D model
             map.addLayer(CNTower);
+
+            // Sky Dome 3D model
+            map.addLayer(SkyDome);
   
             // 3D massing tiles
             map.addSource("massing", {
