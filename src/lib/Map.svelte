@@ -63,6 +63,7 @@
 			zoom: 10.5,
 			maxZoom: 16.5,
 			minZoom: 10,
+			maxPitch: 85,
 			bearing: -17.1,
 			projection: "globe",
 			scrollZoom: true,
@@ -82,10 +83,10 @@
 		map.addControl(scale, "bottom-left");
 		map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
-		map.touchZoomRotate.disableRotation();
-		map.dragRotate.disable();
-		map.touchZoomRotate.disableRotation();
-		map.scrollZoom.disable();
+		// map.touchZoomRotate.disableRotation();
+		// map.dragRotate.disable();
+		// map.touchZoomRotate.disableRotation();
+		// map.scrollZoom.disable();
 
 		window.addEventListener('scroll', onScroll);
 
