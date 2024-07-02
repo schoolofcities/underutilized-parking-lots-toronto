@@ -4,8 +4,7 @@
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../data/toronto.json";
     import "../assets/maplibre-gl.css";
-    import CNTower from '../data/cnTowerModel.js';
-    import SkyDome from '../data/skyDomeModel.js';
+    import { SkyDome, CNTower } from '../data/3dModels.js';
   
     let map;
     let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
