@@ -49,7 +49,7 @@
             zoom: 15,
             pitch: 60,
             maxPitch: 85,
-            maxZoom: 16.5,
+            maxZoom: 20,
             minZoom: 10,
             bearing: -17.1,
             projection: "globe",
