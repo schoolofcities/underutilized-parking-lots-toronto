@@ -10,7 +10,7 @@
     let map;
     let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
     let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
-	let CN_TOWER_URL = "/underutilized-parking-lots-toronto/cn-tower.gltf";
+	  let CN_TOWER_URL = "/underutilized-parking-lots-toronto/cn-tower.gltf";
     let pageHeight;
 
     // Adding scale bar to the map
@@ -49,7 +49,7 @@
             },
             center: [-79.3871, 43.6426],
             zoom: 15,
-			pitch: 60,
+			      pitch: 60,
             maxZoom: 16.5,
             minZoom: 10,
             bearing: -17.1,
@@ -57,7 +57,7 @@
             scrollZoom: true,
             maxBounds: maxBounds,
             attributionControl: true,
-			antialias: true,
+			      antialias: true,
         });
 
         const attributions = [
@@ -75,15 +75,15 @@
 		// three js model of CN Tower
 
 		const modelOrigin = [-79.3871, 43.6426];
-     	const modelAltitude = 0;
-     	const modelRotate = [Math.PI / 2, 0, 0];
+    const modelAltitude = 0;
+    const modelRotate = [Math.PI / 2, 0, 0];
   
-      	const modelAsMercatorCoordinate = maplibregl.MercatorCoordinate.fromLngLat(
-        	modelOrigin,
-        	modelAltitude
-      	);
+    const modelAsMercatorCoordinate = maplibregl.MercatorCoordinate.fromLngLat(
+      modelOrigin,
+      modelAltitude
+      );
   
-      	const modelTransform = {
+    const modelTransform = {
 			translateX: modelAsMercatorCoordinate.x,
 			translateY: modelAsMercatorCoordinate.y,
 			translateZ: modelAsMercatorCoordinate.z,
