@@ -48,6 +48,7 @@
             center: [-79.3871, 43.6426],
             zoom: 15,
             pitch: 60,
+            maxPitch: 85,
             maxZoom: 16.5,
             minZoom: 10,
             bearing: -17.1,
