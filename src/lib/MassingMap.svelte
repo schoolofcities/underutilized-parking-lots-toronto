@@ -3,6 +3,7 @@
     import * as maplibregl from "maplibre-gl";
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../data/toronto.json";
+    import TestMassing from "../data/testMassing.geo.json";
     import "../assets/maplibre-gl.css";
     import { SkyDome, CNTower } from '../data/3dModels.js';
   
@@ -83,6 +84,23 @@
             protoLayers.forEach((e) => {
                 map.addLayer(e);
             });
+
+            // Test massing of new housing
+
+            map.addSource("TestMassing", {
+				"type": "geojson",
+				"data": TestMassing,
+			});
+
+            map.addLayer({
+                "id": "TestMassingBlue",
+                "type": "fill-extrusion",
+                "source": "TestMassing",
+                "paint": {
+                    "fill-extrusion-color": "blue",
+                    "fill-extrusion-height": ["get", "height"],
+                }
+            })
           
             // CN Tower 3D model
             map.addLayer(CNTower);
