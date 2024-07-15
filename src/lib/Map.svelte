@@ -198,28 +198,30 @@
 				},
 			});
 
-			            // CN Tower 3D model
-						map.addLayer(CNTower);
 
-// Sky Dome 3D model
-map.addLayer(SkyDome);
 
-// 3D massing tiles
-map.addSource("massing", {
-	type: "vector",
-	url: "pmtiles://" + MASSING_URL,
-});
+			// CN Tower 3D model
+			map.addLayer(CNTower);
 
-map.addLayer({
-	"id": "massing-layer",
-	"type": "fill-extrusion",
-	"source": "massing",
-	"source-layer": "3DMassingToronto",
-	"paint": {
-		"fill-extrusion-color": "#D3D3D3",
-		"fill-extrusion-height": ["get", "height"],
-	}
-});
+			// Sky Dome 3D model
+			map.addLayer(SkyDome);
+
+			// 3D massing tiles
+			map.addSource("massing", {
+				type: "vector",
+				url: "pmtiles://" + MASSING_URL,
+			});
+
+			map.addLayer({
+				"id": "massing-layer",
+				"type": "fill-extrusion",
+				"source": "massing",
+				"source-layer": "3DMassingToronto",
+				"paint": {
+					"fill-extrusion-color": "#D3D3D3",
+					"fill-extrusion-height": ["get", "height"],
+				}
+			});
 
 			if (pageHeight > 700 && pageWidth > 800) {
 				map.zoomTo(10.5);
