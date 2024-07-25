@@ -1,5 +1,5 @@
-<script>
-	import { onMount } from "svelte";
+<script> 
+    import { onMount } from "svelte";
 	import maplibregl from "maplibre-gl";
 	import * as pmtiles from "pmtiles";
 	import Wards from "../data/wards.geo.json";
@@ -9,14 +9,17 @@
 	import Locations from "../data/locations.geo.json";
 	import { SkyDome, CNTower } from '../data/3dModels.js';
 
-	let map;
-	let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
-	let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
-    
-	let activeContentName = 'main';
-	export let scrollyContents;
+    // export let steps;
+    import Lot from "../data/lots.json";
+    export let step;
 
-	let pageHeight;
+    // Map Parameters
+
+    let map;
+    let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
+	let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
+
+    let pageHeight;
 	let pageWidth;
 
 	let mapHeight = 600;
@@ -26,18 +29,19 @@
 		mapHeight = 600;
 	}
 
-	// Adding scale bar to the map
 	let scale = new maplibregl.ScaleControl({
 		maxWidth: 100,
 		unit: "metric",
 	});
 
-	const maxBounds = [
+    const maxBounds = [
 		[-79.7712, 43.44], // SW coords
 		[-78.914763, 43.93074], // NE coords
 	];
 
-	onMount(() => {
+    // Mounted Map
+
+    onMount(() => {
 		pageHeight = document.body.clientHeight;
 
 		let protocol = new pmtiles.Protocol();
@@ -78,11 +82,10 @@
 			'<a href="https://open.toronto.ca/">City of Toronto </a>',
 		];
 
-		// Convert the array into a single string
 		const attributionString = attributions.join(", ");
 
 		map.addControl(scale, "bottom-left");
-		map.addControl(new maplibregl.NavigationControl(), 'top-left');
+		// map.addControl(new maplibregl.NavigationControl({showZoom: false}), 'top-left');
 
 		map.touchZoomRotate.disableRotation();
 		map.dragRotate.disable();
@@ -90,13 +93,11 @@
 		map.scrollZoom.disable();
 		map.dragPan.disable();
 
-		window.addEventListener('scroll', onScroll);
-
 		let protoLayers = BaseLayer;
 
 		map.on("load", function () {
-			// Add the source with the concatenated attribution string
-			map.addSource("protomaps", {
+
+            map.addSource("protomaps", {
 				type: "vector",
 				url: "pmtiles://" + PMTILES_URL,
 				attribution: attributionString,
@@ -196,15 +197,10 @@
 				},
 			});
 
+            map.addLayer(CNTower);
 
-
-			// CN Tower 3D model
-			map.addLayer(CNTower);
-
-			// Sky Dome 3D model
 			map.addLayer(SkyDome);
 
-			// 3D massing tiles
 			map.addSource("massing", {
 				type: "vector",
 				url: "pmtiles://" + MASSING_URL,
@@ -228,108 +224,44 @@
 
 	});
 
-	function zoomIn() {
-		map.zoomIn();
-	}
-
-	function zoomOut() {
-		map.zoomOut();
-	}
-
-	// On every scroll event, check which element is on screen
-	function onScroll() {
-        const contentNames = Object.keys(scrollyContents);
-        let foundActive = false;
-        for (let i = 0; i < contentNames.length; i++) {
-            const contentName = contentNames[i];
-            if (isElementOnScreen(contentName)) {
-                setActiveContent(contentName);
-                foundActive = true;
-                break;
-            }
-        }
-        if (!foundActive) {
-            setActiveContent(null); // Deactivate all sections
-        }
+    // Step actions
+    $: {
+    if (step == 0) {
+        map.flyTo(Lot[0]);
     }
-
-    function setActiveContent(contentName) {
-        if (contentName === activeContentName) return;
-
-        if (activeContentName !== null) {
-            document.getElementById(activeContentName).classList.remove('active');
-        }
-
-        if (contentName !== null) {
-            document.getElementById(contentName).classList.add('active');
-            map.flyTo(scrollyContents[contentName]);
-            activeContentName = contentName;
-        } else {
-            activeContentName = null;
-        }
+    if (step == 1) {
+        map.flyTo(Lot[1]);
     }
-
-    function isElementOnScreen(id) {
-        const element = document.getElementById(id);
-        if (!element) return false;
-        const bounds = element.getBoundingClientRect();
-        return bounds.top < window.innerHeight && bounds.bottom > 0;
+    if (step == 3) {
+        map.flyTo(Lot[2]);
     }
-
-	// function isElementOnScreen(id) {
-    //     const element = document.getElementById(id);
-    //     if (!element) return false;
-    //     const bounds = element.getBoundingClientRect();
-    //     const fixedHeight = 50; //height of the TopSofC header
-    //     return bounds.top < fixedHeight && bounds.bottom > 0;
-    // }
+    if (step == 4) {
+        map.flyTo(Lot[0]);
+    }
+    if (step == 5) {
+        map.flyTo(Lot[1]);
+    }
+    if (step == 6) {
+        map.flyTo(Lot[2]);
+    }
+    if (step == 7) {
+        map.flyTo(Lot[0]);
+    }
+    if (step == 8) {
+        map.flyTo(Lot[1]);
+    }
+    if (step == 9) {
+        map.flyTo(Lot[2]);
+    }
+  }
 
 </script>
 
 <div id="map"/>
 
-<div id="features">
-    {#each Object.keys(scrollyContents) as scrollyContent (scrollyContent)}
-        <section id={scrollyContent} class:active={activeContentName === scrollyContent}>
-            <h3>{scrollyContents[scrollyContent].title}</h3>
-            <p>{@html scrollyContents[scrollyContent].content}</p>
-        </section>
-    {/each}
-</div>
-
 <style>
-
     #map {
-        position: fixed;
-		margin-top: 60px;
-        width: 65%;
-        height: 90%;
+        max-width: 100%;
+        height: 80vh;
     }
-
-	#features {
-		margin-top: 60px;
-        width: 35%;
-        margin-left: 66%;
-        font-family: sans-serif;
-        overflow-y: scroll;
-        background-color: #fafafa;
-    }
-
-    section {
-        padding: 25px 50px;
-        line-height: 25px;
-        border-bottom: 1px solid #ddd;
-        opacity: 0.25;
-        font-size: 13px;
-    }
-	
-    section.active {
-        opacity: 1;
-    }
-	
-    section:last-child {
-        border-bottom: none;
-        margin-bottom: 500px;
-    }
-
 </style>

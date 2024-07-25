@@ -97,6 +97,5 @@
   <script src="https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.js" />
 </svelte:head>
 
-<Top />
-
+<Top/>
 <Map {scrollyContents} />

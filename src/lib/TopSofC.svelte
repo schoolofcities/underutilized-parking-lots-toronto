@@ -27,7 +27,7 @@
 		overflow: hidden;
    		top: 0px;
 		height: 50px;
-		background-color: var(--brandWhite);
+		background-color: white;
 		margin-bottom: 20px;
 		border-bottom: 1px solid var(--brandGray);
 		width: 100%;
