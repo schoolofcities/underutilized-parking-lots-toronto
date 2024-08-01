@@ -2,11 +2,8 @@
     import { onMount } from "svelte";
 	import maplibregl from "maplibre-gl";
 	import * as pmtiles from "pmtiles";
-	import Wards from "../data/wards.geo.json";
-	import WardPts from "../data/wards-pts.geo.json";
 	import BaseLayer from "../data/toronto.json";
 	import "../assets/maplibre-gl.css";
-	import Locations from "../data/locations.geo.json";
 	import { SkyDome, CNTower } from '../data/3dModels.js';
 
     // export let steps;
@@ -17,6 +14,7 @@
 
     let map;
     let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
+    let PARKING_URL = "/underutilized-parking-lots-toronto/ParkingLotArea.pmtiles";
 	let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
 
     let pageHeight;
@@ -108,95 +106,6 @@
 				map.addLayer(e);
 			});
 
-			map.addSource("Wards", {
-				type: "geojson",
-				data: Wards,
-			});
-
-			map.addSource("WardPts", {
-				type: "geojson",
-				data: WardPts,
-			});
-
-			map.addSource("Locations", {
-				type: "geojson",
-				data: Locations,
-			});
-
-			map.addLayer({
-				id: "WardsWhite",
-				type: "line",
-				source: "Wards",
-				layout: {},
-				paint: {
-					"line-color": "#fff",
-					"line-width": 4,
-					"line-opacity": 0.4,
-				},
-			});
-
-			map.addLayer({
-				id: "WardsLabel",
-				type: "symbol",
-				source: "WardPts",
-				layout: {
-					"text-field": ["get", "name"],
-					"text-font": ["TradeGothic LT Bold"],
-					"text-size": 11,
-					"text-transform": "uppercase",
-					"text-justify": "center",
-					"text-allow-overlap": true,
-				},
-				paint: {
-					"text-halo-width": 1,
-					"text-halo-color": "#fff",
-					"text-opacity": [
-						"interpolate",
-						["linear"],
-						["zoom"],
-						10.1,
-						0,
-						10.5,
-						0.6,
-						11.1,
-						0.75,
-					],
-				},
-			});
-
-			map.addLayer({
-				id: "WardsBlack",
-				type: "line",
-				source: "Wards",
-				layout: {},
-				paint: {
-					"line-color": "#4d4d4d",
-					"line-width": 1,
-					"line-opacity": 1,
-				},
-			});
-
-			map.addLayer({
-				id: "Location_pnts",
-				type: "circle",
-				source: "Locations",
-				layout: {},
-				paint: {
-					'circle-color': '#e1271f',
-					'circle-radius': [
-						'interpolate',
-						['linear'],
-						['zoom'],
-						5, 1,
-						10, 5,
-						10.1, 8,
-						12, 10
-					],
-					'circle-stroke-color': '#ffffff',
-					'circle-stroke-width': 2,
-				},
-			});
-
             map.addLayer(CNTower);
 
 			map.addLayer(SkyDome);
@@ -206,16 +115,32 @@
 				url: "pmtiles://" + MASSING_URL,
 			});
 
-			map.addLayer({
-				"id": "massing-layer",
-				"type": "fill-extrusion",
-				"source": "massing",
-				"source-layer": "3DMassingToronto",
-				"paint": {
-					"fill-extrusion-color": "#D3D3D3",
-					"fill-extrusion-height": ["get", "height"],
-				}
+            map.addSource("parking", {
+				type: "vector",
+				url: "pmtiles://" + PARKING_URL,
 			});
+
+            // map.addLayer({
+            //     "id": "parking-layer",
+            //     "type": "fill",
+            //     "source": "parking",
+            //     "source-layer": "parkinglotarea",
+            //     "paint": {
+            //         "fill-color": "black",
+            //     },
+            // });
+
+
+			// map.addLayer({
+			// 	"id": "massing-layer",
+			// 	"type": "fill-extrusion",
+			// 	"source": "massing",
+			// 	"source-layer": "3DMassingToronto",
+			// 	"paint": {
+			// 		"fill-extrusion-color": "#D3D3D3",
+			// 		"fill-extrusion-height": ["get", "height"],
+			// 	}
+			// });
 
 			if (pageHeight > 700 && pageWidth > 800) {
 				map.zoomTo(10.5);
@@ -228,15 +153,52 @@
     $: {
     if (step == 0) {
         map.flyTo(Lot[0]);
+        setTimeout(() => {
+            map.setPaintProperty("parking-layer", "fill-opacity", 0);
+        }, 100);
     }
     if (step == 1) {
-        map.flyTo(Lot[1]);
+        map.flyTo(Lot[0]);
+
+        map.addLayer({
+            "id": "parking-layer",
+            "type": "fill",
+            "source": "parking",
+            "source-layer": "parkinglotarea",
+            "paint": {
+                "fill-color": "black",
+                "fill-opacity": 0 // Start with 0 opacity
+            }
+        });
+
+        setTimeout(() => {
+            map.setPaintProperty("parking-layer", "fill-opacity", 1);
+        }, 100);    
+    }
+    if (step == 2) {
+
+        setTimeout(() => {
+            map.setPaintProperty("parking-layer", "fill-opacity", 0);
+        }, 100);
+
+        setTimeout(() => {
+        map.flyTo(Lot[2]);
+    }, 100); // Adjust the delay duration as needed (e.g., 2000ms = 2 seconds)
+
+        map.removeLayer("massing-layer");
     }
     if (step == 3) {
-        map.flyTo(Lot[2]);
-    }
-    if (step == 4) {
-        map.flyTo(Lot[0]);
+
+        map.addLayer({
+            "id": "massing-layer",
+            "type": "fill-extrusion",
+            "source": "massing",
+            "source-layer": "3DMassingToronto",
+            "paint": {
+                "fill-extrusion-color": "#D3D3D3",
+                "fill-extrusion-height": ["get", "height"],
+            }
+        });
     }
     if (step == 5) {
         map.flyTo(Lot[1]);
