@@ -29,13 +29,17 @@ function createCustomLayer(id, modelUrl, modelOrigin) {
       this.camera = new THREE.Camera();
       this.scene = new THREE.Scene();
 
-      const directionalLight = new THREE.DirectionalLight(0xffffff);
-      directionalLight.position.set(0, -70, 100).normalize();
+      // Add lighting
+      const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x404040, 1);
+      this.scene.add(hemisphereLight);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // soft white light
+      this.scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
       this.scene.add(directionalLight);
 
-      const directionalLight2 = new THREE.DirectionalLight(0xffffff);
-      directionalLight2.position.set(0, 70, 100).normalize();
-      this.scene.add(directionalLight2);
+      this.updateLightPosition(map);
 
       const loader = new GLTFLoader();
       loader.load(
@@ -90,6 +94,25 @@ function createCustomLayer(id, modelUrl, modelOrigin) {
       this.renderer.resetState();
       this.renderer.render(this.scene, this.camera);
       this.map.triggerRepaint();
+    },
+    updateLightPosition: function (map) {
+      const mapCenter = map.getCenter();
+
+      // Convert map center to Mercator coordinates
+      const mapCenterMercator = maplibregl.MercatorCoordinate.fromLngLat(
+        [mapCenter.lng, mapCenter.lat],
+        modelAltitude
+      );
+
+      // Update directional light position based on map center
+      const directionalLight = this.scene.getObjectByName('directionalLight');
+      if (directionalLight) {
+        directionalLight.position.set(
+          mapCenterMercator.x,
+          mapCenterMercator.y,
+          mapCenterMercator.z
+        );
+      }
     }
   };
 }

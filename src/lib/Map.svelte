@@ -7,9 +7,10 @@
 	import BaseLayer from "../data/toronto.json";
 	import "../assets/maplibre-gl.css";
 	import Locations from "../data/locations.geo.json";
-
+	import { SkyDome, CNTower } from '../data/3dModels.js';
 
 	let map;
+	let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
 	let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
     
 	let activeContentName = 'main';
@@ -83,10 +84,11 @@
 		map.addControl(scale, "bottom-left");
 		map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
-		// map.touchZoomRotate.disableRotation();
-		// map.dragRotate.disable();
-		// map.touchZoomRotate.disableRotation();
-		// map.scrollZoom.disable();
+		map.touchZoomRotate.disableRotation();
+		map.dragRotate.disable();
+		map.touchZoomRotate.disableRotation();
+		map.scrollZoom.disable();
+		map.dragPan.disable();
 
 		window.addEventListener('scroll', onScroll);
 
@@ -194,6 +196,31 @@
 				},
 			});
 
+
+
+			// CN Tower 3D model
+			map.addLayer(CNTower);
+
+			// Sky Dome 3D model
+			map.addLayer(SkyDome);
+
+			// 3D massing tiles
+			map.addSource("massing", {
+				type: "vector",
+				url: "pmtiles://" + MASSING_URL,
+			});
+
+			map.addLayer({
+				"id": "massing-layer",
+				"type": "fill-extrusion",
+				"source": "massing",
+				"source-layer": "3DMassingToronto",
+				"paint": {
+					"fill-extrusion-color": "#D3D3D3",
+					"fill-extrusion-height": ["get", "height"],
+				}
+			});
+
 			if (pageHeight > 700 && pageWidth > 800) {
 				map.zoomTo(10.5);
 			}
@@ -259,8 +286,8 @@
 
 </script>
 
-
 <div id="map"/>
+
 <div id="features">
     {#each Object.keys(scrollyContents) as scrollyContent (scrollyContent)}
         <section id={scrollyContent} class:active={activeContentName === scrollyContent}>
@@ -271,8 +298,10 @@
 </div>
 
 <style>
+
     #map {
         position: fixed;
+		margin-top: 60px;
         width: 65%;
         height: 90%;
     }

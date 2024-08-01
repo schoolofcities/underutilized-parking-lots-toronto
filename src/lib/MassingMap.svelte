@@ -3,11 +3,13 @@
     import * as maplibregl from "maplibre-gl";
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../data/toronto.json";
+    import TestMassing from "../data/testMassing.geo.json";
     import "../assets/maplibre-gl.css";
     import { SkyDome, CNTower } from '../data/3dModels.js';
   
     let map;
     let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
+    let PARKING_URL = "/underutilized-parking-lots-toronto/ParkingLotArea.pmtiles";
     let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
     let pageHeight;
   
@@ -83,6 +85,23 @@
             protoLayers.forEach((e) => {
                 map.addLayer(e);
             });
+
+            // Test massing of new housing
+
+            map.addSource("TestMassing", {
+				"type": "geojson",
+				"data": TestMassing,
+			});
+
+            map.addLayer({
+                "id": "TestMassingBlue",
+                "type": "fill-extrusion",
+                "source": "TestMassing",
+                "paint": {
+                    "fill-extrusion-color": "blue",
+                    "fill-extrusion-height": ["get", "height"],
+                }
+            })
           
             // CN Tower 3D model
             map.addLayer(CNTower);
@@ -91,20 +110,35 @@
             map.addLayer(SkyDome);
   
             // 3D massing tiles
-            map.addSource("massing", {
-                type: "vector",
-                url: "pmtiles://" + MASSING_URL,
-            });
+            // map.addSource("massing", {
+            //     type: "vector",
+            //     url: "pmtiles://" + MASSING_URL,
+            // });
   
+            // map.addLayer({
+            //     "id": "massing-layer",
+            //     "type": "fill-extrusion",
+            //     "source": "massing",
+            //     "source-layer": "3DMassingToronto",
+            //     "paint": {
+            //         "fill-extrusion-color": "#D3D3D3",
+            //         "fill-extrusion-height": ["get", "height"],
+            //     }
+            // });
+
+            map.addSource("parking", {
+				type: "vector",
+				url: "pmtiles://" + PARKING_URL,
+			});
+
             map.addLayer({
-                "id": "massing-layer",
-                "type": "fill-extrusion",
-                "source": "massing",
-                "source-layer": "3DMassingToronto",
+                "id": "parking-layer",
+                "type": "fill",
+                "source": "parking",
+                "source-layer": "parkinglotarea",
                 "paint": {
-                    "fill-extrusion-color": "#D3D3D3",
-                    "fill-extrusion-height": ["get", "height"],
-                }
+                    "fill-color": "black",
+                },
             });
   
         });
