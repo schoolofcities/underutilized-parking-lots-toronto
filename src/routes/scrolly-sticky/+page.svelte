@@ -31,6 +31,132 @@
       unit: "metric",
     });
 
+
+        // MAP
+        onMount(() => {
+
+let protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
+
+sections = document.querySelectorAll(".section");
+window.addEventListener("scroll", handleScroll);
+
+map = new maplibregl.Map({
+container: "map",
+style: {
+  version: 8,
+  name: "Empty",
+  glyphs: "https://schoolofcities.github.io/fonts/fonts/{fontstack}/{range}.pbf",
+  sources: {},
+  layers: [
+    {
+      id: "background",
+      type: "background",
+      paint: {
+        "background-color": "rgba(0,0,0,0)",
+      },
+    },
+  ],
+},
+center: [-79.37, 43.715],
+zoom: 10.5,
+maxZoom: 16.5,
+minZoom: 10,
+maxPitch: 85,
+bearing: -17.1,
+projection: "globe",
+scrollZoom: true,
+// maxBounds: maxBounds,
+attributionControl: true,
+});
+
+const attributions = [
+'<a href="https://openstreetmap.org">OpenStreetMap</a>',
+// '<a href="https://github.com/Moraine729/Toronto_Heat_Vulnerability">Github</a>',
+'<a href="https://open.toronto.ca/">City of Toronto </a>',
+];
+
+const attributionString = attributions.join(", ");
+
+map.addControl(scale, "bottom-left");
+
+// map.touchZoomRotate.disableRotation();
+// map.dragRotate.disable();
+// map.touchZoomRotate.disableRotation();
+// map.scrollZoom.disable();
+// map.dragPan.disable();
+
+let protoLayers = BaseLayer;
+
+map.on("load", function () {
+
+  map.addSource("protomaps", {
+  type: "vector",
+  url: "pmtiles://" + PMTILES_URL,
+  attribution: attributionString,
+  attributionControl: false,
+  });
+
+  protoLayers.forEach((e) => {
+  map.addLayer(e);
+  });
+
+  map.addSource("massing", {
+  type: "vector",
+  url: "pmtiles://" + MASSING_URL,
+  });
+
+  map.addSource("parking", {
+  type: "vector",
+  url: "pmtiles://" + PARKING_URL,
+  });
+
+  map.addSource("lot-data", {
+    type: "geojson",
+    data: LotData,
+  });
+
+  map.addLayer({
+    id: "lot-data-layer",
+    type: "line",
+    source: "lot-data",
+    paint: {
+      "line-color": "red",
+    },
+  });
+
+  map.addSource("lot-revenue", {
+    type: "geojson",
+    data: LotRevenue,
+  });
+
+  map.addLayer({
+    id: "lot-revenue-layer",
+    type: "circle",
+    source: "lot-revenue",
+    paint: {
+      "circle-color": "rgba(0, 255, 0, 0.1)",
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["get", "revenue_per_space_per_day"],
+        0, 2, // Minimum value and corresponding radius
+        58, 20 // Maximum value and corresponding radius
+      ],
+      "circle-stroke-color": "blue",
+      "circle-stroke-width": 0.5,
+    },
+  });
+
+// SCROLL LISTENER
+return () => {
+  window.removeEventListener("scroll", handleScroll);
+};
+
+});
+
+});
+
     // SCROLLER
     const handleScroll = () => {
       if (!ticking) {
@@ -71,6 +197,7 @@
           setTimeout(() => {
             map.setPaintProperty("parking-layer", "fill-opacity", 0);
         }, 100); 
+
         break;
         
         case 1:
@@ -89,6 +216,8 @@
             map.setPaintProperty("parking-layer", "fill-opacity", 1);
         }, 100); 
         map.removeLayer("massing-layer");
+        map.removeLayer("lot-revenue-layer");      
+        
         break;
         
         case 2:
@@ -100,7 +229,8 @@
           }, 600);
           tweenStore.set(0);
           map.removeLayer(CNTower);
-          map.removeLayer(SkyDome);        break;
+          map.removeLayer(SkyDome); 
+        break;
        
         case 3:
           map.addLayer(CNTower);
@@ -132,133 +262,6 @@
 
         }
     };
-
-
-    // MAP
-    onMount(() => {
-
-      let protocol = new pmtiles.Protocol();
-      maplibregl.addProtocol("pmtiles", protocol.tile);
-
-      sections = document.querySelectorAll(".section");
-      window.addEventListener("scroll", handleScroll);
-  
-      map = new maplibregl.Map({
-			container: "map",
-			style: {
-				version: 8,
-				name: "Empty",
-				glyphs: "https://schoolofcities.github.io/fonts/fonts/{fontstack}/{range}.pbf",
-				sources: {},
-				layers: [
-					{
-						id: "background",
-						type: "background",
-						paint: {
-							"background-color": "rgba(0,0,0,0)",
-						},
-					},
-				],
-			},
-			center: [-79.37, 43.715],
-			zoom: 10.5,
-			maxZoom: 16.5,
-			minZoom: 10,
-			maxPitch: 85,
-			bearing: -17.1,
-			projection: "globe",
-			scrollZoom: true,
-			// maxBounds: maxBounds,
-			attributionControl: true,
-		});
-
-    const attributions = [
-			'<a href="https://openstreetmap.org">OpenStreetMap</a>',
-			// '<a href="https://github.com/Moraine729/Toronto_Heat_Vulnerability">Github</a>',
-			'<a href="https://open.toronto.ca/">City of Toronto </a>',
-		];
-
-		const attributionString = attributions.join(", ");
-
-		map.addControl(scale, "bottom-left");
-
-    // map.touchZoomRotate.disableRotation();
-		// map.dragRotate.disable();
-		// map.touchZoomRotate.disableRotation();
-		// map.scrollZoom.disable();
-		// map.dragPan.disable();
-
-		let protoLayers = BaseLayer;
-
-    map.on("load", function () {
-
-        map.addSource("protomaps", {
-        type: "vector",
-        url: "pmtiles://" + PMTILES_URL,
-        attribution: attributionString,
-        attributionControl: false,
-        });
-
-        protoLayers.forEach((e) => {
-        map.addLayer(e);
-        });
-
-        map.addSource("massing", {
-        type: "vector",
-        url: "pmtiles://" + MASSING_URL,
-        });
-
-        map.addSource("parking", {
-        type: "vector",
-        url: "pmtiles://" + PARKING_URL,
-        });
-
-        map.addSource("lot-data", {
-          type: "geojson",
-          data: LotData,
-        });
-
-        map.addLayer({
-          id: "lot-data-layer",
-          type: "line",
-          source: "lot-data",
-          paint: {
-            "line-color": "red",
-          },
-        });
-
-        map.addSource("lot-revenue", {
-          type: "geojson",
-          data: LotRevenue,
-        });
-
-        map.addLayer({
-          id: "lot-revenue-layer",
-          type: "circle",
-          source: "lot-revenue",
-          paint: {
-            "circle-color": "rgba(0, 255, 0, 0.1)",
-            "circle-radius": [
-              "interpolate",
-              ["linear"],
-              ["get", "revenue_per_space_per_day"],
-              0, 2, // Minimum value and corresponding radius
-              58, 20 // Maximum value and corresponding radius
-            ],
-            "circle-stroke-color": "blue", // Outline color
-            "circle-stroke-width": 0.5 // Outline width
-          },
-
-        });
-
-      // SCROLL LISTENER
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-
-    });
-      
-      });
 
   </script>
   
