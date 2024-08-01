@@ -1,0 +1,176 @@
+{
+    "type": "FeatureCollection",
+    "name": "lot-data",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "79",
+                "slug": "https://parking.greenp.com/carpark/79_405-sherbourne-street/",
+                "address": "405 Sherbourne St",
+                "lat": "43.664520",
+                "lng": "-79.373502",
+                "rate": "$1.75 / Half Hour",
+                "carpark_type": "surface",
+                "carpark_type_str": "Surface",
+                "is_ttc": false,
+                "is_under_construction": false,
+                "changing_rates": true,
+                "rate_half_hour": "1.75",
+                "capacity": "110",
+                "max_height": "0.00",
+                "bike_racks": "available",
+                "payment_methods": [
+                    "Coins",
+                    "Charge (Visa / Mastercard / American Express Only)"
+                ],
+                "payment_options": [
+                    "Pay and Display"
+                ],
+                "rate_details": {
+                    "periods": [
+                        {
+                            "title": "Monday - Sunday",
+                            "rates": [
+                                {
+                                    "when": "Day Maximum (7 am - 7 pm)",
+                                    "rate": "$9.0"
+                                }
+                            ],
+                            "notes": [
+                                "0"
+                            ]
+                        },
+                        {
+                            "title": "Monday - Thursday",
+                            "rates": [
+                                {
+                                    "when": "Night Maximum (7 pm - 7 am)",
+                                    "rate": "$5.00"
+                                }
+                            ],
+                            "notes": []
+                        },
+                        {
+                            "title": "Friday - Sunday",
+                            "rates": [
+                                {
+                                    "when": "Night Maximum (7 pm - 7 am)",
+                                    "rate": "$10.00"
+                                }
+                            ],
+                            "notes": []
+                        }
+                    ],
+                    "addenda": []
+                },
+                "monthly_permit_status": "not_available",
+                "monthly_permit_quantity": "",
+                "monthly_permit_price": "",
+                "map_marker_logo": "greenp_only",
+                "alert_box": "",
+                "enable_streetview": "yes",
+                "streetview_lat": "43.664658",
+                "streetview_long": "-79.373660",
+                "streetview_yaw": "84.65",
+                "streetview_pitch": "-2.17",
+                "streetview_zoom": "0",
+                "cp#": 79.0,
+                "type": "Surface",
+                "ownership": "Owned",
+                "space count": "91",
+                "2023 revenue": "$ 361,279",
+                "2023 property tax paid": "$ 222,714",
+                "index to 2019 revenues": "84%",
+                "# of ev chargers (total l2 and\nl3) operating": "-",
+                "capex $ ev chargers (equip. only)": "-",
+                "comments": "Housing Now site identified by City Council. Timing TBD.",
+                "revenue per space": 3970.1,
+                "revenue per space per day": 10.88
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                -79.372857382130306,
+                                43.664888182968397
+                            ],
+                            [
+                                -79.372771044725567,
+                                43.664684069474312
+                            ],
+                            [
+                                -79.37268152383254,
+                                43.664467832738964
+                            ],
+                            [
+                                -79.37339138126687,
+                                43.664319681192396
+                            ],
+                            [
+                                -79.373518209122778,
+                                43.664624512038699
+                            ],
+                            [
+                                -79.373518278507831,
+                                43.664624537321899
+                            ],
+                            [
+                                -79.373568460231809,
+                                43.664611184112999
+                            ],
+                            [
+                                -79.373568476298757,
+                                43.664611209335973
+                            ],
+                            [
+                                -79.373604062643736,
+                                43.664696667869599
+                            ],
+                            [
+                                -79.37360548392526,
+                                43.664700108138803
+                            ],
+                            [
+                                -79.373552090525521,
+                                43.664706900799963
+                            ],
+                            [
+                                -79.373552047021832,
+                                43.66470695116044
+                            ],
+                            [
+                                -79.373570407033597,
+                                43.6647534730551
+                            ],
+                            [
+                                -79.373279784804481,
+                                43.66481843661002
+                            ],
+                            [
+                                -79.373174235150458,
+                                43.664841043874304
+                            ],
+                            [
+                                -79.373133726699947,
+                                43.664824762732749
+                            ],
+                            [
+                                -79.372857382130306,
+                                43.664888182968397
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
+}

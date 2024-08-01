@@ -4,8 +4,10 @@
     import "../../assets/maplibre-gl.css";
     import * as pmtiles from "pmtiles";
 	  import BaseLayer from "../../data/toronto.json";
+    import LotData from "../../data/lot-data.geo.json";
 	  import { SkyDome, CNTower } from '../../data/3dModels.js';
     import Lot from "../../data/lots.json";
+    import LotRevenue from "../../data/LotRevenue.geo.json";
    
     import { tweened } from 'svelte/motion';
     import { cubicOut } from 'svelte/easing';
@@ -211,13 +213,52 @@
         url: "pmtiles://" + PARKING_URL,
         });
 
+        map.addSource("lot-data", {
+          type: "geojson",
+          data: LotData,
+        });
+
+        map.addLayer({
+          id: "lot-data-layer",
+          type: "line",
+          source: "lot-data",
+          paint: {
+            "line-color": "red",
+          },
+        });
+
+        map.addSource("lot-revenue", {
+          type: "geojson",
+          data: LotRevenue,
+        });
+
+        map.addLayer({
+          id: "lot-revenue-layer",
+          type: "circle",
+          source: "lot-revenue",
+          paint: {
+            "circle-color": "rgba(0, 255, 0, 0.1)",
+            "circle-radius": [
+              "interpolate",
+              ["linear"],
+              ["get", "revenue_per_space_per_day"],
+              0, 2, // Minimum value and corresponding radius
+              58, 20 // Maximum value and corresponding radius
+            ],
+            "circle-stroke-color": "blue", // Outline color
+            "circle-stroke-width": 0.5 // Outline width
+          },
+
         });
 
       // SCROLL LISTENER
       return () => {
         window.removeEventListener("scroll", handleScroll);
       };
+
     });
+      
+      });
 
   </script>
   
