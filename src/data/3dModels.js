@@ -2,6 +2,9 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as maplibregl from "maplibre-gl";
 
+// Define a global opacity variable
+const modelOpacity = 0.5;
+
 function createCustomLayer(id, modelUrl, modelOrigin) {
   const modelAltitude = 0;
   const modelRotate = [Math.PI / 2, 0, 0];
@@ -45,6 +48,13 @@ function createCustomLayer(id, modelUrl, modelOrigin) {
       loader.load(
         modelUrl,
         (gltf) => {
+          // Set opacity of all materials
+          gltf.scene.traverse((child) => {
+            if (child.isMesh) {
+              child.material.opacity = modelOpacity;
+              child.material.transparent = modelOpacity < 1.0;
+            }
+          });
           this.scene.add(gltf.scene);
         }
       );

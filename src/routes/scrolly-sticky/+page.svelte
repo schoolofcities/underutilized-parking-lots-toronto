@@ -1,23 +1,19 @@
 <script>
     import { onMount, onDestroy } from "svelte";
     import maplibregl from "maplibre-gl";
+    import "../../assets/maplibre-gl.css";
     import * as pmtiles from "pmtiles";
 	  import BaseLayer from "../../data/toronto.json";
-	  import "../../assets/maplibre-gl.css";
 	  import { SkyDome, CNTower } from '../../data/3dModels.js';
     import Lot from "../../data/lots.json";
    
     import { tweened } from 'svelte/motion';
     import { cubicOut } from 'svelte/easing';
-    import { writable } from 'svelte/store';
 
     const tweenStore = tweened(0, {
       duration: 500,
       easing: cubicOut,
     });
-
-	  // const tweenStore = writable(0);
-	  // tweenedValue.subscribe(value => tweenStore.set(value));
   
     let sections = [];
     let currentSection = 0;
@@ -27,7 +23,6 @@
     let MASSING_URL = "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
     let PARKING_URL = "/underutilized-parking-lots-toronto/ParkingLotArea.pmtiles";
 	  let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
-
 
     let scale = new maplibregl.ScaleControl({
       maxWidth: 100,
@@ -66,15 +61,16 @@
 
     // MAP UPDATE
     const updateMap = (section) => {
+
       switch (section) {
+        
         case 0: 
           map.flyTo(Lot[0]);
           setTimeout(() => {
             map.setPaintProperty("parking-layer", "fill-opacity", 0);
         }, 100); 
-          break;
-        // case 1:    
-        //   break;
+        break;
+        
         case 1:
         map.flyTo(Lot[0]);
           map.addLayer({
@@ -90,18 +86,23 @@
           setTimeout(() => {
             map.setPaintProperty("parking-layer", "fill-opacity", 1);
         }, 100); 
-          break;
+        map.removeLayer("massing-layer");
+        break;
+        
         case 2:
-        setTimeout(() => {
-            map.setPaintProperty("parking-layer", "fill-opacity", 0);
-        }, 100);
-        setTimeout(() => {
-        map.flyTo(Lot[2]);
-    }, 600);
-    // map.removeLayer("massing-layer");
-    tweenStore.set(0);
-          break;
+          setTimeout(() => {
+              map.setPaintProperty("parking-layer", "fill-opacity", 0);
+          }, 100);
+          setTimeout(() => {
+          map.flyTo(Lot[2]);
+          }, 600);
+          tweenStore.set(0);
+          map.removeLayer(CNTower);
+          map.removeLayer(SkyDome);        break;
+       
         case 3:
+          map.addLayer(CNTower);
+          map.addLayer(SkyDome);
           map.addLayer({
             "id": "massing-layer",
             "type": "fill-extrusion",
@@ -109,6 +110,7 @@
             "source-layer": "3DMassingToronto",
             "paint": {
               "fill-extrusion-color": "#D3D3D3",
+              "fill-extrusion-opacity": 0.5,
               "fill-extrusion-height": ["*", ["get", "height"], 0],
             },
           });
@@ -116,13 +118,16 @@
           const unsubscribe = tweenStore.subscribe(value => {
         map.setPaintProperty("massing-layer", "fill-extrusion-height", ["*", ["get", "height"], value]);
       });
-          break;
-          case 4:
-            map.flyTo(Lot[3]);  
-          break;
-          case 5:
-            map.flyTo(Lot[4]);  
-          break;
+        break;
+          
+        case 4:
+          map.flyTo(Lot[3]);  
+        break;
+          
+        case 5:
+          map.flyTo(Lot[4]);  
+        break;
+
         }
     };
 
@@ -196,10 +201,6 @@
         map.addLayer(e);
         });
 
-        map.addLayer(CNTower);
-
-        map.addLayer(SkyDome);
-
         map.addSource("massing", {
         type: "vector",
         url: "pmtiles://" + MASSING_URL,
@@ -251,7 +252,7 @@
     }
 
     .sticky {
-      position: sticky;
+      /* position: sticky; */
       top: 0vh;
       background-color: rgba(255, 255, 255, 0.8);
       /* min-height: 50vh; */

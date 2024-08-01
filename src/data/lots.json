@@ -3,7 +3,7 @@
       "id": 0,
       "title": "Toronto",
       "center": [-79.37, 43.715],
-      "zoom": 10.25,
+      "zoom": 10.5,
       "pitch": 0,
       "bearing": -17.1,
       "content": "Hello I am some text! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -21,13 +21,13 @@
     },
     {
       "id": 2,
-      "title": "Location 2: Fort York",
-      "center": [-79.40744, 43.63588],
+      "title": "CN Tower",
+      "center": [-79.3871, 43.6426],
       "x": -79.40744,
       "y": 43.63588,
       "zoom": 15,
       "pitch": 50,
-      "bearing": -540,
+      "bearing": 10,
       "content": "Hello I am some more text! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
@@ -46,6 +46,7 @@
       "x": -79.34503,
       "y": 43.67764,
       "zoom": 15,
+      "pitch":85,
       "content": "Hello text I am! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
