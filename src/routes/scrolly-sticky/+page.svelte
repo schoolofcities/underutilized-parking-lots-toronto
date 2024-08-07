@@ -23,6 +23,7 @@
 
   let map;
   let popup;
+  let hoveredStateId = null;
 
   let MASSING_URL =
     "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
@@ -140,49 +141,76 @@
         type: "circle",
         source: "lot-revenue",
         paint: {
-          "circle-color": "rgba(0, 255, 0, 0.1)",
+          "circle-color": "rgba(0, 0, 255, 0.1)",
           "circle-radius": [
             "interpolate",
             ["linear"],
             ["get", "revenue_per_space_per_day"],
             0,
-            2, // Minimum value and corresponding radius
+            5, // Minimum value and corresponding radius
             58,
-            20, // Maximum value and corresponding radius
+            30, // Maximum value and corresponding radius
           ],
-          "circle-stroke-color": "blue",
-          "circle-stroke-width": 0.5,
+          "circle-stroke-color": [
+            "case",
+            ["boolean", ["feature-state", "hover"], false],
+            "red",
+            "black",
+          ],
+          "circle-stroke-width": [
+            "case",
+            ["boolean", ["feature-state", "hover"], false],
+            1,
+            0,
+          ],
         },
       });
 
-      // Add popup for hover interaction
+      // POPUP HOVER LOT REVENUE
       popup = new maplibregl.Popup({
         closeButton: false,
         closeOnClick: false,
       });
 
       map.on("mousemove", "lot-revenue-layer", (e) => {
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const revenue = e.features[0].properties.revenue_per_space_per_day;
+        if (e.features.length > 0) {
+          if (hoveredStateId !== null) {
+            map.setFeatureState(
+              { source: "lot-revenue", id: hoveredStateId },
+              { hover: false },
+            );
+          }
+          hoveredStateId = e.features[0].id;
+          map.setFeatureState(
+            { source: "lot-revenue", id: hoveredStateId },
+            { hover: true },
+          );
 
-        popup
-          .setLngLat(coordinates)
-          .setHTML(`Revenue per space per day: $${revenue}`)
-          .addTo(map);
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const revenue = e.features[0].properties.revenue_per_space_per_day;
+
+          popup
+            .setLngLat(coordinates)
+            .setHTML(`Revenue per space per day: $${revenue}`)
+            .addTo(map);
+        }
       });
 
       map.on("mouseleave", "lot-revenue-layer", () => {
+        if (hoveredStateId !== null) {
+          map.setFeatureState(
+            { source: "lot-revenue", id: hoveredStateId },
+            { hover: false },
+          );
+        }
         popup.remove();
       });
-
-
     });
 
     // SCROLL LISTENER
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-
   });
 
   // SCROLLER
@@ -241,7 +269,7 @@
           map.setPaintProperty("parking-layer", "fill-opacity", 1);
         }, 100);
         map.removeLayer("massing-layer");
-        map.removeLayer("lot-revenue-layer");
+        // map.removeLayer("lot-revenue-layer");
 
         break;
 
