@@ -22,6 +22,8 @@
   let ticking = false;
 
   let map;
+  let popup;
+
   let MASSING_URL =
     "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
   let PARKING_URL =
@@ -152,12 +154,35 @@
           "circle-stroke-width": 0.5,
         },
       });
+
+      // Add popup for hover interaction
+      popup = new maplibregl.Popup({
+        closeButton: false,
+        closeOnClick: false,
+      });
+
+      map.on("mousemove", "lot-revenue-layer", (e) => {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const revenue = e.features[0].properties.revenue_per_space_per_day;
+
+        popup
+          .setLngLat(coordinates)
+          .setHTML(`Revenue per space per day: $${revenue}`)
+          .addTo(map);
+      });
+
+      map.on("mouseleave", "lot-revenue-layer", () => {
+        popup.remove();
+      });
+
+
     });
 
     // SCROLL LISTENER
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+
   });
 
   // SCROLLER
