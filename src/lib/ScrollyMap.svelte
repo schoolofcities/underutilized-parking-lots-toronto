@@ -85,11 +85,11 @@
 		map.addControl(scale, "bottom-left");
 		// map.addControl(new maplibregl.NavigationControl({showZoom: false}), 'top-left');
 
-		map.touchZoomRotate.disableRotation();
-		map.dragRotate.disable();
-		map.touchZoomRotate.disableRotation();
-		map.scrollZoom.disable();
-		map.dragPan.disable();
+		// map.touchZoomRotate.disableRotation();
+		// map.dragRotate.disable();
+		// map.touchZoomRotate.disableRotation();
+		// map.scrollZoom.disable();
+		// map.dragPan.disable();
 
 		let protoLayers = BaseLayer;
 
