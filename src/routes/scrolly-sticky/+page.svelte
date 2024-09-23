@@ -320,9 +320,12 @@
   };
 </script>
 
+
+
 <div class="indicator">Section: {currentSection + 1}</div>
 
 <div class="main">
+
   <div id="map" class="map-container"></div>
 
   <div class="section">
