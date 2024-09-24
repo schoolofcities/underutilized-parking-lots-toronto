@@ -110,9 +110,37 @@ main {
     position: relative;
     padding-left: 15px;
     padding-right: 15px;
-	border-top: solid 1px var(--brandGray80);
 	margin-top: 20px;
-	
+}
+
+.img-midsize {
+	display: flex;
+	justify-content: center; 
+	overflow-x: auto;
+}
+
+.img-midsize img  {
+	width: 100%;
+	width: 1300px;
+	height: auto;
+}
+
+@media (max-width: 1300px) {
+	.img-midsize {
+		justify-content: left; 
+	}
+}
+
+.img-smallsize {
+	display: flex;
+	justify-content: center; 
+	overflow-x: auto;
+}
+
+.img-smallsize img  {
+	width: 100%;
+	width: 700px;
+	height: auto;
 }
 
 
