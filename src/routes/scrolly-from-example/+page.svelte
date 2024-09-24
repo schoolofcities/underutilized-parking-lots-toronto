@@ -141,7 +141,7 @@
   }
 
   .step.active .step-content {
-		background: white;
+		background: rgb(255, 255, 255);
 		color: black;
 	}
 

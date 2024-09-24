@@ -3,6 +3,9 @@
 import Top from "$lib/TopSofC.svelte";
 import "../assets/styles.css";
 
+import Scrolly from "../lib/Scrolly.svelte";
+import Map from "../lib/MapLots.svelte";
+
 let textWidth;
 
 // let scrollyContent = [
@@ -36,6 +39,15 @@ let textWidth;
 var parkingPercent = 0.18;
 var greenPercent = 0.24;
 
+let value;
+const step = [
+	"This is a Green P Parking lot at Y and Z",
+	"woof",
+	"moo"
+];
+
+$: console.log(value);
+
 
 </script>
 
@@ -43,6 +55,8 @@ var greenPercent = 0.24;
 
 
 <Top/>
+
+
 
 
 <div class='intro'>
@@ -166,6 +180,9 @@ var greenPercent = 0.24;
 	<p>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</p>
+	<p>
+		Toronto Parking, via it's Green P banner, operated .  How little parking spaces make in terms of revenue. Below is a map of their approximate locations. 
+	</p>
 </div>
 
 <div class="img-smallsize">
@@ -174,6 +191,129 @@ var greenPercent = 0.24;
 
 <div class="text">
 	<p>
+		Overall, the more central lots make more revenue per space, unsurprisingly. These lots are typically smaller, in terms of total number of spaces. The average parking space has a revenue of $4.32 per day. Over 75% of parking spaces make less than 5$ per day.
+	</p>
+	<br>
+	<br>
+</div>
+
+
+<div class="section-container">
+	<div class="steps-container">
+		<Scrolly bind:value>
+			{#each step as text, i}
+				<div class="step" class:active={value === i}>
+					<div class="step-content">
+						<p>{text}</p>
+					</div>
+				</div>      
+			{/each}
+		</Scrolly>
+	</div>
+
+	<div class="sticky">
+		<Map step={value} />
+	</div>
+
+</div>
+
+
+<div class="text">
+	<p>
+		Hello
+	</p>
+	<p>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</p>
+	<p>
+		More text on surface parking lots, why they are bad, etc. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
+	<p>
+		More text on surface parking lots, why they are bad, etc. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
+	<p>
+		More text on surface parking lots, why they are bad, etc. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
 </div>
+
+<style>
+
+:global(body) {
+	overflow-x: hidden;
+}
+
+.sticky {
+    position: sticky;
+    top: 10%;
+	flex: 1 1 60%;
+    width: 60%;
+	background-color: blue;
+  }
+
+.section-container {
+    margin-top: 1em;
+    text-align: center;
+    transition: background 100ms;
+    display: flex;
+  }
+
+.step {
+    height: 120vh;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+}
+
+  .step-content {
+    font-size: 1rem;
+    background: whitesmoke;
+    color: #ccc;
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background 500ms ease;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+    text-align: left;
+		width: 75%;
+		margin: auto;
+		max-width: 500px;
+  }
+
+  .step.active {
+		background: rgba(255, 255, 255, 0);
+		color: black;
+	}
+  
+  .step-content {
+		background: white;
+		color: black;
+	}
+
+
+  .sticky {
+    height: 100%;
+  }
+
+  .steps-container {
+    flex: 1 1 40%;
+    z-index: 10;
+  }
+
+  @media screen and (max-width: 100vw) {
+    .section-container {
+      flex-direction: column-reverse;
+    }
+    .sticky {
+      width: 100%;
+			margin: auto;
+    }
+  }
+</style>
