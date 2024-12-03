@@ -3,7 +3,7 @@
         "id": "background-s",
         "type": "background",
         "paint": {
-            "background-color": "white"
+            "background-color": "#e5e5da"
         }
     },
     {
@@ -12,7 +12,7 @@
         "source": "protomaps",
         "source-layer": "earth",
         "paint": {
-            "fill-color": "white"
+            "fill-color": "#f4f4f4"
         }
     },
     {
@@ -35,7 +35,7 @@
             ]
         ],
         "paint": {
-            "fill-color": "#e0ecd7"
+            "fill-color": "#ccf4c9"
         }
     },
     {
@@ -160,7 +160,7 @@
             ]
         ],
         "paint": {
-            "fill-color": "#e0ecd7"
+            "fill-color": "#ccf4c9"
         }
     },
     {
@@ -176,7 +176,7 @@
             "grass"
         ],
         "paint": {
-            "fill-color": "#e0ecd7"
+            "fill-color": "#ccf4c9"
         }
     },
     {

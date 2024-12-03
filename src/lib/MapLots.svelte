@@ -57,18 +57,18 @@
 						id: "background",
 						type: "background",
 						paint: {
-							"background-color": "#eeeeea",
+							"background-color": "#e5e5da",
 						},
 					},
 				],
 			},
-			center: [-79.4862, 43.649],
-			zoom: 18,
+			center: [-79.3875, 43.6418],
+			zoom: 16,
 			maxZoom: 20,
 			minZoom: 10,
 			maxPitch: 85,
-			bearing: 180,
-			pitch: 35,
+			bearing: 0,
+			pitch: 80,
 			projection: "globe",
 			scrollZoom: true,
 			maxBounds: maxBounds,
@@ -121,15 +121,15 @@
 				url: "pmtiles://" + PARKING_URL,
 			});
 
-            // map.addLayer({
-            //     "id": "parking-layer",
-            //     "type": "fill",
-            //     "source": "parking",
-            //     "source-layer": "parkinglotarea",
-            //     "paint": {
-            //         "fill-color": "black",
-            //     },
-            // });
+            map.addLayer({
+                "id": "parking-layer",
+                "type": "fill",
+                "source": "parking",
+                "source-layer": "parkinglotarea",
+                "paint": {
+                    "fill-color": "#4d4d4d",
+                },
+            });
 
 
 			map.addLayer({
@@ -138,7 +138,7 @@
 				"source": "massing",
 				"source-layer": "3DMassingToronto",
 				"paint": {
-					"fill-extrusion-color": "#e6e6de",
+					"fill-extrusion-color": "#faf6f6",
 					"fill-extrusion-height": ["get", "height"],
 				}
 			});
@@ -149,44 +149,16 @@
 
     // Step actions
     $: {
-    if (step == 0) {
-		map.flyTo({center: [-79.4862, 43.649], zoom: 18});
-    }
-    if (step == 1) {
-        map.flyTo({center: [-79.4862, 43.649], zoom: 16});
-    }
-    if (step == 2) {
-		map.flyTo({center: [-79.4862, 43.649], zoom: 18});
-    }
-    if (step == 3) {
-
-        map.addLayer({
-            "id": "massing-layer",
-            "type": "fill-extrusion",
-            "source": "massing",
-            "source-layer": "3DMassingToronto",
-            "paint": {
-                "fill-extrusion-color": "#D3D3D3",
-                "fill-extrusion-height": ["get", "height"],
-            }
-        });
-    }
-    if (step == 5) {
-        map.flyTo(Lot[1]);
-    }
-    if (step == 6) {
-        map.flyTo(Lot[2]);
-    }
-    if (step == 7) {
-        map.flyTo(Lot[0]);
-    }
-    if (step == 8) {
-        map.flyTo(Lot[1]);
-    }
-    if (step == 9) {
-        map.flyTo(Lot[2]);
-    }
-  }
+		if (step == 0) {
+			map.flyTo({center: [-79.4862, 43.649], zoom: 18, bearing: 180, pitch: 45});
+		}
+		if (step == 1) {
+			map.flyTo({center: [-79.4862, 43.649], zoom: 16, bearing: 180, pitch: 45});
+		}
+		if (step == 2) {
+			map.flyTo({center: [-79.4862, 43.649], zoom: 18, bearing: 40, pitch: 45});
+		}
+	}
 
 </script>
 
@@ -197,6 +169,7 @@
 		border-top: solid 1px #e1e1e1;
 		border-bottom: solid 1px #e1e1e1;
         max-width: 100%;
-        height: 90vh;
+        height: 100vh;
+		margin-top: -100px;
     }
 </style>
