@@ -7,14 +7,24 @@
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../../data/toronto-filling-the-void.json";
     import { SkyDome, CNTower } from "../../data/3dModels.js";
-    import Lot from "../../data/lots.json";
+
+    //GEOJSON
     import LotRevenue from "../../data/LotRevenue.geo.json";
-    import CityMask from "../../data/city-mask.geo.json";
+    import TorontoOutline from "../../data/toronto-outline.geo.json";
+    import NegativeMask from "../../data/city-mask.geo.json";
     import FullMask from "../../data/full-mask.geo.json";
     import GreenSpace from "../../data/green-space.geo.json";
+    import Sherbourne405 from "../../data/405-sherbourne.geo.json";
+    import Amroth72 from "../../data/72-amroth.geo.json";
+    import Dundas1113 from "../../data/1113-1117-dundas.geo.json";
 
+    //FUNCTIONS
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
+
+    //SVG
+    import amrothIsoLot from "/src/assets/amroth-iso-lot.svg";
+    import amrothIsoBldg from "/src/assets/amroth-iso-bldg.svg";
 
     const tweenStore = tweened(0, {
         duration: 200,
@@ -41,12 +51,12 @@
     });
 
     let bearing = 0;
-const rotateAroundPoint = () => {
-  bearing += 0.1; // Increment the bearing by a small value
-//   if (bearing >= 360) bearing = 0; // Reset bearing after a full rotation
-  map.setBearing(bearing); // Update the map bearing
-  requestAnimationFrame(rotateAroundPoint); // Continue the animation
-};
+    const rotateAroundPoint = () => {
+        bearing += 0.1; // Increment the bearing by a small value
+        //   if (bearing >= 360) bearing = 0; // Reset bearing after a full rotation
+        map.setBearing(bearing); // Update the map bearing
+        requestAnimationFrame(rotateAroundPoint); // Continue the animation
+    };
 
     // MAP
     onMount(() => {
@@ -107,36 +117,79 @@ const rotateAroundPoint = () => {
         let protoLayers = BaseLayer;
 
         map.on("load", function () {
+            // STYLES
             map.addSource("protomaps", {
                 type: "vector",
                 url: "pmtiles://" + PMTILES_URL,
                 attribution: attributionString,
                 attributionControl: false,
             });
-
             protoLayers.forEach((e) => {
                 map.addLayer(e);
             });
 
+            // FULL MASK LAYER
             map.addSource("full-mask", {
                 type: "geojson",
                 data: FullMask,
             });
+            map.addLayer({
+                id: "full-mask",
+                type: "fill",
+                source: "full-mask",
+                paint: {
+                    "fill-color": "white",
+                    "fill-opacity": 1,
+                },
+            });
+
+            // TORONTO OUTLINE LAYER
+            // map.addsource("toronto-outline", {
+            //     type: "geojson",
+            //     data: TorontoOutline,
+            // });
 
             // map.addLayer({
-            //     id: "full-mask",
-            //     type: "fill",
-            //     source: "full-mask",
+            //     id: "toronto-outline",
+            //     type: "line",
+            //     source: "toronto-outline",
             //     paint: {
-            //         "fill-color": "white",
+            //         "line-color": "white",
+            //         "line-width": 10,
             //     },
             // });
 
+            // TORONTO NEGATIVE OUTLINE LAYER
+            map.addSource("negative-mask", {
+                type: "geojson",
+                data: NegativeMask,
+            });
+
+            map.addLayer({
+                id: "negative-mask",
+                type: "fill",
+                source: "negative-mask",
+                paint: {
+                    "fill-color": "rgba(36,36,36, 1)",
+                    "fill-opacity": 1,
+                },
+            });
+            map.addLayer({
+                id: "negative-mask-line",
+                type: "line",
+                source: "negative-mask",
+                paint: {
+                    "line-color": "black",
+                    "line-width": 1,
+                },
+            });
+
+            // ALL PARKING LAYER
             map.addSource("parking", {
                 type: "vector",
                 url: "pmtiles://" + PARKING_URL,
             });
-
+            // PARKING FILL
             map.addLayer({
                 id: "parking-fill-layer",
                 type: "fill",
@@ -144,15 +197,27 @@ const rotateAroundPoint = () => {
                 "source-layer": "parkinglotarea",
                 paint: {
                     "fill-color": "rgba(36,36,36, 1)",
-                    "fill-opacity": 0,
+                    "fill-opacity": 1,
                 },
             });
+            // PARKING OUTLINE
+            // map.addLayer({
+            //     id: "parking-line-layer",
+            //     type: "line",
+            //     source: "parking",
+            //     "source-layer": "parkinglotarea",
+            //     paint: {
+            //         "line-color": "WHITE",
+            //         "line-width": 1,
+            //         "line-dasharray": [2, 2], // This creates a dotted line
+            //     },
+            // });
 
+            // GREEN SPACE LAYER
             map.addSource("green-space", {
                 type: "geojson",
                 data: GreenSpace,
             });
-
             map.addLayer({
                 id: "green-space",
                 type: "fill",
@@ -163,87 +228,96 @@ const rotateAroundPoint = () => {
                 },
             });
 
-            // Line layer
-            // map.addLayer({
-            //     id: "parking-line-layer",
-            //     type: "line",
-            //     source: "parking",
-            //     "source-layer": "parkinglotarea",
-            //     paint: {
-            //         "line-color": "black",
-            //         "line-width": 1,
-            //         "line-dasharray": [2, 2], // This creates a dotted line
-            //     },
-            // });
-
             map.addSource("massing", {
                 type: "vector",
                 url: "pmtiles://" + MASSING_URL,
             });
 
+            // SITE LAYERS
+            map.addSource("sherbourne-405", {
+                type: "geojson",
+                data: Sherbourne405,
+            });
+            map.addLayer({
+                id: "sherbourne-405-layer",
+                type: "fill",
+                source: "sherbourne-405",
+                paint: {
+                    "fill-color": "black",
+                    "fill-opacity": 0,
+                },
+            });
+
+            map.addSource("amroth-72", {
+                type: "geojson",
+                data: Amroth72,
+            });
+            map.addLayer({
+                id: "amroth-72-layer",
+                type: "line",
+                source: "amroth-72",
+                paint: {
+                    "line-color": "black",
+                    "line-width": 1,
+                    "line-dasharray": [2, 3],
+                    "line-opacity": 0,
+                },
+            });
+
+            map.addSource("dundas-1113", {
+                type: "geojson",
+                data: Dundas1113,
+            });
+            map.addLayer({
+                id: "dundas-1113-layer",
+                type: "fill",
+                source: "dundas-1113",
+                paint: {
+                    "fill-color": "green",
+                    "fill-opacity": 0,
+                },
+            });
+
+            // LOT REVENUE LAYER
             map.addSource("lot-revenue", {
                 type: "geojson",
                 data: LotRevenue,
             });
 
-            // map.addLayer({
-            //     id: "lot-revenue-layer",
-            //     type: "circle",
-            //     source: "lot-revenue",
-            //     paint: {
-            //         "circle-color": [
-            //             "case",
-            //             ["boolean", ["feature-state", "hover"], false],
-            //             "rgba(0, 0, 255, 0)",
-            //             "rgba(0, 0, 255, 0)",
-            //         ],
-            //         "circle-radius": [
-            //             "interpolate",
-            //             ["linear"],
-            //             ["get", "revenue_per_space_per_day"],
-            //             0,
-            //             5, // Minimum value and corresponding radius
-            //             58,
-            //             30, // Maximum value and corresponding radius
-            //         ],
-            //         "circle-stroke-color": [
-            //             "case",
-            //             ["boolean", ["feature-state", "hover"], false],
-            //             "black",
-            //             "black",
-            //         ],
-            //         "circle-stroke-width": [
-            //             "case",
-            //             ["boolean", ["feature-state", "hover"], false],
-            //             2,
-            //             0.5,
-            //         ],
-            //     },
-            // });
-
-            map.addSource("city-mask", {
-                type: "geojson",
-                data: CityMask,
+            map.addLayer({
+                id: "lot-revenue-layer",
+                type: "circle",
+                source: "lot-revenue",
+                paint: {
+                    "circle-color": [
+                        "case",
+                        ["boolean", ["feature-state", "hover"], false],
+                        "rgba(0, 0, 255, 0)",
+                        "rgba(0, 0, 255, 0)",
+                    ],
+                    "circle-radius": [
+                        "interpolate",
+                        ["linear"],
+                        ["get", "revenue_per_space_per_day"],
+                        0,
+                        5, // Minimum value and corresponding radius
+                        58,
+                        30, // Maximum value and corresponding radius
+                    ],
+                    "circle-stroke-color": [
+                        "case",
+                        ["boolean", ["feature-state", "hover"], false],
+                        "black",
+                        "black",
+                    ],
+                    "circle-stroke-width": [
+                        "case",
+                        ["boolean", ["feature-state", "hover"], false],
+                        2,
+                        0.5,
+                    ],
+                },
             });
-
-            // map.addLayer({
-            //     id: "city-mask",
-            //     type: "fill",
-            //     source: "city-mask",
-            //     paint: {
-            //         "fill-color": "white",
-            //     },
-            // });
-
-            // map.addLayer({
-            //     id: "city-mask",
-            //     type: "line",
-            //     source: "city-mask",
-            //     paint: {
-            //         "line-color": "black",
-            //         "line-width": 0.5,
-            //     },
-            // });
 
             // POPUP HOVER LOT REVENUE
             popup = new maplibregl.Popup({
@@ -289,7 +363,6 @@ const rotateAroundPoint = () => {
         });
 
         // MAP POSITION
-
         map.on("move", () => {
             const center = map.getCenter(); // Returns a LngLat object
             const zoom = map.getZoom();
@@ -354,7 +427,7 @@ const rotateAroundPoint = () => {
                     essential: true,
                 });
 
-                map.setPaintProperty("parking-fill-layer", "fill-opacity", 0, {
+                map.setPaintProperty("parking-fill-layer", "fill-opacity", 1, {
                     duration: 100,
                 });
                 map.setPaintProperty("full-mask", "fill-opacity", 1, {
@@ -363,7 +436,7 @@ const rotateAroundPoint = () => {
                 break;
 
             case 1:
-                map.setPaintProperty("parking-fill-layer", "fill-opacity", 1, {
+                map.setPaintProperty("parking-fill-layer", "fill-opacity", 0, {
                     duration: 100,
                 });
                 map.setPaintProperty("green-space", "fill-opacity", 0, {
@@ -373,7 +446,7 @@ const rotateAroundPoint = () => {
                 break;
 
             case 2:
-                map.setPaintProperty("city-mask", "fill-opacity", 1, {
+                map.setPaintProperty("negative-mask", "fill-opacity", 1, {
                     duration: 100,
                 });
 
@@ -381,6 +454,7 @@ const rotateAroundPoint = () => {
                     duration: 100,
                 });
 
+                map.removeLayer("massing-layer");
                 map.removeLayer(CNTower);
                 map.removeLayer(SkyDome);
 
@@ -419,10 +493,15 @@ const rotateAroundPoint = () => {
                 map.addLayer(CNTower);
                 map.addLayer(SkyDome);
 
-
-
-                
-
+                map.setPaintProperty(
+                    "sherbourne-405-layer",
+                    "fill-opacity",
+                    0,
+                    {
+                        duration: 100,
+                        delay: 0,
+                    },
+                );
                 break;
 
             case 4:
@@ -438,10 +517,42 @@ const rotateAroundPoint = () => {
                     easing: (t) => t,
                     essential: true,
                 });
-                break;
+                map.setPaintProperty("amroth-72-layer", "line-opacity", 0, {
+                    duration: 100,
+                    delay: 0,
+                });
+                map.setPaintProperty(
+                    "sherbourne-405-layer",
+                    "fill-opacity",
+                    1,
+                    {
+                        duration: 100,
+                        delay: 0,
+                    },
+                );
 
+                break;
             case 5:
                 // 72 Amroth Avenue
+                map.setPaintProperty(
+                    "sherbourne-405-layer",
+                    "fill-opacity",
+                    0,
+                    {
+                        duration: 100,
+                        delay: 0,
+                    },
+                );
+                map.setPaintProperty("amroth-72-layer", "line-opacity", 1, {
+                    duration: 100,
+                    delay: 0,
+                });
+
+                map.setPaintProperty("dundas-1113-layer", "fill-opacity", 0, {
+                    duration: 100,
+                    delay: 0,
+                });
+
                 map.flyTo({
                     center: [-79.311815, 43.685194],
                     speed: 2,
@@ -453,12 +564,27 @@ const rotateAroundPoint = () => {
 
             case 6:
                 // 1113-1117 Dundas Street West
+                map.setPaintProperty("amroth-72-layer", "line-opacity", 0, {
+                    duration: 100,
+                    delay: 0,
+                });
+                map.setPaintProperty("dundas-1113-layer", "fill-opacity", 1, {
+                    duration: 100,
+                    delay: 0,
+                });
                 map.flyTo({
                     center: [-79.419855, 43.649093],
                     speed: 2,
                     zoom: 17,
                     easing: (t) => t,
                     essential: true,
+                });
+                break;
+
+            case 7:
+                map.setPaintProperty("dundas-1113-layer", "fill-opacity", 0, {
+                    duration: 100,
+                    delay: 0,
                 });
                 break;
         }
@@ -484,7 +610,7 @@ const rotateAroundPoint = () => {
             <section>
                 <div class="text">
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <div class="title">
                                 <h1>Filling the Void</h1>
                                 <h3>
@@ -496,21 +622,21 @@ const rotateAroundPoint = () => {
                     </div>
 
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
 
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
 
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>The Problem for People:</h3>
                             <p>
                                 Toronto's dense downtown urban neighbourhoods
@@ -521,57 +647,62 @@ const rotateAroundPoint = () => {
                         </div>
                     </div>
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>CreateTO: 405 Sherbourne Street</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>CreateTO: 72 Amroth Avenue</h3>
                             <p>The Missing Middle</p>
+                            <img class="first-img" src={amrothIsoLot} alt="" />
+                            <img src={amrothIsoBldg} alt="" />
                         </div>
                     </div>
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>CreateTO: 1113-1117 Dundas Street West</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
 
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
 
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
                     <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
+                            <h3>Lorem Ipsum</h3>
+                            <p>Lorem Ipsum</p>
+                        </div>
+                        <div class="sub-section">
+                            <p>Lorem Ipsum</p>
+                        </div>
+                        <div class="sub-section">
+                            <p>Lorem Ipsum</p>
+                        </div>
+                        <div class="sub-section">
+                            <p>Lorem Ipsum</p>
+                        </div>
+                        </div>
+                    <div class="section">
+                        <div class="sub-section-title">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
                     <div class="section">
-                        <div class="child">
-                            <h3>Lorem Ipsum</h3>
-                            <p>Lorem Ipsum</p>
-                        </div>
-                    </div>
-                    <div class="section">
-                        <div class="child">
-                            <h3>Lorem Ipsum</h3>
-                            <p>Lorem Ipsum</p>
-                        </div>
-                    </div>
-                    <div class="section">
-                        <div class="child">
+                        <div class="sub-section-title">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
@@ -599,28 +730,16 @@ const rotateAroundPoint = () => {
     }
 
     .section {
-        /* z-index: 1; */
-        /* top: 0;
-        left: 0; */
         min-height: 100vh;
-        /* width: 50%; */
-        pointer-events: none;
     }
 
-    .child {
-        /* position: relative;
-        top: 0px; */
-        background-color: rgba(255, 255, 255, 0.8);
-        /* width: 100%; */
-        pointer-events: all;
+    .sub-section-title {
     }
 
     .content {
         position: static;
         float: right;
-        left: calc(
-            50% + 10px
-        );
+        left: calc(50% + 10px);
         width: calc(50% - 40px); /* Adjust width to account for margins */
         height: 100vh;
     }
