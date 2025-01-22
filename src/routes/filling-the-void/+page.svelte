@@ -22,6 +22,19 @@
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
 
+    function fillLayerOn(id) {
+        map.setPaintProperty(id, "fill-opacity", 1, { duration: 100 });
+    }
+    function fillLayerOff(id) {
+        map.setPaintProperty(id, "fill-opacity", 0, { duration: 100 });
+    }
+    function lineLayerOn(id) {
+        map.setPaintProperty(id, "line-opacity", 1, { duration: 100 });
+    }
+    function lineLayerOff(id) {
+        map.setPaintProperty(id, "line-opacity", 0, { duration: 100 });
+    }
+
     //SVG
     import amrothIsoLot from "/src/assets/amroth-iso-lot.svg";
     import amrothIsoBldg from "/src/assets/amroth-iso-bldg.svg";
@@ -427,58 +440,29 @@
                     essential: true,
                 });
 
-                map.setPaintProperty("parking-fill-layer", "fill-opacity", 1, {
-                    duration: 100,
-                });
-                map.setPaintProperty("full-mask", "fill-opacity", 1, {
-                    duration: 100,
-                });
+                fillLayerOn("parking-fill-layer");
+                fillLayerOn("full-mask");
                 break;
 
             case 1:
-                map.setPaintProperty("parking-fill-layer", "fill-opacity", 0, {
-                    duration: 100,
-                });
-                map.setPaintProperty("green-space", "fill-opacity", 0, {
-                    duration: 100,
-                });
+                fillLayerOff("parking-fill-layer");
+                fillLayerOff("green-space");
 
                 break;
 
             case 2:
-                map.setPaintProperty("negative-mask", "fill-opacity", 1, {
-                    duration: 100,
-                });
-
-                map.setPaintProperty("full-mask", "fill-opacity", 0, {
-                    duration: 100,
-                });
+                fillLayerOn("negative-mask");
+                fillLayerOff("full-mask");
+                fillLayerOff("parking-fill-layer");
 
                 map.removeLayer("massing-layer");
                 map.removeLayer(CNTower);
                 map.removeLayer(SkyDome);
 
-                map.setPaintProperty("parking-fill-layer", "fill-opacity", 0, {
-                    duration: 100,
-                });
-
-                // map.setPaintProperty("green-space", "fill-opacity", 1, {
-                //         duration: 100,
-                //     });
                 break;
 
             case 3:
                 // Downtown Toronto
-                // map.easeTo({
-                //     center: [-79.360512, 43.712544], // Keep the map center unchanged
-                //     zoom: 13, // Maintain current zoom level
-                //     bearing: map.getBearing() + 360, // Rotate the camera by 360 degrees
-                //     pitch: 0, // Optional: Add some pitch for a dramatic effect
-                //     duration: 1000, // Animation duration in milliseconds
-                //     easing: (t) => t, // Linear easing function
-                //     rotate: 360, // Rotate the camera by 360 degrees
-                // });
-
                 map.addLayer({
                     id: "massing-layer",
                     type: "fill-extrusion",
@@ -493,15 +477,7 @@
                 map.addLayer(CNTower);
                 map.addLayer(SkyDome);
 
-                map.setPaintProperty(
-                    "sherbourne-405-layer",
-                    "fill-opacity",
-                    0,
-                    {
-                        duration: 100,
-                        delay: 0,
-                    },
-                );
+                fillLayerOff("sherbourne-405-layer");
                 break;
 
             case 4:
@@ -517,41 +493,17 @@
                     easing: (t) => t,
                     essential: true,
                 });
-                map.setPaintProperty("amroth-72-layer", "line-opacity", 0, {
-                    duration: 100,
-                    delay: 0,
-                });
-                map.setPaintProperty(
-                    "sherbourne-405-layer",
-                    "fill-opacity",
-                    1,
-                    {
-                        duration: 100,
-                        delay: 0,
-                    },
-                );
+
+                lineLayerOff("amroth-72-layer");
+                fillLayerOn("sherbourne-405-layer");
 
                 break;
             case 5:
                 // 72 Amroth Avenue
-                map.setPaintProperty(
-                    "sherbourne-405-layer",
-                    "fill-opacity",
-                    0,
-                    {
-                        duration: 100,
-                        delay: 0,
-                    },
-                );
-                map.setPaintProperty("amroth-72-layer", "line-opacity", 1, {
-                    duration: 100,
-                    delay: 0,
-                });
 
-                map.setPaintProperty("dundas-1113-layer", "fill-opacity", 0, {
-                    duration: 100,
-                    delay: 0,
-                });
+                fillLayerOff("sherbourne-405-layer");
+                fillLayerOff("dundas-1113-layer");
+                lineLayerOn("amroth-72-layer");
 
                 map.flyTo({
                     center: [-79.311815, 43.685194],
@@ -564,14 +516,8 @@
 
             case 6:
                 // 1113-1117 Dundas Street West
-                map.setPaintProperty("amroth-72-layer", "line-opacity", 0, {
-                    duration: 100,
-                    delay: 0,
-                });
-                map.setPaintProperty("dundas-1113-layer", "fill-opacity", 1, {
-                    duration: 100,
-                    delay: 0,
-                });
+                lineLayerOff("amroth-72-layer");
+                fillLayerOn("dundas-1113-layer");
                 map.flyTo({
                     center: [-79.419855, 43.649093],
                     speed: 2,
@@ -582,10 +528,8 @@
                 break;
 
             case 7:
-                map.setPaintProperty("dundas-1113-layer", "fill-opacity", 0, {
-                    duration: 100,
-                    delay: 0,
-                });
+                fillLayerOff("dundas-1113-layer");
+
                 break;
         }
     };
@@ -617,6 +561,7 @@
                                     What can we do with underutilized surface
                                     parking in Toronto?
                                 </h3>
+                                <p>Scroll to find out!</p>
                             </div>
                         </div>
                     </div>
@@ -694,7 +639,7 @@
                         <div class="sub-section">
                             <p>Lorem Ipsum</p>
                         </div>
-                        </div>
+                    </div>
                     <div class="section">
                         <div class="sub-section-title">
                             <h3>Lorem Ipsum</h3>
