@@ -16,12 +16,13 @@
     import GreenSpace from "../../data/green-space.geo.json";
     import Sherbourne405 from "../../data/405-sherbourne.geo.json";
     import Amroth72 from "../../data/72-amroth.geo.json";
-    import Dundas1113 from "../../data/1113-1117-dundas.geo.json";
+    import Wilson50 from "../../data/50-wilson.geo.json";
 
-    //FUNCTIONS
+    //SVELTE FUNCTIONS
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
 
+    //LAYER TOGGLE OPACITY TRANSITIONS
     function fillLayerOn(id) {
         map.setPaintProperty(id, "fill-opacity", 1, { duration: 100 });
     }
@@ -277,17 +278,17 @@
                 },
             });
 
-            map.addSource("dundas-1113", {
+            map.addSource("wilson-50", {
                 type: "geojson",
-                data: Dundas1113,
+                data: Wilson50,
             });
             map.addLayer({
-                id: "dundas-1113-layer",
+                id: "wilson-50-layer",
                 type: "fill",
-                source: "dundas-1113",
+                source: "wilson-50",
                 paint: {
                     "fill-color": "green",
-                    "fill-opacity": 0,
+                    "fill-opacity": 1,
                 },
             });
 
@@ -502,7 +503,7 @@
                 // 72 Amroth Avenue
 
                 fillLayerOff("sherbourne-405-layer");
-                fillLayerOff("dundas-1113-layer");
+                fillLayerOff("wilson-50-layer");
                 lineLayerOn("amroth-72-layer");
 
                 map.flyTo({
@@ -515,11 +516,11 @@
                 break;
 
             case 6:
-                // 1113-1117 Dundas Street West
+                // 50 Wilson Heights Boulevard
                 lineLayerOff("amroth-72-layer");
-                fillLayerOn("dundas-1113-layer");
+                fillLayerOn("wilson-50-layer");
                 map.flyTo({
-                    center: [-79.419855, 43.649093],
+                    center: [-79.4488561,43.7352016],
                     speed: 2,
                     zoom: 17,
                     easing: (t) => t,
@@ -528,7 +529,7 @@
                 break;
 
             case 7:
-                fillLayerOff("dundas-1113-layer");
+                fillLayerOff("wilson-50-layer");
 
                 break;
         }
@@ -607,7 +608,7 @@
                     </div>
                     <div class="section">
                         <div class="sub-section-title">
-                            <h3>CreateTO: 1113-1117 Dundas Street West</h3>
+                            <h3>CreateTO: 50 Wilson Heights Boulevard</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
