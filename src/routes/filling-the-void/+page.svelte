@@ -1,12 +1,12 @@
 <script>
     import Top from "$lib/TopSofC.svelte";
 
-    import { onMount, onDestroy } from "svelte";
+    import { onMount } from "svelte";
     import maplibregl from "maplibre-gl";
     import "../../assets/maplibre-gl.css";
+    import "../../assets/styles.css";
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../../data/toronto-filling-the-void.json";
-    import { SkyDome, CNTower } from "../../data/3dModels.js";
 
     //GEOJSON
     import LotRevenue from "../../data/LotRevenue.geo.json";
@@ -17,10 +17,6 @@
     import Sherbourne405 from "../../data/405-sherbourne.geo.json";
     import Amroth72 from "../../data/72-amroth.geo.json";
     import Wilson50 from "../../data/50-wilson.geo.json";
-
-    //SVELTE FUNCTIONS
-    import { tweened } from "svelte/motion";
-    import { cubicOut } from "svelte/easing";
 
     //LAYER TOGGLE OPACITY TRANSITIONS
     function fillLayerOn(id) {
@@ -40,11 +36,6 @@
     import amrothIsoLot from "/src/assets/amroth-iso-lot.svg";
     import amrothIsoBldg from "/src/assets/amroth-iso-bldg.svg";
 
-    const tweenStore = tweened(0, {
-        duration: 200,
-        easing: cubicOut,
-    });
-
     let sections = [];
     let currentSection = 0;
     let ticking = false;
@@ -53,8 +44,6 @@
     let popup;
     let hoveredStateId = null;
 
-    let MASSING_URL =
-        "/underutilized-parking-lots-toronto/3DMassingToronto.pmtiles";
     let PARKING_URL =
         "/underutilized-parking-lots-toronto/ParkingLotArea.pmtiles";
     let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
@@ -64,12 +53,61 @@
         unit: "metric",
     });
 
-    let bearing = 0;
-    const rotateAroundPoint = () => {
-        bearing += 0.1; // Increment the bearing by a small value
-        //   if (bearing >= 360) bearing = 0; // Reset bearing after a full rotation
-        map.setBearing(bearing); // Update the map bearing
-        requestAnimationFrame(rotateAroundPoint); // Continue the animation
+    let container;
+
+    const handleScroll = () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrollY = window.scrollY + window.innerHeight / 1;
+                let newSection = currentSection;
+
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    const top = rect.top + window.scrollY;
+                    const bottom = top + rect.height;
+
+                    if (scrollY >= top && scrollY < bottom) {
+                        newSection = index;
+                    }
+                });
+
+                if (newSection !== currentSection) {
+                    currentSection = newSection;
+                    updateMap(currentSection);
+                }
+
+                ticking = false;
+            });
+
+            ticking = true;
+        }
+
+        // Clip-path logic
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const containerTop =
+            container.getBoundingClientRect().top + scrollPosition;
+        const containerHeight = container.offsetHeight;
+        const start = containerTop - windowHeight;
+        const end = containerTop + containerHeight;
+
+        if (scrollPosition >= start && scrollPosition <= end) {
+            const progress = (scrollPosition - start) / (end - start);
+            console.log("progress:", progress);
+
+            const clipValue = Math.min(100, Math.max(0, progress * 100));
+            console.log("clipValue:", clipValue);
+
+            container.querySelector(".clip-image:nth-child(2)").style.clipPath =
+                `polygon(0 ${100 - clipValue}%, 100% ${100 - clipValue}%, 100% 100%, 0 100%)`;
+        }
+
+        console.log("scrollPosition:", scrollPosition);
+        console.log("windowHeight:", windowHeight);
+        console.log("containerTop:", containerTop);
+        console.log("containerHeight:", containerHeight);
+        console.log("start:", start);
+        console.log("end:", end);
     };
 
     // MAP
@@ -242,11 +280,6 @@
                 },
             });
 
-            map.addSource("massing", {
-                type: "vector",
-                url: "pmtiles://" + MASSING_URL,
-            });
-
             // SITE LAYERS
             map.addSource("sherbourne-405", {
                 type: "geojson",
@@ -400,35 +433,6 @@
         };
     });
 
-    // SCROLLER
-    const handleScroll = () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const scrollY = window.scrollY + window.innerHeight / 1;
-                let newSection = currentSection;
-
-                sections.forEach((section, index) => {
-                    const rect = section.getBoundingClientRect();
-                    const top = rect.top + window.scrollY;
-                    const bottom = top + rect.height;
-
-                    if (scrollY >= top && scrollY < bottom) {
-                        newSection = index;
-                    }
-                });
-
-                if (newSection !== currentSection) {
-                    currentSection = newSection;
-                    updateMap(currentSection);
-                }
-
-                ticking = false;
-            });
-
-            ticking = true;
-        }
-    };
-
     // MAP UPDATE
     const updateMap = (section) => {
         switch (section) {
@@ -456,37 +460,14 @@
                 fillLayerOff("full-mask");
                 fillLayerOff("parking-fill-layer");
 
-                map.removeLayer("massing-layer");
-                map.removeLayer(CNTower);
-                map.removeLayer(SkyDome);
-
                 break;
 
             case 3:
-                // Downtown Toronto
-                map.addLayer({
-                    id: "massing-layer",
-                    type: "fill-extrusion",
-                    source: "massing",
-                    "source-layer": "3DMassingToronto",
-                    paint: {
-                        "fill-extrusion-color": "white",
-                        "fill-extrusion-opacity": 0.9,
-                        "fill-extrusion-height": ["*", ["get", "height"], 1],
-                    },
-                });
-                map.addLayer(CNTower);
-                map.addLayer(SkyDome);
-
                 fillLayerOff("sherbourne-405-layer");
                 break;
 
             case 4:
                 // 405 Sherbourne Street
-                map.removeLayer("massing-layer");
-                map.removeLayer(CNTower);
-                map.removeLayer(SkyDome);
-
                 map.flyTo({
                     center: [-79.373133, 43.664439],
                     speed: 2,
@@ -501,7 +482,6 @@
                 break;
             case 5:
                 // 72 Amroth Avenue
-
                 fillLayerOff("sherbourne-405-layer");
                 fillLayerOff("wilson-50-layer");
                 lineLayerOn("amroth-72-layer");
@@ -520,7 +500,7 @@
                 lineLayerOff("amroth-72-layer");
                 fillLayerOn("wilson-50-layer");
                 map.flyTo({
-                    center: [-79.4488561,43.7352016],
+                    center: [-79.4488561, 43.7352016],
                     speed: 2,
                     zoom: 17,
                     easing: (t) => t,
@@ -546,6 +526,8 @@
     ></script>
 </svelte:head>
 
+<Top />
+
 <main>
     <div class="container">
         <div class="map">
@@ -554,8 +536,9 @@
         <div class="content">
             <section>
                 <div class="text">
+                    <!-- Case 0 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <div class="title">
                                 <h1>Filling the Void</h1>
                                 <h3>
@@ -567,22 +550,25 @@
                         </div>
                     </div>
 
+                    <!-- Case 1 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
 
+                    <!-- Case 2 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
 
+                    <!-- Case 3 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>The Problem for People:</h3>
                             <p>
                                 Toronto's dense downtown urban neighbourhoods
@@ -592,44 +578,68 @@
                             </p>
                         </div>
                     </div>
+
+                    <!-- Case 4 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>CreateTO: 405 Sherbourne Street</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
+
+                    <!-- Case 5 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>CreateTO: 72 Amroth Avenue</h3>
                             <p>The Missing Middle</p>
-                            <img class="first-img" src={amrothIsoLot} alt="" />
-                            <img src={amrothIsoBldg} alt="" />
+                            <div>
+                                <div
+                                    bind:this={container}
+                                    class="clip-container"
+                                >
+                                    <img
+                                        src={amrothIsoLot}
+                                        alt=""
+                                        class="clip-image"
+                                    />
+                                    <img
+                                        src={amrothIsoBldg}
+                                        alt=""
+                                        class="clip-image"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Case 6 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>CreateTO: 50 Wilson Heights Boulevard</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
 
+                    <!-- Case 7 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
 
+                    <!-- Case 8 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
+
+                    <!-- Case 9 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>Lorem Ipsum</h3>
-                            <p>Lorem Ipsum</p>
                         </div>
                         <div class="sub-section">
                             <p>Lorem Ipsum</p>
@@ -641,14 +651,18 @@
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
+
+                    <!-- Case 10 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
                     </div>
+
+                    <!-- Case 11 -->
                     <div class="section">
-                        <div class="sub-section-title">
+                        <div class="sticky">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
                         </div>
@@ -660,6 +674,31 @@
 </main>
 
 <style>
+    .sticky {
+        position: sticky;
+        top: 60px;
+        height: auto;
+    }
+
+    .clip-container {
+        /* position: relative;
+        overflow: hidden;
+        height: 100vw;
+        top:10px; */
+    }
+
+    .clip-image {
+        position: absolute;
+        top: 100px;
+        max-width: 600px;
+        object-fit: cover;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .clip-image:nth-child(2) {
+        clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    }
+
     .title {
         text-align: center;
         min-height: 100vh;
@@ -667,39 +706,37 @@
 
     .map-container {
         position: fixed;
-        /* top: 15vh; */
+        top: 50px;
         bottom: 0;
         left: 0;
         width: 50vw;
         height: 100vh;
-        outline: 0.5px solid grey; /* Add this line for the outline */
+        outline: 0.5px solid grey;
+        z-index: 1000;
     }
 
     .section {
-        min-height: 100vh;
-    }
-
-    .sub-section-title {
+        height: 100vh;
+        position: sticky;
     }
 
     .content {
         position: static;
         float: right;
         left: calc(50% + 10px);
-        width: calc(50% - 40px); /* Adjust width to account for margins */
+        width: calc(50% - 40px);
         height: 100vh;
     }
 
     main {
-        display: fixed;
-        padding-top: 20px;
+        display: relative;
         font-family: Arial, sans-serif;
         /* background-color: rgb(31,31,31); */
     }
 
     @media (max-width: 760px) {
         .map-container {
-            height: 50vh; /* Map takes up the top half */
+            height: 50vh;
             width: 100%;
             position: fixed;
             top: 0;
@@ -707,7 +744,7 @@
 
         .content {
             position: static;
-            top: 50vh; /* Content starts from the bottom half */
+            top: 50vh;
             height: 50vh;
             width: 100%;
         }
@@ -718,6 +755,11 @@
 
         .section {
             min-height: 50vh;
+        }
+
+        .sticky {
+            position: sticky;
+            top: 50vh;
         }
     }
 </style>
