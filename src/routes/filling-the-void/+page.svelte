@@ -4,7 +4,7 @@
     import { onMount } from "svelte";
     import maplibregl from "maplibre-gl";
     import "../../assets/maplibre-gl.css";
-    import "../../assets/styles.css";
+    // import "../../assets/styles.css";
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../../data/toronto-filling-the-void.json";
 
@@ -526,7 +526,7 @@
     ></script>
 </svelte:head>
 
-<Top />
+<!-- <Top /> -->
 
 <main>
     <div class="container">
@@ -676,7 +676,7 @@
 <style>
     .sticky {
         position: sticky;
-        top: 60px;
+        /* top: 60px; */
         height: auto;
     }
 
@@ -706,7 +706,7 @@
 
     .map-container {
         position: fixed;
-        top: 50px;
+        /* top: 50px; */
         bottom: 0;
         left: 0;
         width: 50vw;
