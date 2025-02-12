@@ -1,6 +1,5 @@
 <script>
     import Top from "$lib/TopSofC.svelte";
-
     import { onMount } from "svelte";
     import maplibregl from "maplibre-gl";
     import "../../assets/maplibre-gl.css";
@@ -8,15 +7,50 @@
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../../data/toronto-filling-the-void.json";
 
-    //GEOJSON
-    import LotRevenue from "../../data/LotRevenue.geo.json";
+    //GENERAL
+    // import LotRevenue from "../../data/LotRevenue.geo.json";
     import TorontoOutline from "../../data/toronto-outline.geo.json";
     import NegativeMask from "../../data/city-mask.geo.json";
     import FullMask from "../../data/full-mask.geo.json";
     import GreenSpace from "../../data/green-space.geo.json";
+
+    //GREEN P
+    import GreenPBufferAll from "../../data/green-p-1km-buffer-dissolved.geo.json";
+    import GreenPBuffer from "../../data/green-p-1km-buffer.geo.json";
+    import GreenPParkArea from "../../data/green-p-park-area-clip.geo.json";
+    import GreenPStats from "../../data/green-p-revenue-and-park-area.geo.json";
+
+    //SUBWAY
+    import SubwayBufferAll from "../../data/subway-1km-buffer-all.geo.json";
+    import SubwayBuffer from "../../data/subway-1km-buffer.geo.json";
+    import SubwayLotArea from "../../data/subway-1km-lot-area.geo.json";
+    import SubwayStations from "../../data/subway-lot-area.geo.json";
+
+    //SITES
     import Sherbourne405 from "../../data/405-sherbourne.geo.json";
     import Amroth72 from "../../data/72-amroth.geo.json";
     import Wilson50 from "../../data/50-wilson.geo.json";
+
+    //SVG
+    import AmrothIsoLot from "/src/assets/amroth-iso-lot.svg";
+    import AmrothIsoBldg from "/src/assets/amroth-iso-bldg.svg";
+
+    //TILESETS
+    let PARKING_URL =
+        "/underutilized-parking-lots-toronto/ParkingLotArea.pmtiles";
+    let SUBWAYTILE_URL =
+        "/underutilized-parking-lots-toronto/SubwayBufferParkingLot.pmtiles";
+    let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
+
+    //MAP INIT
+    let map;
+    let popup;
+    let hoveredStateId = null;
+    let protoLayers = BaseLayer;
+    let scale = new maplibregl.ScaleControl({
+        maxWidth: 100,
+        unit: "metric",
+    });
 
     //LAYER TOGGLE OPACITY TRANSITIONS
     function fillLayerOn(id) {
@@ -31,28 +65,23 @@
     function lineLayerOff(id) {
         map.setPaintProperty(id, "line-opacity", 0, { duration: 100 });
     }
+    function circleLayerOn(id) {
+        map.setPaintProperty(id, "circle-opacity", 1, { duration: 100 });
+    }
+    function circleLayerOff(id) {
+        map.setPaintProperty(id, "circle-opacity", 0, { duration: 100 });
+    }
+    function circleStrokeLayerOn(id) {
+        map.setPaintProperty(id, "circle-stroke-opacity", 1, { duration: 100 });
+    }
+    function circleStrokeLayerOff(id) {
+        map.setPaintProperty(id, "circle-stroke-opacity", 0, { duration: 100 });
+    }
 
-    //SVG
-    import amrothIsoLot from "/src/assets/amroth-iso-lot.svg";
-    import amrothIsoBldg from "/src/assets/amroth-iso-bldg.svg";
-
+    //SECTION SCROLL
     let sections = [];
     let currentSection = 0;
     let ticking = false;
-
-    let map;
-    let popup;
-    let hoveredStateId = null;
-
-    let PARKING_URL =
-        "/underutilized-parking-lots-toronto/ParkingLotArea.pmtiles";
-    let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
-
-    let scale = new maplibregl.ScaleControl({
-        maxWidth: 100,
-        unit: "metric",
-    });
-
     let container;
 
     const handleScroll = () => {
@@ -82,7 +111,7 @@
             ticking = true;
         }
 
-        // Clip-path logic
+        //CLIP-PATH
         const scrollPosition = window.scrollY;
         const windowHeight = window.innerHeight;
         const containerTop =
@@ -110,8 +139,24 @@
         console.log("end:", end);
     };
 
-    // MAP
-    onMount(() => {
+    // Import SVGs using `import.meta.glob()`
+    const svgs = import.meta.glob("/src/assets/subway-lots/*.svg", {
+        eager: true,
+        as: "raw",
+    });
+
+    let svgFiles = Object.values(svgs);
+    let svgContainer;
+
+    //MOUNT
+    onMount(async () => {
+        const svgElements = svgContainer.querySelectorAll("svg");
+        svgElements.forEach((svg) => {
+            svg.setAttribute("viewBox", "0 0 2500 2500");
+            svg.style.width = "200px";
+            svg.style.height = "200px";
+        });
+
         let protocol = new pmtiles.Protocol();
         maplibregl.addProtocol("pmtiles", protocol.tile);
 
@@ -147,7 +192,7 @@
             attributionControl: true,
         });
 
-        // Disable all map interactions
+        //MAP INTERACTIONS
         map.scrollZoom.disable();
         map.boxZoom.disable();
         map.dragRotate.disable();
@@ -155,19 +200,17 @@
         map.keyboard.disable();
         map.doubleClickZoom.disable();
         map.touchZoomRotate.disable();
+        map.addControl(scale, "bottom-left");
 
+        //MAP ATTRIBUTIONS
         const attributions = [
             '<a href="https://openstreetmap.org">OpenStreetMap</a>',
             // '<a href="https://github.com/Moraine729/Toronto_Heat_Vulnerability">Github</a>',
             '<a href="https://open.toronto.ca/">City of Toronto </a>',
         ];
-
         const attributionString = attributions.join(", ");
 
-        map.addControl(scale, "bottom-left");
-
-        let protoLayers = BaseLayer;
-
+        // MAP LOAD
         map.on("load", function () {
             // STYLES
             map.addSource("protomaps", {
@@ -265,6 +308,73 @@
             //     },
             // });
 
+            //SUBWAY LAYERS
+
+            // SUBWAY BUFFER LOTS
+            map.addSource("subway-tiles", {
+                type: "vector",
+                url: "pmtiles://" + SUBWAYTILE_URL,
+            });
+            // SUBWAY LOT FILL
+            map.addLayer({
+                id: "subway-tiles-layer",
+                type: "fill",
+                source: "subway-tiles",
+                "source-layer": "subway1kmlotarea",
+                paint: {
+                    "fill-color": "#000000",
+                    "fill-opacity": 1,
+                },
+            });
+
+            map.addSource("subway-stations", {
+                type: "geojson",
+                data: SubwayStations,
+            });
+            map.addLayer({
+                id: "subway-stations-layer",
+                type: "circle",
+                source: "subway-stations",
+                paint: {
+                    "circle-color": "white",
+                    "circle-stroke-color": "black",
+                    "circle-stroke-width": 1,
+                    "circle-radius": 2,
+                    "circle-opacity": 0,
+                    "circle-stroke-opacity": 0,
+                },
+            });
+
+            map.addSource("subway-buffer-all", {
+                type: "geojson",
+                data: SubwayBufferAll,
+            });
+            map.addLayer({
+                id: "subway-buffer-all-layer",
+                type: "line",
+                source: "subway-buffer-all",
+                paint: {
+                    "line-color": "black",
+                    "line-width": 1,
+                    "line-opacity": 0,
+                },
+            });
+
+            map.addSource("subway-buffer", {
+                type: "geojson",
+                data: SubwayBuffer,
+            });
+            map.addLayer({
+                id: "subway-buffer-layer",
+                type: "line",
+                source: "subway-buffer",
+                paint: {
+                    "line-color": "grey",
+                    "line-width": 0.4,
+                    "line-opacity": 0,
+                },
+            });
+
             // GREEN SPACE LAYER
             map.addSource("green-space", {
                 type: "geojson",
@@ -321,36 +431,31 @@
                 source: "wilson-50",
                 paint: {
                     "fill-color": "green",
-                    "fill-opacity": 1,
+                    "fill-opacity": 0,
                 },
             });
 
-            // LOT REVENUE LAYER
-            map.addSource("lot-revenue", {
+            //LOT REVENUE LAYER
+            map.addSource("green-p", {
                 type: "geojson",
-                data: LotRevenue,
+                data: GreenPStats,
             });
 
             map.addLayer({
-                id: "lot-revenue-layer",
+                id: "green-p-layer",
                 type: "circle",
-                source: "lot-revenue",
+                source: "green-p",
                 paint: {
                     "circle-color": [
-                        "case",
-                        ["boolean", ["feature-state", "hover"], false],
-                        "rgba(0, 0, 255, 0)",
-                        "rgba(0, 0, 255, 0)",
-                    ],
-                    "circle-radius": [
                         "interpolate",
                         ["linear"],
                         ["get", "revenue_per_space_per_day"],
                         0,
-                        5, // Minimum value and corresponding radius
+                        "red", // Minimum value color
                         58,
-                        30, // Maximum value and corresponding radius
+                        "green", // Maximum value color
                     ],
+                    "circle-radius": 5, // Fixed radius for all points
                     "circle-stroke-color": [
                         "case",
                         ["boolean", ["feature-state", "hover"], false],
@@ -363,6 +468,8 @@
                         2,
                         0.5,
                     ],
+                    "circle-opacity": 0,
+                    "circle-stroke-opacity": 0,
                 },
             });
 
@@ -372,41 +479,42 @@
                 closeOnClick: false,
             });
 
-            map.on("mousemove", "lot-revenue-layer", (e) => {
-                if (e.features.length > 0) {
-                    if (hoveredStateId !== null) {
-                        map.setFeatureState(
-                            { source: "lot-revenue", id: hoveredStateId },
-                            { hover: false },
-                        );
-                    }
-                    hoveredStateId = e.features[0].id;
-                    map.setFeatureState(
-                        { source: "lot-revenue", id: hoveredStateId },
-                        { hover: true },
-                    );
+            // HOVER LOT REVENUE
+            // map.on("mousemove", "green-p-layer", (e) => {
+            //     if (e.features.length > 0) {
+            //         if (hoveredStateId !== null) {
+            //             map.setFeatureState(
+            //                 { source: "lot-revenue", id: hoveredStateId },
+            //                 { hover: false },
+            //             );
+            //         }
+            //         hoveredStateId = e.features[0].id;
+            //         map.setFeatureState(
+            //             { source: "lot-revenue", id: hoveredStateId },
+            //             { hover: true },
+            //         );
 
-                    const coordinates =
-                        e.features[0].geometry.coordinates.slice();
-                    const revenue =
-                        e.features[0].properties.revenue_per_space_per_day;
+            //         const coordinates =
+            //             e.features[0].geometry.coordinates.slice();
+            //         const revenue =
+            //             e.features[0].properties.revenue_per_space_per_day;
 
-                    popup
-                        .setLngLat(coordinates)
-                        .setHTML(`Revenue per space per day: $${revenue}`)
-                        .addTo(map);
-                }
-            });
+            //         popup
+            //             .setLngLat(coordinates)
+            //             .setHTML(`Revenue per space per day: $${revenue}`)
+            //             .addTo(map);
+            //     }
+            // });
 
-            map.on("mouseleave", "lot-revenue-layer", () => {
-                if (hoveredStateId !== null) {
-                    map.setFeatureState(
-                        { source: "lot-revenue", id: hoveredStateId },
-                        { hover: false },
-                    );
-                }
-                popup.remove();
-            });
+            // map.on("mouseleave", "green-p-layer", () => {
+            //     if (hoveredStateId !== null) {
+            //         map.setFeatureState(
+            //             { source: "lot-revenue", id: hoveredStateId },
+            //             { hover: false },
+            //         );
+            //     }
+            //     popup.remove();
+            // });
         });
 
         // MAP POSITION
@@ -447,18 +555,44 @@
 
                 fillLayerOn("parking-fill-layer");
                 fillLayerOn("full-mask");
+
+                circleLayerOff("subway-stations-layer");
+
                 break;
 
             case 1:
-                fillLayerOff("parking-fill-layer");
+
+                fillLayerOn("parking-fill-layer");
+
                 fillLayerOff("green-space");
+                fillLayerOn("negative-mask");
+                fillLayerOff("full-mask");
+                fillLayerOff("subway-tiles-layer");
+
+                circleLayerOn("subway-stations-layer");
+                circleStrokeLayerOn("subway-stations-layer");
+                lineLayerOff("subway-buffer-layer");
+                lineLayerOff("subway-buffer-all-layer");
 
                 break;
 
             case 2:
-                fillLayerOn("negative-mask");
-                fillLayerOff("full-mask");
+            map.flyTo({
+                    center: [-79.360512, 43.712544],
+                    // speed: 3,
+                    zoom: 10.4,
+
+                    easing: (t) => t,
+                    essential: true,
+                });
+
+
                 fillLayerOff("parking-fill-layer");
+
+                fillLayerOn("subway-tiles-layer");
+
+                lineLayerOn("subway-buffer-all-layer");
+                lineLayerOn("subway-buffer-layer");
 
                 break;
 
@@ -467,17 +601,16 @@
                 break;
 
             case 4:
-                // 405 Sherbourne Street
+                // 50 Wilson Heights Boulevard
+                lineLayerOff("amroth-72-layer");
+                fillLayerOn("wilson-50-layer");
                 map.flyTo({
-                    center: [-79.373133, 43.664439],
+                    center: [-79.4488561, 43.7352016],
                     speed: 2,
                     zoom: 17,
                     easing: (t) => t,
                     essential: true,
                 });
-
-                lineLayerOff("amroth-72-layer");
-                fillLayerOn("sherbourne-405-layer");
 
                 break;
             case 5:
@@ -496,16 +629,18 @@
                 break;
 
             case 6:
-                // 50 Wilson Heights Boulevard
-                lineLayerOff("amroth-72-layer");
-                fillLayerOn("wilson-50-layer");
+                // 405 Sherbourne Street
                 map.flyTo({
-                    center: [-79.4488561, 43.7352016],
+                    center: [-79.373133, 43.664439],
                     speed: 2,
                     zoom: 17,
                     easing: (t) => t,
                     essential: true,
                 });
+
+                lineLayerOff("amroth-72-layer");
+                fillLayerOn("sherbourne-405-layer");
+
                 break;
 
             case 7:
@@ -563,6 +698,15 @@
                         <div class="sticky">
                             <h3>Lorem Ipsum</h3>
                             <p>Lorem Ipsum</p>
+                            <div class="grid">
+                                <div class="grid" bind:this={svgContainer}>
+                                    {#each svgFiles as svg, i}
+                                        <div class="svg-cell">
+                                            {@html svg}
+                                        </div>
+                                    {/each}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -598,12 +742,12 @@
                                     class="clip-container"
                                 >
                                     <img
-                                        src={amrothIsoLot}
+                                        src={AmrothIsoLot}
                                         alt=""
                                         class="clip-image"
                                     />
                                     <img
-                                        src={amrothIsoBldg}
+                                        src={AmrothIsoBldg}
                                         alt=""
                                         class="clip-image"
                                     />
@@ -732,6 +876,12 @@
         display: relative;
         font-family: Arial, sans-serif;
         /* background-color: rgb(31,31,31); */
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
     }
 
     @media (max-width: 760px) {
