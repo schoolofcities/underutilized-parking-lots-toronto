@@ -12,7 +12,7 @@
         "source": "protomaps",
         "source-layer": "earth",
         "paint": {
-            "fill-color": "#fbfbfb"
+            "fill-color": "#f5f4f1"
         }
     },
     {
@@ -35,7 +35,7 @@
             ]
         ],
         "paint": {
-            "fill-color": "#dbebde"
+            "fill-color": "#dfe3d6"
         }
     },
     {
@@ -160,7 +160,7 @@
             ]
         ],
         "paint": {
-            "fill-color": "#e4f0e6"
+            "fill-color": "#dfe3d6"
         }
     },
     {
@@ -176,7 +176,7 @@
             "grass"
         ],
         "paint": {
-            "fill-color": "#e4f0e6"
+            "fill-color": "#dfe3d6"
         }
     },
     {
@@ -297,7 +297,7 @@
         "source": "protomaps",
         "source-layer": "water",
         "paint": {
-            "fill-color": "#d2d8d9"
+            "fill-color": "#d3dede"
         }
     },
     {
