@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import * as maplibregl from "maplibre-gl";
 
 // Define a global opacity variable
-const modelOpacity = 0.5;
+const modelOpacity = 0.8;
 
 function createCustomLayer(id, modelUrl, modelOrigin) {
   const modelAltitude = 0;
@@ -36,7 +36,7 @@ function createCustomLayer(id, modelUrl, modelOrigin) {
       const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x404040, 1);
       this.scene.add(hemisphereLight);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // soft white light
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // soft white light
       this.scene.add(ambientLight);
 
       const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -53,6 +53,8 @@ function createCustomLayer(id, modelUrl, modelOrigin) {
             if (child.isMesh) {
               child.material.opacity = modelOpacity;
               child.material.transparent = modelOpacity < 1.0;
+                  child.material.color.set('#00A189');     // set your desired color
+
             }
           });
           this.scene.add(gltf.scene);
@@ -129,5 +131,6 @@ function createCustomLayer(id, modelUrl, modelOrigin) {
 
 const SkyDome = createCustomLayer('sky-dome-3d-model', '/underutilized-parking-lots-toronto/sky-dome.gltf', [-79.38925, 43.64165]);
 const CNTower = createCustomLayer('cn-tower-3d-model', '/underutilized-parking-lots-toronto/cn-tower.gltf', [-79.3871, 43.6426]);
+const Amroth72 = createCustomLayer('amroth72-3d-model', '/underutilized-parking-lots-toronto/amroth72.gltf', [-79.3117,43.6853]);
 
-export { SkyDome, CNTower };
+export { SkyDome, CNTower, Amroth72 };

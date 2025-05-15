@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"name": "TTC-TOP-TEN-POINTS",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "LOCATION_N": "Kipling", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 2: Bloor-Danforth Subway", "lotarea_m2": 615190.72 }, "geometry": { "type": "Point", "coordinates": [ -79.536270602586825, 43.636935283004831 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "Warden", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 2: Bloor-Danforth Subway", "lotarea_m2": 315525.086 }, "geometry": { "type": "Point", "coordinates": [ -79.279193339485019, 43.711177692229008 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "Kennedy", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 2: Bloor-Danforth Subway", "lotarea_m2": 339961.363 }, "geometry": { "type": "Point", "coordinates": [ -79.264520630544709, 43.732256837952335 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "Yorkdale", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 1: Yonge-University Subway", "lotarea_m2": 408641.106 }, "geometry": { "type": "Point", "coordinates": [ -79.447857719622519, 43.725606702200366 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "Wilson", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 1: Yonge-University Subway", "lotarea_m2": 372717.871 }, "geometry": { "type": "Point", "coordinates": [ -79.449910261920479, 43.734084170140626 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "Sheppard West", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 1: Yonge-University Subway", "lotarea_m2": 340334.347 }, "geometry": { "type": "Point", "coordinates": [ -79.462464440168205, 43.750429057882805 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "Don Mills", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 4: Sheppard Subway", "lotarea_m2": 342657.521 }, "geometry": { "type": "Point", "coordinates": [ -79.346964659366932, 43.775133584169403 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "Downsview Park", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 1: Yonge-University Subway", "lotarea_m2": 862968.185 }, "geometry": { "type": "Point", "coordinates": [ -79.478323341383998, 43.753596940057854 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "Finch West", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 1: Yonge-University Subway", "lotarea_m2": 572734.468 }, "geometry": { "type": "Point", "coordinates": [ -79.490976360383257, 43.763480474801163 ] } },
+{ "type": "Feature", "properties": { "LOCATION_N": "York University", "STATUS": "Existing", "TECHNOLOGY": "Subway", "NAME": "Line 1: Yonge-University Subway", "lotarea_m2": 370253.603 }, "geometry": { "type": "Point", "coordinates": [ -79.499635035902017, 43.774118551517475 ] } }
+]
+}

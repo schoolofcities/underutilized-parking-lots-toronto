@@ -18,7 +18,7 @@
 	"type": "module",
 	"dependencies": {
 		"@loaders.gl/obj": "^4.2.2",
-		"maplibre-gl": "^4.4.1",
+		"maplibre-gl": "^4.7.1",
 		"pmtiles": "^3.0.5",
 		"three": "^0.165.0",
 		"three-gltf-loader": "^1.111.0",
