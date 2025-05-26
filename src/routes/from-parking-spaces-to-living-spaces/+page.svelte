@@ -1,7 +1,10 @@
 <script>
-    import Top from "$lib/TopSofC.svelte";
     import { onMount } from "svelte";
     import maplibregl from "maplibre-gl";
+    import { fade } from "svelte/transition";
+
+    import Top from "$lib/TopSofC.svelte";
+    import Histogram from "$lib/Histogram.svelte";
 
     import "../../assets/maplibre-gl.css";
     import "../../assets/styles.css";
@@ -9,7 +12,6 @@
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../../data/toronto-filling-the-void.json";
     import { sources, layers } from "$lib/mapLayers.js";
-    import Histogram from "$lib/Histogram.svelte";
 
     //PNG
     import AmrothIsoBldg from "/src/assets/amroth-iso-bldg.png";
@@ -18,10 +20,6 @@
 
     //SVG
     import RevenueLegend from "/src/assets/revenue-legend.svg";
-    // import Histogram from "/src/assets/histogram.svg";
-
-    //
-    import { fade } from "svelte/transition";
 
     // BASE MAP TILES
     let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
@@ -295,7 +293,6 @@
             map.on("mouseleave", "revenue-per-space-layer", () => {
                 popup.remove();
             });
-
         });
 
         // REMOVE SCROLL LISTENER
@@ -413,17 +410,14 @@
                 <strong>Revenue per Space per Day:</strong> ${revenuePerSpacePerDay}
             </div>
         `;
-
-                    // Create and display the popup
                     const popup = new maplibregl.Popup({
                         closeButton: false,
                         closeOnClick: false,
                     })
-                        .setLngLat([properties.lon, properties.lat]) // Use the feature's coordinates
-                        .setHTML(popupContent) // Set the popup content
-                        .addTo(map); // Add the popup to the map
+                        .setLngLat([properties.lon, properties.lat])
+                        .setHTML(popupContent)
+                        .addTo(map);
 
-                    // Add the popup to the activePopups array
                     activePopups.push(popup);
                 });
 
@@ -691,7 +685,7 @@
                     housing people, not cars.
                 </p>
                 <p>
-                    CreateTO is the City of Toronto's real estate agency,
+                    <a href="https://createto.ca/projects/housing" target="_blank">CreateTO</a> is the City of Toronto's real estate agency,
                     managing the portfolio of city-owned properties. They have a
                     number of projects that plan to do what we are proposing
                     here:

@@ -58,7 +58,7 @@
     position: relative;
     height: 100dvh;
     top: 0px;
-    background-image: url("toronto-1978.jpg");
+    background-image: url("/toronto-1978.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -144,6 +144,7 @@ main {
     width: 30vw;
     overflow: hidden;
     position: relative;
+    border: 1px solid rgba(189, 189, 189, 0.7);
 }
 
 .cropped {
@@ -303,9 +304,9 @@ a:hover {
         margin-left: 0;
     }
 
-    .case-study-container {
+    /* .case-study-container {
         flex-direction: row;
-    }
+    } */
 
     .image-crop-container {
         height: 400px;
