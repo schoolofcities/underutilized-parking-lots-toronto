@@ -9,13 +9,19 @@
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../../data/toronto-filling-the-void.json";
     import { sources, layers } from "$lib/mapLayers.js";
+    import Histogram from "$lib/Histogram.svelte";
 
     //PNG
     import AmrothIsoBldg from "/src/assets/amroth-iso-bldg.png";
     import WilsonIsoBldg from "/src/assets/wilson-iso-bldg.png";
     import SherbourneIsoBldg from "/src/assets/sherbourne-iso-bldg.png";
 
+    //SVG
     import RevenueLegend from "/src/assets/revenue-legend.svg";
+    // import Histogram from "/src/assets/histogram.svg";
+
+    //
+    import { fade } from "svelte/transition";
 
     // BASE MAP TILES
     let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
@@ -63,11 +69,12 @@
     let sections = [];
     let currentSection = 0;
     let ticking = false;
+    let showLegend = false;
 
-    let scrollPlacement = window.innerWidth < 1050 ? 0.6 : 0.5;
+    let scrollPlacement = window.innerWidth < 1050 ? 0.8 : 0.4;
 
     const handleResize = () => {
-        scrollPlacement = window.innerWidth < 1050 ? 0.6 : 0.5;
+        scrollPlacement = window.innerWidth < 1050 ? 0.8 : 0.4;
     };
 
     window.addEventListener("resize", handleResize);
@@ -128,15 +135,12 @@
         let minZoom, maxZoom;
 
         if (screenWidth > 950) {
-            minZoom = 8.9; // Adjusted minZoom for >950
-            maxZoom = 10.7; // Adjusted maxZoom for >950
+            minZoom = 8.9;
+            maxZoom = 10.7;
         } else {
-            minZoom = 8.8; // Adjusted minZoom for <=950
-            maxZoom = 12.1; // Adjusted maxZoom for <=950
+            minZoom = 8.8;
+            maxZoom = 12.1;
         }
-
-        // const minZoom = 8.9;
-        // const maxZoom = 10.7;
 
         const zoom = Math.min(
             maxZoom,
@@ -154,7 +158,14 @@
 
         currentMapPosition = { center, zoom, bearing };
 
-        if (![7, 8, 9].includes(currentSection)) {
+        if (currentSection === 5 || currentSection === 6) {
+            map.flyTo({
+                center: [-79.410235, 43.71175],
+                zoom: currentMapPosition.zoom * 1.05,
+                bearing: currentMapPosition.bearing,
+                duration: 0,
+            });
+        } else if (![7, 8, 9].includes(currentSection)) {
             map.flyTo({
                 center: center,
                 zoom: zoom,
@@ -259,7 +270,7 @@
             });
 
             map.on("mousemove", "revenue-per-space-layer", (e) => {
-                if (currentSection >= 4) {
+                if (currentSection === 4 || currentSection === 5) {
                     // Only show popup in case 4
                     const features = e.features;
                     if (features && features.length > 0) {
@@ -285,23 +296,6 @@
                 popup.remove();
             });
 
-            //CONSOLE LOG MAP POSITION
-            map.on("move", () => {
-                const center = map.getCenter();
-                const zoom = map.getZoom();
-                const bearing = map.getBearing();
-                const pitch = map.getPitch();
-
-                console.log("Map position:", {
-                    center: {
-                        lng: center.lng.toFixed(6),
-                        lat: center.lat.toFixed(6),
-                    },
-                    zoom: zoom.toFixed(2),
-                    bearing: bearing.toFixed(2),
-                    pitch: pitch.toFixed(2),
-                });
-            });
         });
 
         // REMOVE SCROLL LISTENER
@@ -318,7 +312,6 @@
                 toggleLayer("employment-areas-layer", 0);
                 toggleLayer("parking-lots-employment-layer", 1);
                 toggleLayer("parking-lots-residential-layer", 1);
-                toggleLayer("heat-map-layer", 0);
 
                 break;
 
@@ -327,11 +320,6 @@
                 toggleLayer("parking-lots-employment-layer", 1);
                 toggleLayer("parking-lots-residential-layer", 0);
                 toggleLayer("parking-lots-layer", 0);
-
-                // setTimeout(() => {
-                //     toggleLayer("heat-map-layer", 0);
-                // }, 500);
-
                 break;
 
             case 2:
@@ -339,8 +327,6 @@
                 toggleLayer("green-p-stats-layer", 0);
                 toggleLayer("parking-lots-employment-layer", 0);
                 toggleLayer("parking-lots-residential-layer", 1);
-                toggleLayer("heat-map-layer", 0);
-
                 break;
 
             case 3:
@@ -349,6 +335,8 @@
 
                 toggleLayer("green-p-stats-layer", 0.7, 1);
                 toggleLayer("revenue-per-space-layer", 0);
+                showLegend = false;
+
                 break;
 
             case 4:
@@ -367,10 +355,14 @@
                     bearing: currentMapPosition.bearing,
                     duration: 1000,
                 });
+                showLegend = true;
+
                 break;
 
             case 5:
                 activePopups.forEach((popup) => popup.remove());
+
+                showLegend = true;
 
                 toggleLayer("subway-lines-layer", 1);
                 toggleLayer("subway-stations-layer", 1);
@@ -385,7 +377,7 @@
 
                 map.flyTo({
                     center: [-79.410235, 43.71175],
-                    zoom: 10.95,
+                    zoom: currentMapPosition.zoom * 1.05,
                     bearing: currentMapPosition.bearing,
                     duration: 1000,
                 });
@@ -396,6 +388,7 @@
                 // Clear existing popups
                 activePopups.forEach((popup) => popup.remove());
                 activePopups = [];
+                showLegend = false;
 
                 // Get all features from the source of the layer
                 const features = map.querySourceFeatures("CaseStudyStats", {
@@ -445,9 +438,11 @@
 
                 toggleLayer("case-studies-bldgs-layer", 1);
 
+                toggleLayer("city-mask-layer", 0);
+
                 map.flyTo({
                     center: [-79.410235, 43.71175],
-                    zoom: 10.95,
+                    zoom: currentMapPosition.zoom * 1.05,
                     bearing: currentMapPosition.bearing,
                     duration: 1000,
                 });
@@ -457,12 +452,11 @@
                 // 72 Amroth Avenue
                 activePopups.forEach((popup) => popup.remove());
                 toggleLayer("case-study-revenue-per-space-layer", 0);
-
                 toggleLayer("case-studies-area-layer", 1);
 
                 map.flyTo({
                     center: [-79.31183245492291, 43.68529059208628],
-                    zoom: 18,
+                    zoom: 17.75,
                     bearing: -17,
                     duration: 3500,
                 });
@@ -478,7 +472,7 @@
                 // 405 Sherbourne
                 map.flyTo({
                     center: [-79.37313417683629, 43.664663800721115],
-                    zoom: 18,
+                    zoom: 17.75,
                     bearing: -17,
                     duration: 3500,
                 });
@@ -492,11 +486,12 @@
 
                 toggleLayer("subway-lines-layer", 1);
                 toggleLayer("subway-stations-layer", 1);
+
                 toggleLayer("case-studies-bldgs-layer", 1);
 
                 map.flyTo({
                     center: [-79.449151, 43.735573],
-                    zoom: 17,
+                    zoom: 15.75,
                     bearing: -17,
                     duration: 3500,
                     speed: 0.5,
@@ -557,38 +552,45 @@
 </div>
 
 <div class="main-container">
-    <div class="map-container" id="map"></div>
+    <div class="map-container" id="map">
+        {#if showLegend}
+            <div
+                class="map-legend-bottom-right"
+                transition:fade={{ duration: 250 }}
+            >
+                <img
+                    src={RevenueLegend}
+                    alt="Revenue Legend"
+                    class="revenue-legend"
+                />
+            </div>
+        {/if}
+    </div>
 
     <section class="content">
-        <!-- <div class="section">
-            <h2>FROM PARKING SPACE TO LIVING SPACE</h2>
-            <p>Why turning underutilized surface parking into homes makes financial
-            sense.</p>
-            <p>Toronto, Canada</p>
-                    <p>
-            <a
-                href="https://www.linkedin.com/in/scott-christian-mccallum/"
-                target="_blank">Scott McCallum</a
-            >,
-            <a href="https://jamaps.github.io/" target="_blank">Jeff Allen</a> |
-            May 2025
-        </p>
-        </div> -->
-
         <div class="section">
             <div class="text">
                 <h3>Toronto is 9% Surface Parking</h3>
                 <p>
                     Across the city, surface parking lots cover more than 9% of
-                    Toronto's land area. (add total area of surface parking lots
-                    in Toronto)
+                    Toronto's land area for a total of 56,943,600 square meters.
                 </p>
+
+                <p>That's 390 Trinity Bellwoods Parks.</p>
 
                 <p>
                     These underutilized spaces represent a significant portion
                     of the urban landscape, often contributing little to the
                     vitality or livability of the surrounding neighborhoods.
                 </p>
+
+                <p>There is a financial cost to this underutilization.</p>
+                <p>
+                    The City of Toronto is missing out on higher property tax
+                    revenues from these spaces if they were used for housing
+                    people instead of cars.
+                </p>
+                <p>Parking lots, <i>what exactly are they worth?</i></p>
             </div>
         </div>
 
@@ -598,16 +600,12 @@
                 <p>
                     The largest clusters of surface parking in Toronto are
                     located in areas with employment related land use,
-                    accounting for nearly 6% of Toronto's land area. These
-                    spaces serve functions like trainyards and industrial areas
-                    that are core to the city's employment and economy.
+                    accounting for nearly 6% of Toronto's land area.
                 </p>
-
-                <!-- <p>
-                A well-known downside to these large paved areas is that they
-                raise local temperatures to surrounding neighbourhoods with an
-                absence of green space.
-            </p> -->
+                <p>
+                    These spaces serve functions like trainyards and industrial
+                    areas that are core to the city's employment and economy.
+                </p>
             </div>
         </div>
 
@@ -621,24 +619,29 @@
                 </p>
                 <p>
                     Accounting for nearly 3% of Toronto's land area, theses lots
-                    are scattered in nature and puncture voids in otherwise
-                    vibrant residential areas.
+                    are scattered and puncture voids in otherwise vibrant
+                    residential areas.
                 </p>
             </div>
         </div>
 
         <div class="section">
             <div class="text">
-                <h3>Green P Lots</h3>
+                <h3>City-Owned Parking Lots</h3>
                 <p>
                     Fortunately, The City of Toronto owns or manages many of
-                    these lots, branded as Green P.
+                    these lots, branded as Green P parking lots.
                 </p>
                 <p>
-                    Since the City controls what happens to these lots, they
-                    present a rich opportunity to be transformed into uses that
-                    better serve the neighbourhoods that they find themselves
-                    in.
+                    Since the City has control over what happens to these lots,
+                    they present a rich opportunity to be transformed into uses
+                    that better serve the neighbourhoods that they find
+                    themselves in.
+                </p>
+
+                <p>
+                    Lets look at how much revenue they currently generate as
+                    parking lots.
                 </p>
             </div>
         </div>
@@ -652,24 +655,28 @@
                     in at most $48.32 per space, per day.
                 </p>
                 <p>
-                    At the same time, the majority of lots bring in suprisingly
-                    low revenue. Wih the bottom half bringing in less than $6.00
+                    However, the majority of Green P lots bring in suprisingly
+                    low revenue. Wih the bottom half bringing in less than $5.87
                     per space, per day.
                 </p>
-                <div class="legend">
-                    <img src={RevenueLegend} alt="" class="revenue-legend" />
+                <p>Hover over the map to explore.</p>
+                <div class="histogram-container">
+                    <Histogram />
                 </div>
-                <p class="legend-title">Revenue per space per day</p>
             </div>
         </div>
 
         <div class="section">
             <div class="text">
-                <h3>Already Near Transit</h3>
+                <h3>Do they need to be there?</h3>
                 <p>
                     Meanwhile, many of these low earning lots are within 1
-                    kilometre of a TTC subway station. Seeing that these spaces
-                    are already well connected by transit, it begs the question:
+                    kilometre of a TTC subway station. That's about a 15 minute
+                    walk.
+                </p>
+                <p>
+                    Seeing that these spaces are already well connected by
+                    transit, it begs the question:
                 </p>
                 <p><i>Do we need all this parking?</i></p>
             </div>
@@ -677,32 +684,64 @@
 
         <div class="section">
             <div class="text">
-                <h3>Case Studies</h3>
+                <h3>Case Studies: CreateTO</h3>
                 <p>
-                    Luckily, we have some examples to imagine the alternative
-                    where underutilized surface parking is used for housing
-                    people, not cars.
+                    Luckily, we have some working examples to imagine an
+                    alternative where underutilized surface parking is used for
+                    housing people, not cars.
                 </p>
                 <p>
                     CreateTO is the City of Toronto's real estate agency,
                     managing the portfolio of city-owned properties. They have a
-                    number of projects that plan to convert surface parking into
-                    housing.
+                    number of projects that plan to do what we are proposing
+                    here:
+                </p>
+                <p><i>Convert surface parking into housing.</i></p>
+                <p>
+                    To compare the potential additional earnings that the city
+                    would make in residential property tax revenue, we will use
+                    the following CreateTO projects as points of departure,
+                    illustrating different housing strategies in the urban
+                    toolkit.
                 </p>
                 <p>
-                    To compare the potential additional earnings to the city, we
-                    will use these projects as points of departure to see some
-                    options for different housing infill typologies, and compare
-                    nearby property tax revenues to get an idea of the gains.
+                    We averaged nearby property assessments of similar projects,
+                    collected from the Toronto archives, and estimated what an
+                    average unit generates in property taxes for the city per
+                    year.
                 </p>
-                <p>Here is the range of projects we will look at:</p>
+                <p>
+                    Then, we multiplied this number by the number of units each
+                    case study proposes, along with estimates for affordable and
+                    market-rate rental income that these properties would
+                    generate, calculated from the <a
+                        href="https://www.toronto.ca/city-government/planning-development/official-plan-guidelines/housing/"
+                        target="_blank">City of Toronto's housing guidelines.</a
+                    >
+                </p>
+                <p>
+                    Finally, we compared the total estimates that the case
+                    studies are currently generating as underutilized surface
+                    parking, compared to our total estimates for each housing
+                    case study.
+                </p>
+                <p>
+                    Spoiler alert: Turning parking lots into housing benefits
+                    not only people, but the City's levies.
+                </p>
+                <p>Here is the variety of CreateTO projects we looked at:</p>
                 <ul>
-                    <li><strong>72 Amroth Avenue:</strong> Missing Middle</li>
                     <li>
-                        <strong>405 Sherbourne Street:</strong> Affordable Rental
+                        <strong>72 Amroth Avenue:</strong> Missing Middle / Gentle
+                        Density
                     </li>
                     <li>
-                        <strong>50 Wilson Heights Boulevard:</strong> Mixed Use Renewal
+                        <strong>405 Sherbourne Street:</strong>
+                        Mid Density Tower
+                    </li>
+                    <li>
+                        <strong>50 Wilson Heights Boulevard:</strong> Large Mixed
+                        Use Urban Renewal
                     </li>
                 </ul>
             </div>
@@ -711,6 +750,7 @@
         <div class="section">
             <div class="text">
                 <h3>72 Amroth Avenue</h3>
+                <p>Missing Middle / Gentle Density</p>
                 <div class="case-study-container">
                     <div class="image-crop-container">
                         <img
@@ -720,12 +760,56 @@
                         />
                     </div>
                     <div class="stat-container">
-                        <p>Typology: Missing Middle, Market Rate Housing</p>
-                        <p>Number of Units:</p>
-                        <p>Number of Residents</p>
-                        <p>Current parking lot revenue:</p>
-                        <p>Estimated property tax revenue:</p>
-                        <p>Gain:</p>
+                        <div class="stat-title">
+                            <h4>Current Parking Lot Revenue</h4>
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Parking Spots:</strong> 50
+                        </div>
+                        <div class="stat-line">
+                            <strong>Parking Lot Revenue (2023):</strong> $100,714
+                        </div>
+                        <div class="stat-line">
+                            <strong>Revenue per Space per Day (2023):</strong> $5.52
+                        </div>
+                        <div class="stat-line">
+                            <strong>Property Tax Paid (2023):</strong> $52,955
+                        </div>
+                        <div class="stat-line">
+                            <strong>Total Annual Revenue:</strong> $153,669
+                        </div>
+
+                        <div class="stat-title">
+                            <h4>Potential Housing Revenue</h4>
+                        </div>
+                        <div class="stat-line">
+                            <strong>Typology:</strong> Missing Middle / Gentle Density
+                        </div>
+                        <div class="stat-line">
+                            <strong>Ownership Structure:</strong> 100% Affordable
+                            Rental
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Units:</strong> 34
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Residents:</strong> 83
+                        </div>
+                        <div class="stat-line">
+                            <strong>Total Property Tax Estimate:</strong> $100,353
+                        </div>
+
+                        <div class="stat-line">
+                            <strong>Total Annual Rental Income Estimate:</strong
+                            > $749,076
+                        </div>
+
+                        <div class="stat-line">
+                            <strong>Total Annual Revenue:</strong> $849,429
+                        </div>
+                        <div class="stat-gain">
+                            <strong>Gain for the City:</strong> $659,760
+                        </div>
                     </div>
                 </div>
             </div>
@@ -734,6 +818,7 @@
         <div class="section">
             <div class="text">
                 <h3>405 Sherbourne</h3>
+                <p>Mid Density Tower</p>
                 <div class="case-study-container">
                     <div class="image-crop-container">
                         <img
@@ -743,12 +828,56 @@
                         />
                     </div>
                     <div class="stat-container">
-                        <p>Typology: Missing Middle, Market Rate Housing</p>
-                        <p>Number of Units:</p>
-                        <p>Number of Residents</p>
-                        <p>Current parking lot revenue:</p>
-                        <p>Estimated property tax revenue:</p>
-                        <p>Gain:</p>
+                        <div class="stat-title">
+                            <h4>Current Parking Lot Revenue</h4>
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Parking Spots:</strong> 91
+                        </div>
+                        <div class="stat-line">
+                            <strong>Parking Lot Revenue (2023):</strong> $361,279
+                        </div>
+                        <div class="stat-line">
+                            <strong>Revenue per Space per Day (2023):</strong> $10.88
+                        </div>
+                        <div class="stat-line">
+                            <strong>Property Tax Paid (2023):</strong> $222,714
+                        </div>
+                        <div class="stat-line">
+                            <strong>Total Annual Revenue:</strong> $583,993
+                        </div>
+
+                        <div class="stat-title">
+                            <h4>Potential Housing Revenue</h4>
+                        </div>
+                        <div class="stat-line">
+                            <strong>Typology:</strong> Mid Density Tower
+                        </div>
+                        <div class="stat-line">
+                            <strong>Ownership Structure:</strong> 50% Affordable
+                            Rental, 50% Market Rate Rental
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Units:</strong> 267
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Residents:</strong> 670
+                        </div>
+                        <div class="stat-line">
+                            <strong>Total Property Tax Estimate:</strong> $834,597
+                        </div>
+
+                        <div class="stat-line">
+                            <strong>Total Annual Rental Income Estimate:</strong
+                            > $7,325,796
+                        </div>
+
+                        <div class="stat-line">
+                            <strong>Total Annual Revenue:</strong> $8,160,393
+                        </div>
+                        <div class="stat-gain">
+                            <strong>Gain for the City:</strong> $7,576,400
+                        </div>
                     </div>
                 </div>
             </div>
@@ -757,6 +886,7 @@
         <div class="section">
             <div class="text">
                 <h3>50 Wilson Heights Boulevard</h3>
+                <p>Large Mixed Use Urban Renewal</p>
                 <div class="case-study-container">
                     <div class="image-crop-container">
                         <img
@@ -766,12 +896,58 @@
                         />
                     </div>
                     <div class="stat-container">
-                        <p>Typology: Missing Middle, Market Rate Housing</p>
-                        <p>Number of Units:</p>
-                        <p>Number of Residents</p>
-                        <p>Current parking lot revenue:</p>
-                        <p>Estimated property tax revenue:</p>
-                        <p>Gain:</p>
+                        <div class="stat-title">
+                            <h4>Current Parking Lot Revenue</h4>
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Parking Spots:</strong> 885
+                        </div>
+                        <div class="stat-line">
+                            <strong>Parking Lot Revenue (2023):</strong> $535,255
+                        </div>
+                        <div class="stat-line">
+                            <strong>Revenue per Space per Day (2023):</strong> $1.66
+                        </div>
+                        <div class="stat-line">
+                            <strong>Property Tax Paid (2023):</strong> $134,924
+                        </div>
+                        <div class="stat-line">
+                            <strong>Total Annual Revenue:</strong> $670,179
+                        </div>
+
+                        <div class="stat-title">
+                            <h4>Potential Housing Revenue</h4>
+                        </div>
+                        <div class="stat-line">
+                            <strong>Typology:</strong> Large Mixed Use Urban Renewal
+                        </div>
+                        <div class="stat-line">
+                            <strong>Ownership Structure:</strong> 35% Affordable
+                            Rental, 35% Market Rate Rental, 30% Condominium
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Units:</strong> 1484
+                        </div>
+                        <div class="stat-line">
+                            <strong>Number of Residents:</strong> 3710
+                        </div>
+                        <div class="stat-line">
+                            <strong>Total Property Tax Estimate:</strong> $3,699,546
+                        </div>
+
+                        <div class="stat-line">
+                            <strong
+                                >Total Annual Rental Income Estimate (excluding
+                                private condo purchases):</strong
+                            > $28,056,344
+                        </div>
+
+                        <div class="stat-line">
+                            <strong>Total Annual Revenue:</strong> $31,755,890
+                        </div>
+                        <div class="stat-gain">
+                            <strong>Gain for the City:</strong> $31,085,712
+                        </div>
                     </div>
                 </div>
             </div>
@@ -779,16 +955,37 @@
 
         <div class="section">
             <div class="text">
-                <h3>Policy Recommendations</h3>
+                <h3>Not Only City-Owned Parking Lots</h3>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    Toronto’s underutilized surface parking lots present one of
+                    the city’s most underleveraged assets. Many occupy valuable
+                    space in residential areas, adjacent to transit, and
+                    contribute little in terms of revenue, vibrancy, or housing
+                    supply.
+                </p>
+                <p>
+                    The comparison is clear: replacing low-performing,
+                    underutilized surface parking with well-designed housing can
+                    dramatically increase the city's revenue, deliver
+                    much-needed homes, and foster more complete communities.
+                </p>
+                <p>
+                    However, city-owned lots are only a small fraction of the
+                    surface parking that puncture Toronto's neighbourhoods. This
+                    means that for more widespread change, privately-owned lots
+                    need to be examined for housing as well.
+                </p>
+                <p>
+                    Stronger urban policy should be considered to incentivize
+                    building housing on privately-owned lots such as a
+                    commercial parking levy, or land value tax.
+                </p>
+                <p>
+                    By expanding these efforts beyond city-owned lots and
+                    introducing thoughtful policies that encourage private
+                    landowners to follow suit, Toronto can take meaningful steps
+                    toward a more equitable, efficient, and people-focused urban
+                    landscape.
                 </p>
             </div>
         </div>
@@ -798,224 +995,3 @@
         </div>
     </section>
 </div>
-
-<style>
-    .banner {
-        position: relative;
-        height: 100dvh;
-        top: 0px;
-        background-image: url("toronto-1978.jpg");
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        /* flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center; */
-        color: white;
-    }
-
-    .gradient-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.2),
-            rgba(0, 0, 0, 0.6)
-        );
-        z-index: 1;
-    }
-
-    .title {
-        margin: 10px;
-        z-index: 1000;
-        position: relative;
-    }
-
-    .title h1 {
-        position: relative;
-        text-align: center;
-        color: white;
-    }
-    .title h3 {
-        color: white;
-        font-family: sans-serif;
-        /* font-size: 1.5em; */
-    }
-
-    .author {
-        position: relative;
-        z-index: 1000;
-        color: white;
-        font-size: 1.2em;
-        font-family: sans-serif;
-        margin: 0 0 0 0;
-    }
-
-    .main-container {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .map-container {
-        position: sticky;
-        top: 50px;
-        height: calc(100vh - 50px);
-        width: 65vw;
-    }
-
-    .section {
-        top: 0;
-        position: static;
-        display: flex;
-        flex-direction: column;
-        /* min-height: 125vh;
-        z-index: 1000; */
-        align-items: flex-start;
-        width: 35vw;
-        margin-left: auto;
-        opacity: 0.25;
-    }
-
-    .spacer {
-        height: 30vh;
-    }
-
-    .case-study-container {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .image-crop-container {
-        max-height: 40vh;
-        width: 30vw;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .cropped {
-        width: 100%;
-        height: auto;
-        margin: 0 auto;
-        object-fit: cover;
-        object-position: center top;
-    }
-
-    .cropped.amroth {
-        transform: scale(1.4);
-        transform-origin: 50% 70%;
-    }
-
-    .cropped.sherbourne {
-        transform: scale(1.1);
-        transform-origin: 50% 200%;
-    }
-
-    .cropped.wilson {
-        transform: scale(1.1);
-        transform-origin: 50% 200%;
-    }
-
-    .revenue-legend {
-        max-width: 100%; /* Set a fixed width */
-        height: 100px; /* Maintain aspect ratio */
-    }
-
-    .text {
-        text-align: center;
-        background-color: rgba(255, 255, 255, 1);
-        border-bottom: 1px solid rgba(189, 189, 189, 0.7);
-        border-top: 1px solid rgba(189, 189, 189, 0.7);
-
-        margin: 0px;
-
-        padding: 0 20px 0;
-        overflow: hidden;
-        box-sizing: border-box;
-
-        width: 100%;
-    }
-
-    @media (max-width: 950px) {
-        .main-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .map-container {
-            width: 100vw;
-            height: 50vh;
-            /* position: relative; */
-            top: 50px;
-            z-index: 1;
-        }
-
-        .section {
-            width: 100vw;
-            margin-left: 0;
-            opacity: 1;
-            /* min-height: 100vh; */
-        }
-
-        .case-study-container {
-            flex-direction: row;
-        }
-
-        .image-crop-container {
-            height: 400px;
-            min-width: 450px;
-            overflow: hidden;
-            position: relative;
-        }
-        .cropped.amroth {
-            transform: scale(1.4);
-            transform-origin: 50% 100%;
-        }
-
-        /* .cropped {
-            min-height: 0;
-            max-height: 300px;
-            max-width: 450px;
-            width: 100%;
-            object-fit: cover;
-            object-position: center;
-        } */
-
-        .section {
-            align-items: center;
-            width: 100vw;
-        }
-        .text {
-            width: 100vw;
-        }
-    }
-
-    @media (max-width: 750px) {
-        .case-study-container {
-            flex-direction: column;
-        }
-    }
-
-    @media (max-width: 450px) {
-        .title h1 {
-            font-size: 3.2em;
-            text-align: left;
-        }
-        .image-crop-container {
-            height: 250px;
-            min-width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-        .cropped.amroth {
-            transform-origin: 50% 80%;
-        }
-        .cropped.wilson {
-            transform: scale(1.1);
-            transform-origin: 50% 220%;
-        }
-    }
-</style>

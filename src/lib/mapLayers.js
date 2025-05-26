@@ -3,7 +3,6 @@ let PARKING_EMPLOYMENT_URL = "/underutilized-parking-lots-toronto/ParkingLotArea
 let PARKING_RESIDENTIAL_URL = "/underutilized-parking-lots-toronto/ParkingLotAreaResidential.pmtiles";
 
 import CityMask from "../data/city-mask.geo.json";
-import EmploymentAreas from "../data/employment-areas.geo.json";
 import GreenPStats from "../data/green-p-revenue-and-park-area.geo.json";
 import CaseStudyStats from "../data/case-studies-revenue-and-park-area.geo.json";
 
@@ -32,10 +31,6 @@ export const sources = {
     cityMask: {
         type: 'geojson',
         data: CityMask
-    },
-    employmentAreas: {
-        type: 'geojson',
-        data: EmploymentAreas
     },
     greenPStats: {
         type: 'geojson',
@@ -116,17 +111,6 @@ export const layers = {
             "fill-opacity": 1
         }
     },
-    employmentAreasLayer: {
-        id: 'employment-areas-layer',
-        type: 'line',
-        source: 'employmentAreas',
-        paint: {
-            "line-color": "#DC4633",
-            "line-width": 1,
-            "line-dasharray": [2, 1],
-            "line-opacity": 0,
-        }
-    },
 
     revenuePerSpaceLayer: {
         id: 'revenue-per-space-layer',
@@ -140,12 +124,12 @@ export const layers = {
                 "interpolate",
                 ["linear"],
                 ["get", "revenue_per_space_per_day"],
-                0, 3,    // Minimum value corresponds to a radius of 3
-                50,30  // Maximum value corresponds to a radius of 50
+                0, 3,
+                50,25
             ]
             ,
             "circle-stroke-color": "white", // Stroke color
-            "circle-stroke-width": 1, // Stroke width
+            "circle-stroke-width": 0.5, // Stroke width
             "circle-stroke-opacity": 0 // Semi-transparent stroke
         }
     },
@@ -182,7 +166,7 @@ export const layers = {
             ]
             ,
             "circle-stroke-color": "white", // Stroke color
-            "circle-stroke-width": 1, // Stroke width
+            "circle-stroke-width": 0.5, // Stroke width
             "circle-stroke-opacity": 0 // Semi-transparent stroke
         }
     },
