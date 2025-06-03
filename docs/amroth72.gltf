@@ -1,0 +1,166 @@
+{
+    "asset": {
+        "copyright": "2024 (c) Adobe Inc.",
+        "generator": "Adobe Substance 3D Stager - cf02bd4e1102092a0805c8f8fc279a2093662f5f",
+        "version": "2.0",
+        "extensions": {
+            "KHR_xmp_json_ld": {
+                "packet": 0
+            }
+        }
+    },
+    "accessors": [
+        {
+            "bufferView": 0,
+            "componentType": 5126,
+            "count": 936,
+            "type": "VEC3",
+            "max": [
+                23.658700942993165,
+                19.918916702270509,
+                0.0
+            ],
+            "min": [
+                0.0,
+                0.0,
+                -12.179561614990235
+            ]
+        },
+        {
+            "bufferView": 1,
+            "componentType": 5126,
+            "count": 936,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 2,
+            "componentType": 5126,
+            "count": 936,
+            "type": "VEC4"
+        },
+        {
+            "bufferView": 3,
+            "componentType": 5126,
+            "count": 936,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 4,
+            "componentType": 5125,
+            "count": 1860,
+            "type": "SCALAR",
+            "max": [
+                935.0
+            ],
+            "min": [
+                0.0
+            ]
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 11232,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 11232,
+            "byteLength": 11232,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 22464,
+            "byteLength": 14976,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 37440,
+            "byteLength": 7488,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 44928,
+            "byteLength": 7440,
+            "target": 34963
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 52368,
+            "uri": "amroth72_binary.bin"
+        }
+    ],
+    "materials": [
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    0.5000001192092896,
+                    0.5000001192092896,
+                    0.5000001192092896,
+                    1.0
+                ],
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.30000001192092898
+            },
+            "name": "default_gltf_material",
+            "doubleSided": true
+        }
+    ],
+    "meshes": [
+        {
+            "name": "unnamed_n3d",
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TANGENT": 2,
+                        "TEXCOORD_0": 3
+                    },
+                    "indices": 4,
+                    "material": 0
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "name": "working_cam_n3d"
+        },
+        {
+            "mesh": 0,
+            "name": "unnamed_n3d"
+        }
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                1
+            ],
+            "name": "scene"
+        }
+    ],
+    "scene": 0,
+    "extensions": {
+        "KHR_xmp_json_ld": {
+            "packets": [
+                {
+                    "@context": {
+                        "dc": "http://purl.org/dc/elements/1.1/"
+                    },
+                    "dc:date": "2025-05-12T14:36:44.155Z",
+                    "dc:title": "Untitled.dn",
+                    "xmp:CreatorTool": "Adobe Substance 3D Stager"
+                }
+            ]
+        }
+    },
+    "extensionsUsed": [
+        "KHR_xmp_json_ld"
+    ]
+}

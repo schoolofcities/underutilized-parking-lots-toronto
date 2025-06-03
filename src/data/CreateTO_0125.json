@@ -1,0 +1,753 @@
+{
+  "featuredProjects": [
+    {
+      "id": "481892",
+      "uuid": "692fbc5d-8754-46ba-a169-c9cd0551d23f",
+      "href": "/projects/50-wilson-heights-boulevard",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "marketOffering",
+      "types": [
+        "mixedUse",
+        "transitOrientedDevelopment",
+        "affordableHousing",
+        "housing",
+        "residential",
+        "parksOpenSpaces",
+        "office",
+        "retail",
+        "childCareCentre",
+        "communitySpace"
+      ],
+      "tags": [],
+      "title": "50 Wilson Heights Boulevard",
+      "ward": "York Centre",
+      "address": "50 Wilson Heights Boulevard",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-11-26T19:36:16.422Z",
+      "summary": "Located at Wilson Avenue and Allen Road, the redevelopment of 50 Wilson Heights will deliver 1,484 new homes, including 35 per cent affordable rentals, as well as parkland, office, retail, and community spaces, along with shared parking. ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/2622x1475/c57994522e/50-wilson-rendering-1.jpg",
+        "alt": "50 Wilson"
+      },
+      "latitude": 43.7359148191509,
+      "longitude": -79.4493215024891
+    },
+    {
+      "id": "481883",
+      "uuid": "dc78e4fa-152d-498e-8cdd-cf27a5bc76a0",
+      "href": "/projects/405-sherbourne-street",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "communitySpace",
+        "housing",
+        "residential"
+      ],
+      "tags": [],
+      "title": "405 Sherbourne Street",
+      "ward": "Toronto Centre",
+      "address": "405 Sherbourne Street",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-06-24T14:53:49.365Z",
+      "summary": "The vision for this downtown site is focused on delivering purpose-built rental housing, including 50 per cent affordable rental homes, community agency space, and an enhanced public realm on Sherbourne Street. ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1944x1296/62cdd9b2a6/081a0848.jpg",
+        "alt": "405 Sherbourne"
+      },
+      "latitude": 43.6646655934348,
+      "longitude": -79.3731177736558
+    },
+    {
+      "id": "481849",
+      "uuid": "270ca6cf-d972-484a-add6-2fdb456b70c6",
+      "href": "/projects/bloor-kipling",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "deliveryAndConstruction",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "residential"
+      ],
+      "tags": [],
+      "title": "Bloor-Kipling",
+      "ward": "Etobicoke-Lakeshore",
+      "address": "5207 Dundas Street West",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2025-01-13T16:18:27.264Z",
+      "summary": "The Bloor-Kipling project will deliver more than 2,700 homes, a new Etobicoke Civic Centre, a new City park, great public spaces and a dynamic mix of amenities all located at the heart of Etobicoke Centre.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1015016/3840x2160/6b3bae558c/bloor-kipling.png",
+        "alt": ""
+      },
+      "latitude": 43.641509799422,
+      "longitude": -79.5334704024931
+    },
+    {
+      "id": "481884",
+      "uuid": "717ffcb8-43f3-4dde-bcaa-7c9f52c292e1",
+      "href": "/projects/150-queens-wharf-road",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "develomentConcept",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "residential",
+        "housing"
+      ],
+      "tags": [],
+      "title": "150 Queens Wharf Road",
+      "ward": "Spadina-Fort York",
+      "address": "150 Queens Street",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-09-18T21:00:04.236Z",
+      "summary": "150 Queens Wharf Road will be part of a new animated hub in the Spadina-Fort York neighbourhood and will deliver a mixed-use development with 282 housing units, including 141 affordable rental units.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1944x1296/c4cb8a77e0/081a2369-possible-hero.jpg",
+        "alt": "Artwork near 150 Queens Wharf"
+      },
+      "latitude": 43.639832,
+      "longitude": -79.399948
+    },
+    {
+      "id": "481853",
+      "uuid": "8156878d-c5e5-4f40-9bc0-043bbc425705",
+      "href": "/projects/1113-1117-dundas-street-west",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "residential",
+        "environmentalSustainability",
+        "housing",
+        "affordableHousing"
+      ],
+      "tags": [],
+      "title": "1113-1117 Dundas Street West",
+      "ward": "Spadina-Fort York",
+      "address": "1113-1117 Dundas Street West",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-12-20T18:51:34.725Z",
+      "summary": "Part of Toronto’s Mass Timber Pilot Program, the 1113-1117 Dundas Street project will deliver affordable and market rental housing units constructed out of mass timber in the Spadina-Fort York area. ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1688x950/abf44c7aec/building-perspective-northwest-corner-looking-south.jpg",
+        "alt": "Rendering of Mass Timber Building at 1117 Dundas"
+      },
+      "latitude": 43.6493632499824,
+      "longitude": -79.4196671736564
+    },
+    {
+      "id": "481867",
+      "uuid": "5e690029-5703-448f-99e5-aa7b4132183e",
+      "href": "/projects/40-bushby-drive",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential"
+      ],
+      "tags": [],
+      "title": "40 Bushby Drive",
+      "ward": "Scarborough-Guildwood",
+      "address": "40 Bushby Drive",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-12-20T18:45:22.232Z",
+      "summary": "40 Bushby Drive will deliver a new mixed-income and transit-oriented development with 1,715 housing units, including 567 of those being affordable rental units, just steps away from McCowan Subway Station.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1728x1153/dddfb491e3/am0a2567.jpg",
+        "alt": "40 Bushby Drive"
+      },
+      "latitude": 43.7745754649815,
+      "longitude": -79.2511192736511
+    },
+    {
+      "id": "481888",
+      "uuid": "5eaf2870-34d2-4564-8af2-a3a0bf69cc3d",
+      "href": "/projects/777-victoria-park-avenue",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "marketOffering",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential",
+        "retail",
+        "communitySpace"
+      ],
+      "tags": [],
+      "title": "777 Victoria Park Avenue",
+      "ward": "Scarborough Southwest",
+      "address": "777 Victoria Park Avenue",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-11-20T15:17:46.935Z",
+      "summary": "The site at 777 Victoria Park Avenue will deliver a new mixed-use hub connecting Victoria Park station to the Danforth and is targeted to deliver 705 total rental homes, including 256 affordable rental units.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1280x646/85c3a9e771/p13_25.jpg",
+        "alt": "777 Victoria Park Avenue"
+      },
+      "latitude": 43.6940052858449,
+      "longitude": -79.2896295024909
+    },
+    {
+      "id": "7337077",
+      "uuid": "5127e448-536a-49cb-82e8-9fe328d71303",
+      "href": "/projects/275-merton-street",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "affordableHousing",
+        "housing",
+        "residential",
+        "parksOpenSpaces"
+      ],
+      "tags": [],
+      "title": "275 Merton Street",
+      "ward": "Toronto-St. Paul's",
+      "address": "275 Merton Street",
+      "createdAt": "2024-06-07T17:33:58.836Z",
+      "updatedAt": "2024-10-30T19:35:26.708Z",
+      "summary": "275 Merton Street will deliver new purpose-built rental homes in amalgamation with the adjacent property at 267 Merton Street.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/3000x2203/7e5652823f/275-merton-rendering-image-5-1.png",
+        "alt": "275 Merton Street"
+      },
+      "latitude": 43.69764,
+      "longitude": -79.38772
+    },
+    {
+      "id": "481895",
+      "uuid": "fbcbc6f2-31d2-4b8f-9477-c271a0d1fb0b",
+      "href": "/projects/72-amroth-avenue",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "residential"
+      ],
+      "tags": [],
+      "title": "72 Amroth Avenue",
+      "ward": "Beaches-East York",
+      "address": "72 Amroth Avenue",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-28T20:24:46.238Z",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/4000x3000/41f592a191/72-amroth-street-elevation-view.png",
+        "alt": "72 Amroth Rendering"
+      },
+      "latitude": 43.6854073295845,
+      "longitude": -79.3116477024913
+    },
+    {
+      "id": "481870",
+      "uuid": "18373bec-cc5d-4a59-bd6e-74793318eeb6",
+      "href": "/projects/805-don-mills",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "develomentConcept",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential",
+        "parksOpenSpaces",
+        "retail",
+        "childCareCentre",
+        "communityRecreation"
+      ],
+      "tags": [],
+      "title": "805 Don Mills",
+      "ward": "Don Valley East",
+      "address": "805 Don Mills",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-07T20:54:46.820Z",
+      "summary": "Located at the southeast corner of Eglinton Avenue and Don Mills Road, 805 Don Mills Road aims to achieve City-building objectives by providing residential, including 840 homes with 286 affordable rental units, park space, retail and childcare to this area of this city. ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1944x1296/a401995dd6/081a0144.jpg",
+        "alt": "Site around 805 Don Mills"
+      },
+      "latitude": 43.7202269250781,
+      "longitude": -79.3383179736534
+    },
+    {
+      "id": "481869",
+      "uuid": "4d922567-4ec2-4482-ba64-4885d8ebfc32",
+      "href": "/projects/770-don-mills",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "develomentConcept",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential",
+        "parksOpenSpaces",
+        "retail",
+        "childCareCentre",
+        "communityRecreation"
+      ],
+      "tags": [],
+      "title": "770 Don Mills",
+      "ward": "Don Valley East",
+      "address": "770 Don Mills",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-07T20:53:09.300Z",
+      "summary": "770 Don Mills Road will deliver a transit-oriented and mixed-income development just north of the Ontario Science Centre by providing 1,254 housing units, including 836 affordable rental housing units, an elementary school, park space, retail and childcare.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1015016/1944x1296/14088c56e8/770-don-mills.jpg",
+        "alt": ""
+      },
+      "latitude": 43.714633980506,
+      "longitude": -79.3395096024901
+    },
+    {
+      "id": "481877",
+      "uuid": "0e9e0823-b645-44c1-b8f4-29781d191b9b",
+      "href": "/projects/4040-lawrence-avenue-east",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "transitOrientedDevelopment",
+        "affordableHousing",
+        "communitySpace",
+        "residential",
+        "housing"
+      ],
+      "tags": [],
+      "title": "4040 Lawrence Avenue East",
+      "ward": "Scarborough-Guildwood",
+      "address": "4040 Lawrence Avenue East",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-07T19:27:13.484Z",
+      "summary": "Located in the Scarborough-Guildewood community, 4040 Lawrence Avenue East will deliver 200 housing units, including 67 affordable units, and several community uses.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1728x1153/ce0a8058aa/am0a2357.jpg",
+        "alt": "4040 Lawrence"
+      },
+      "latitude": 43.7659430152806,
+      "longitude": -79.1989812024878
+    },
+    {
+      "id": "481866",
+      "uuid": "2ce67718-9952-4691-b662-15cff2537905",
+      "href": "/projects/158-borough-drive",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "marketOffering",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential"
+      ],
+      "tags": [],
+      "title": "158 Borough Drive",
+      "ward": "Scarborough Centre",
+      "address": "158 Borough Drive",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-07T19:25:49.279Z",
+      "summary": "The 158 Borough Drive project neighbours the Scarborough Civic Centre and Scarborough Town Centre and will bring a new mixed-income development to this area of the city that will deliver 687 housing units, including 229 affordable rental units.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1152x1728/a91b2e7441/081a9343.jpg",
+        "alt": ""
+      },
+      "latitude": 43.7727232126453,
+      "longitude": -79.2566692736511
+    },
+    {
+      "id": "481864",
+      "uuid": "571ae9c2-c5cd-4179-9986-28ca83f1f5cb",
+      "href": "/projects/block-r6-bayside",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential"
+      ],
+      "tags": [],
+      "title": "Block R6, Bayside",
+      "ward": "Spadina-Fort York",
+      "address": "263 Queens Quay East",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-07T17:42:42.503Z",
+      "summary": "Block R6 Bayside, located at 263 Queen Quay East, will bring mixed-income housing, including a minimum of 325 rental homes with 199 affordable units, just steps away from Toronto's waterfront, the Distillery District and the St. Lawrence Market. ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1153x1728/823fde648d/am0a3080.jpg",
+        "alt": ""
+      },
+      "latitude": 43.6464114252113,
+      "longitude": -79.3617270024929
+    },
+    {
+      "id": "481890",
+      "uuid": "d7a88b64-7bf7-446d-a2c7-57a7f5a54ca5",
+      "href": "/projects/705-warden-avenue",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential",
+        "parksOpenSpaces",
+        "retail",
+        "childCareCentre"
+      ],
+      "tags": [],
+      "title": "705 Warden Avenue",
+      "ward": "Scarborough Southwest",
+      "address": "705 Warden Avenue",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-07T16:56:34.004Z",
+      "summary": "Located at Warden Avenue and St. Clair Avenue East, the redevelopment of 705 Warden Avenue will aim to achieve key City-building objectives by providing 600 new homes, including 250 affordable rental units, expanded park space, retail, and childcare. ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/x/050bd1061a/_47k0205.tif",
+        "alt": "705 Warden"
+      },
+      "latitude": 43.7113729262243,
+      "longitude": -79.2805621024902
+    },
+    {
+      "id": "481861",
+      "uuid": "64d87480-2735-4de2-afaf-250b241fc646",
+      "href": "/projects/140-merton-street",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "marketOffering",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "communitySpace",
+        "residential",
+        "housing"
+      ],
+      "tags": [],
+      "title": "140 Merton Street",
+      "ward": "Toronto-St. Paul's",
+      "address": "140 Merton Street",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-07T16:43:21.568Z",
+      "summary": "Located in midtown Toronto, the redevelopment of 140 Merton Street will be the first non-profit developed Housing Now site led by an Indigenous organization and will be dedicated to providing housing options for Indigenous elders and other seniors with 294 total rental homes. ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/x/3c774be649/_47k0474.tif",
+        "alt": "140 Merton Street"
+      },
+      "latitude": 43.6974757849468,
+      "longitude": -79.3918249024907
+    },
+    {
+      "id": "481852",
+      "uuid": "1869a736-6361-4e82-83d5-c6baac93ca19",
+      "href": "/projects/parkdale-hub",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "library",
+        "communityRecreation",
+        "communitySpace",
+        "residential",
+        "commercial",
+        "housing",
+        "heritage",
+        "office"
+      ],
+      "tags": [],
+      "title": "Parkdale Hub",
+      "ward": "Parkdale-High Park",
+      "address": "1313 Queen Street West",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-10-04T15:49:25.728Z",
+      "summary": "The Parkdale Hub project, located at the intersection of Queen Street West and Cowan Avenue, is a transformational city-building initiative that will deliver wide-ranging social, cultural and economic benefits to the Parkdale community.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/10000x4000/2319e5fb2f/image20_16-storey-revised.jpg",
+        "alt": "Parkdale Hub Rendering"
+      },
+      "latitude": 43.6410797875789,
+      "longitude": -79.4332418089819
+    },
+    {
+      "id": "481874",
+      "uuid": "933e4a12-e29b-4785-a619-0da1bc688e34",
+      "href": "/projects/1250-eglinton-avenue-west",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential"
+      ],
+      "tags": [],
+      "title": "1250 Eglinton Avenue West",
+      "ward": "Eglinton-Lawrence",
+      "address": "1250 Eglinton Avenue West",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-06-27T16:42:39.338Z",
+      "summary": "Located at Eglinton Avenue West and W. R. Allen Road, 1250 Eglinton Avenue West will deliver a new mixed-income, mixed-use, transit-oriented development with 240 new homes, including 80 new affordable rental units.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1944x1296/af518d89cd/081a1876-possible-hero.jpg",
+        "alt": "Shops near 1250 Eglinton"
+      },
+      "latitude": 43.69941,
+      "longitude": -79.43443
+    },
+    {
+      "id": "481876",
+      "uuid": "cb8c51d5-bf8d-47d3-a8d3-1a868f4ae737",
+      "href": "/projects/251-esther-shiner-boulevard",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "transitOrientedDevelopment",
+        "affordableHousing",
+        "housing",
+        "residential",
+        "parksOpenSpaces"
+      ],
+      "tags": [],
+      "title": "251 Esther Shiner Boulevard",
+      "ward": "Don Valley East",
+      "address": "251 Esther Shiner Boulevard",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-06-27T16:38:46.845Z",
+      "summary": "The redevelopment of 251 Esther Shiner Boulevard in the Don Valley East community will include a mixed-income and mixed-use development with 1,800 residential units, with 603 being affordable rental units.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1944x1296/ac4409acac/081a0561.jpg",
+        "alt": ""
+      },
+      "latitude": 43.7688511141503,
+      "longitude": -79.3654632736513
+    },
+    {
+      "id": "481872",
+      "uuid": "3d51b613-9f41-41cd-b605-cd40e7e20818",
+      "href": "/projects/2444-eglinton",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "marketOffering",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential",
+        "communitySpace"
+      ],
+      "tags": [],
+      "title": "2444 Eglinton Avenue East",
+      "ward": "Scarborough Centre",
+      "address": "2444 Eglinton",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-06-26T18:36:32.087Z",
+      "summary": "Located at Eglinton Avenue and Kennedy Road,  2444 Eglinton Avenue East is the first site within the Housing Now Initiative to deliver co-operative rental housing, targeting to include approximately 919 total homes, including 612 rent-geared-to-income, affordable and market rent-controlled co-operative homes.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1344x828/21e3a172f0/microsoftteams-image-19.png",
+        "alt": "Rendering of housing development at 2444 Eglinton Avenue East"
+      },
+      "latitude": 43.7337140743103,
+      "longitude": -79.2643688001413
+    },
+    {
+      "id": "481879",
+      "uuid": "ffe9d35f-0696-472b-930d-247d569e9552",
+      "href": "/projects/1631-queen-street-east",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "develomentConcept",
+      "types": [
+        "mixedUse",
+        "transitOrientedDevelopment",
+        "residential",
+        "housing"
+      ],
+      "tags": [],
+      "title": "1631 Queen Street East",
+      "ward": "Beaches-East York",
+      "address": "1631 Queen Street East",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-06-11T13:42:23.886Z",
+      "summary": "Located in the Beaches-East York neighbourhood, the 1631 Queen Street East project will include a mixed-use development and is targeted to deliver 280 new homes, including 133 affordable rental units, and create a new Indigenous placekeeping space at Kishigo Lane.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1015016/1944x1296/ee9d1e5412/1631-queen-street-east.jpg",
+        "alt": ""
+      },
+      "latitude": 43.6663076882461,
+      "longitude": -79.3157201736557
+    },
+    {
+      "id": "481865",
+      "uuid": "38f07438-063f-4e27-85a5-ebc019552dc0",
+      "href": "/projects/bloor-islington",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "develomentConcept",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "retail",
+        "housing",
+        "residential"
+      ],
+      "tags": [],
+      "title": "Bloor-Islington",
+      "ward": "Etobicoke-Lakeshore",
+      "address": "3326 Bloor Street West and 1226 Islington Avenue",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-06-11T13:32:16.353Z",
+      "summary": "The Bloor-Islington project, located at 3326 Bloor Street West and 1126 Islington Avenue, will deliver a transit-oriented, mixed-use development featuring 1,415 housing units, including  affordable rental units, directly integrated with a new Islington TTC station.\n",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/5184x3456/64a20975be/_47k0206.jpg",
+        "alt": "Bloor-Islington"
+      },
+      "latitude": 43.6446145536653,
+      "longitude": -79.5252152736566
+    },
+    {
+      "id": "481873",
+      "uuid": "d8c138ea-e76c-46ed-99fa-f818fc2db6fe",
+      "href": "/projects/2700-eglinton-avenue-west",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "transitOrientedDevelopment",
+        "housing",
+        "residential"
+      ],
+      "tags": [],
+      "title": "2700 Eglinton Avenue West",
+      "ward": "York South-Weston",
+      "address": "2700 Eglinton Avenue West",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-06-05T14:53:07.637Z",
+      "summary": "2700 Eglinton Avenue West is located within an existing civic hub in the Keelesdale neighbourhood, and presents a unique opportunity for civic revitalization, affordable housing and enhanced community spaces.  ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1015016/1728x1153/b33f2f5207/2700-eglinton-avenue-west.jpg",
+        "alt": ""
+      },
+      "latitude": 43.6899092261718,
+      "longitude": -79.4785179863782
+    },
+    {
+      "id": "481856",
+      "uuid": "54c2ddf5-92c1-4633-a0f8-932bb5adff0e",
+      "href": "/projects/1627-and-1675-danforth-avenue",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "affordableHousing",
+        "heritage",
+        "communitySpace",
+        "housing",
+        "residential",
+        "library",
+        "communityRecreation",
+        "office"
+      ],
+      "tags": [],
+      "title": "1627 and 1675 Danforth Avenue",
+      "ward": "Beaches-East York",
+      "address": "1627 and 1675 Danforth Avenue",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2024-02-28T18:49:39.136Z",
+      "summary": "The Danforth Garage is a revitalization and adaptive re-use project of the now decommissioned Toronto Transit Commission’s streetcar maintenance complex at 1627 and 1675 Danforth Avenue and will bring together residential, including affordable housing, employment and community uses to create a new multi-use civic hub within this area of the city. ",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1015016/1944x1296/b17485beb0/1627-and-1675-danforth-avenue.jpg",
+        "alt": ""
+      },
+      "latitude": 43.6831139886629,
+      "longitude": -79.3220861024914
+    },
+    {
+      "id": "481875",
+      "uuid": "6809c440-1c7a-425e-b88c-3562748bbb52",
+      "href": "/projects/3933-keele-street",
+      "initiatives": [
+        "Housing"
+      ],
+      "phase": "preDevelopment",
+      "types": [
+        "mixedUse",
+        "transitOrientedDevelopment",
+        "affordableHousing",
+        "residential",
+        "housing"
+      ],
+      "tags": [],
+      "title": "3933 Keele Street",
+      "ward": "York Centre",
+      "address": "3933 Keele Street",
+      "createdAt": "2023-09-29T16:13:40.705Z",
+      "updatedAt": "2023-12-06T21:41:11.728Z",
+      "summary": "The 3933 Keele Street project will deliver a mixed-use and mixed-income development along the Finch LRT line and will include 190 residential units, including 65 affordable rental units.",
+      "image": {
+        "src": "https://a-us.storyblok.com/f/1017201/1944x1296/952b6b8817/081a0058.jpg",
+        "alt": "People playing soccer"
+      },
+      "latitude": 43.7630409648472,
+      "longitude": -79.4902492736516
+    }
+  ]}

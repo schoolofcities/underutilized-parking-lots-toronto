@@ -35,7 +35,7 @@
 		padding-left: 0px;
 		padding-right: 0px;
 		z-index: 99999;
-		opacity: 0.98;
+		opacity: 1;
 		box-shadow: 0 2px 0 0 rgba(224, 224, 224, 0.268);
 	}
 

@@ -1,0 +1,39 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "72 Amroth Avenue",
+          "order": 1
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-79.31182102056127, 43.685295480336926]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "405 Sherbourne Street",
+          "order": 2
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-79.37336157911037, 43.66462434594967]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "name": "50 Wilson Heights Boulevard",
+          "order": 3
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-79.44933103154398, 43.73599067935454]
+        }
+      }
+    ]
+  }
+  

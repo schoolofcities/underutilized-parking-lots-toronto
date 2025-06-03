@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "case-studies-revenue-and-park-area",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "cp": 79.0, "address": "405 Sherbourne St", "type": "Surface", "ownership": "Owned", "space_count": 91, "revenue_2023": "$361,279.00", "property_tax_paid_2023": "$222,714.00", "revenue_per_space": 3970.1, "revenue_per_space_per_day": 10.88, "lat": 43.664678493333298, "lon": -79.373527386666694, "park_area_m2": 304488.555 }, "geometry": { "type": "Point", "coordinates": [ -79.373527386666694, 43.664678493333298 ] } },
+{ "type": "Feature", "properties": { "cp": 21.0, "address": "72 Amroth Ave", "type": "Surface", "ownership": "Owned", "space_count": 50, "revenue_2023": "$100,714.00", "property_tax_paid_2023": "$52,955.00", "revenue_per_space": 2014.28, "revenue_per_space_per_day": 5.52, "lat": 43.6854795, "lon": -79.3115986, "park_area_m2": 149284.643 }, "geometry": { "type": "Point", "coordinates": [ -79.3115986, 43.6854795 ] } },
+{ "type": "Feature", "properties": { "cp": 811.0, "address": "50 Wilson Heights Blvd", "type": "Surface", "ownership": "Managed", "space_count": 885, "revenue_2023": "$535,255.00", "property_tax_paid_2023": "$                  -", "revenue_per_space": 604.81, "revenue_per_space_per_day": 1.66, "lat": 43.735382, "lon": -79.449115, "park_area_m2": 93804.375 }, "geometry": { "type": "Point", "coordinates": [ -79.449115, 43.735382 ] } }
+]
+}
