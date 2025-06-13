@@ -392,8 +392,14 @@
                     sourceLayer: "case-study-revenue-per-space-layer",
                 });
 
+                const anchorMap = {
+                    "72 Amroth Ave": "top",
+                    "405 Sherbourne St": "bottom",
+                    "50 Wilson Heights Blvd": "bottom",
+                };
+
                 // Iterate through each feature and create a popup
-                features.forEach((feature, i) => {
+                features.forEach((feature) => {
                     const properties = feature.properties;
                     const address = properties.address;
                     const revenue2023 = properties.revenue_2023;
@@ -410,10 +416,13 @@
                 <strong>Revenue per Space per Day:</strong> ${revenuePerSpacePerDay}
             </div>
         `;
+
+                    const anchor = anchorMap[address] || "bottom";
+
                     const popup = new maplibregl.Popup({
                         closeButton: false,
                         closeOnClick: false,
-                        anchor: i === 1 ? "bottom-left" : "bottom",
+                        anchor,
                     })
                         .setLngLat([properties.lon, properties.lat])
                         .setHTML(popupContent)
