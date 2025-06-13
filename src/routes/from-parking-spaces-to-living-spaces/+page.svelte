@@ -393,7 +393,7 @@
                 });
 
                 // Iterate through each feature and create a popup
-                features.forEach((feature) => {
+                features.forEach((feature, i) => {
                     const properties = feature.properties;
                     const address = properties.address;
                     const revenue2023 = properties.revenue_2023;
@@ -413,6 +413,7 @@
                     const popup = new maplibregl.Popup({
                         closeButton: false,
                         closeOnClick: false,
+                        anchor: i === 1 ? "bottom-left" : "bottom",
                     })
                         .setLngLat([properties.lon, properties.lat])
                         .setHTML(popupContent)
@@ -685,10 +686,12 @@
                     housing people, not cars.
                 </p>
                 <p>
-                    <a href="https://createto.ca/projects/housing" target="_blank">CreateTO</a> is the City of Toronto's real estate agency,
-                    managing the portfolio of city-owned properties. They have a
-                    number of projects that plan to do what we are proposing
-                    here:
+                    <a
+                        href="https://createto.ca/projects/housing"
+                        target="_blank">CreateTO</a
+                    > is the City of Toronto's real estate agency, managing the portfolio
+                    of city-owned properties. They have a number of projects that
+                    plan to do what we are proposing here:
                 </p>
                 <p><i>Convert surface parking into housing.</i></p>
                 <p>
