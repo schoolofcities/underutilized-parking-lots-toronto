@@ -6,25 +6,28 @@
     import Top from "$lib/TopSofC.svelte";
     import Histogram from "$lib/Histogram.svelte";
 
+    // RANGE SLIDER
+    import RangeSlider from "svelte-range-slider-pips";
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    let values = [min, max];
+
     import "../../assets/maplibre-gl.css";
     import "../../assets/styles.css";
 
     import * as pmtiles from "pmtiles";
     import BaseLayer from "../../data/toronto-filling-the-void.json";
     import { sources, layers } from "$lib/mapLayers.js";
+    import data from "../../data/revenue_per_space_per_day_list.json";
 
-    //PNG
     import AmrothIsoBldg from "/src/assets/amroth-iso-bldg.png";
     import WilsonIsoBldg from "/src/assets/wilson-iso-bldg.png";
     import SherbourneIsoBldg from "/src/assets/sherbourne-iso-bldg.png";
 
-    //SVG
     import RevenueLegend from "/src/assets/revenue-legend.svg";
 
-    // BASE MAP TILES
     let PMTILES_URL = "/underutilized-parking-lots-toronto/toronto.pmtiles";
 
-    //MAP INIT
     let map;
     let protoLayers = BaseLayer;
     let scale = new maplibregl.ScaleControl({
@@ -33,7 +36,6 @@
     });
     let activePopups = [];
 
-    //LAYER TOGGLE OPACITY TRANSITIONS
     function toggleLayer(id, opacity, strokeOpacity = opacity) {
         const propertyMap = {
             fill: "fill-opacity",
@@ -173,6 +175,20 @@
         }
     };
 
+    // FILTER REVENUE PER SPACE LAYER
+    $: if (
+        map &&
+        map.isStyleLoaded &&
+        map.isStyleLoaded() &&
+        (currentSection === 4 || currentSection === 5)
+    ) {
+        map.setFilter("revenue-per-space-layer", [
+            "all",
+            [">=", ["get", "revenue_per_space_per_day"], values[0]],
+            ["<=", ["get", "revenue_per_space_per_day"], values[1]],
+        ]);
+    }
+
     //MOUNT
     onMount(() => {
         let protocol = new pmtiles.Protocol();
@@ -306,21 +322,21 @@
     const updateMap = (section) => {
         switch (section) {
             case 0:
-                toggleLayer("employment-areas-layer", 0);
+                toggleLayer("employment-area-layer", 0);
                 toggleLayer("parking-lots-employment-layer", 1);
                 toggleLayer("parking-lots-residential-layer", 1);
 
                 break;
 
             case 1:
-                toggleLayer("employment-areas-layer", 0);
+                toggleLayer("employment-area-layer", 1);
                 toggleLayer("parking-lots-employment-layer", 1);
                 toggleLayer("parking-lots-residential-layer", 0);
                 toggleLayer("parking-lots-layer", 0);
                 break;
 
             case 2:
-                toggleLayer("employment-areas-layer", 0);
+                toggleLayer("employment-area-layer", 0);
                 toggleLayer("green-p-stats-layer", 0);
                 toggleLayer("parking-lots-employment-layer", 0);
                 toggleLayer("parking-lots-residential-layer", 1);
@@ -401,6 +417,7 @@
                 // Iterate through each feature and create a popup
                 features.forEach((feature) => {
                     const properties = feature.properties;
+                    const spaceCount = properties.space_count;
                     const address = properties.address;
                     const revenue2023 = properties.revenue_2023;
                     const revenuePerSpace = properties.revenue_per_space;
@@ -411,6 +428,7 @@
                     const popupContent = `
             <div>
                 <strong>Address:</strong> ${address}<br>
+                <strong>Number of Spaces:</strong> ${spaceCount}<br>
                 <strong>Revenue (2023):</strong> ${revenue2023}<br>
                 <strong>Revenue per Space:</strong> ${revenuePerSpace}<br>
                 <strong>Revenue per Space per Day:</strong> ${revenuePerSpacePerDay}
@@ -665,7 +683,37 @@
                 </p>
                 <p>Hover over the map to explore.</p>
                 <div class="histogram-container">
-                    <Histogram />
+                    <Histogram
+                        {data}
+                        highlightRange={values}
+                        highlightOpacity={1}
+                        dimOpacity={0.3}
+                    />
+
+                    <div class="range-slider-container">
+                        <div class="range-slider-wrapper">
+                            <RangeSlider
+                                range
+                                draggy
+                                spring={true}
+                                springValues={{ stiffness: 0.9, damping: 1 }}
+                                bind:values
+                                {min}
+                                {max}
+                            />
+                        </div>
+                    </div>
+
+                    <div
+                        style="margin: 10px; text-align: center; font-size: 14px; font-weight: bold;"
+                    >Revenue Per Space Per Day </div>
+
+                    <div
+                        style="margin: 10px; text-align: center; font-size: 14px;"
+                    >
+                        ${values[0].toFixed(2)}
+                        &ndash; ${values[1].toFixed(2)}
+                    </div>
                 </div>
             </div>
         </div>
