@@ -1,6 +1,11 @@
 <script>
     import { onMount } from "svelte";
-    import data from "../data/revenue_per_space_per_day_list.json";
+    export let data = [];
+
+    export let highlightRange = [0, Infinity];
+    export let highlightOpacity = 1;
+    export let dimOpacity = 0.3;
+
     let svgEl;
     let tooltipEl;
     let containerEl;
@@ -16,13 +21,13 @@
     });
 
     const maxCount = Math.max(...bins);
-    const chartHeight = 250;
+    const chartHeight = 200;
     const yTickInterval = 10;
 
     let chartWidth = 450;
     function updateWidth() {
         if (containerEl) {
-            chartWidth = containerEl.offsetWidth - 40;
+            chartWidth = containerEl.offsetWidth;
         }
     }
     onMount(() => {
@@ -116,20 +121,25 @@
         </text>
 
         <!-- Histogram bars -->
-        {#each bins as count, i}
-            <rect
-                x={35 + i * barWidth}
-                y={chartHeight - (count / maxCount) * chartHeight}
-                width={barWidth - 2}
-                height={(count / maxCount) * chartHeight}
-                fill="#00A189"
-                opacity="0.8"
-                on:mouseenter={(e) => showTooltip(e, count, i)}
-                on:mousemove={(e) => showTooltip(e, count, i)}
-                on:mouseleave={hideTooltip}
-                style="cursor:pointer"
-            />
-        {/each}
+{#each bins as count, i}
+    <rect
+        x={35 + i * barWidth}
+        y={chartHeight - (count / maxCount) * chartHeight}
+        width={barWidth - 2}
+        height={(count / maxCount) * chartHeight}
+        fill="#00A189"
+        opacity={
+            ((i + 1) * binSize > highlightRange[0] && i * binSize < highlightRange[1])
+                ? highlightOpacity
+                : dimOpacity
+        }
+        on:mouseenter={(e) => showTooltip(e, count, i)}
+        on:mousemove={(e) => showTooltip(e, count, i)}
+        on:mouseleave={hideTooltip}
+        style="cursor:pointer"
+        role="img"
+    />
+{/each}
 
         <!-- X-axis tick labels every 5 bins -->
         {#each Array(numBins) as _, i}
@@ -147,7 +157,7 @@
         {/each}
 
         <!-- X-axis label -->
-        <text
+        <!-- <text
             x={(chartWidth + 40) / 2}
             y={chartHeight + 40}
             font-size="14"
@@ -156,7 +166,7 @@
             font-weight="bold"
         >
             Revenue Per Space Per Day ($)
-        </text>
+        </text> -->
     </svg>
 </div>
 
@@ -175,9 +185,9 @@
     .histogram-container {
         width: 100%;
         max-width: 600px;
+        display: flex;
         justify-content: center;
         align-items: center;
-        display: flex;
         margin: 0 auto;
     }
     svg {
