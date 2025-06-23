@@ -424,8 +424,7 @@
                     const popupContent = `<div>
                                 <strong>Address:</strong> ${address}<br>
                                 <strong>Number of Spaces:</strong> ${spaceCount}<br>
-                                <strong>Revenue (2023):</strong> ${revenue2023}<br>
-                                <strong>Revenue per Space per Day:</strong> ${revenuePerSpacePerDay}
+                                <strong>Revenue per Space per Day:</strong> $${revenuePerSpacePerDay}
                             </div>`;
                     const anchor = anchorMap[address] || "bottom";
                     const popup = new maplibregl.Popup({
@@ -700,10 +699,12 @@
                         </div>
                     </div>
 
-                    <div
+                    <div class="histogram-title">
+                    <div 
                         style="margin: 10px; text-align: center; font-size: 14px; font-weight: bold;"
-                    >
+                    ><strong>
                         Revenue Per Space Per Day
+                        </strong>
                     </div>
 
                     <div
@@ -711,7 +712,7 @@
                     >
                         ${values[0].toFixed(2)}
                         &ndash; ${values[1].toFixed(2)}
-                    </div>
+                    </div></div>
                 </div>
             </div>
         </div>
@@ -811,12 +812,10 @@
                 <div class="case-study-container">
                     <div class="case-study-text">
                         <h3>72 Amroth Avenue</h3>
-                        <p>Missing Middle</p>
                         <p>
-                            A 6-storey low-rise apartment building and two
+                            A "missing middle" 6-storey low-rise apartment building and two
                             3-storey townhouses comprising 34 new residential
-                            units. Located in the Danforth neighbourhood near
-                            Main Street subway station.
+                            units. Located near Main Street station.
                         </p>
                     </div>
 
@@ -826,19 +825,15 @@
 
                     <div class="stat-container">
                         <div class="stat-line">
-                            <strong
-                                >Current Parking Lot Property Value Assessment
-                                (2025):</strong
-                            > $2,333,000
+                            <div class="stat-bold">Parking Lot Property Value Assessment
+                                (2025)</div> $2,333,000
+                        </div>
+                        <div class="stat-line"><div class="stat-bold">
+                            Projected Housing Property Value
+                                Assessment (2025)</div> $13,307,852
                         </div>
                         <div class="stat-line">
-                            <strong
-                                >Projected Total Housing Property Value
-                                Assessment:</strong
-                            > $13,307,852
-                        </div>
-                        <div class="stat-line">
-                            <strong>Difference in Value:</strong> ⬆ $10,974,852
+                            <div class="stat-bold">Difference in Value</div> ⬆ $10,974,852
                         </div>
                     </div>
                 </div>
@@ -850,12 +845,8 @@
                 <div class="case-study-container">
                     <div class="case-study-text">
                         <h3>405 Sherbourne</h3>
-                        <p>Mixed Use High-Rise</p>
                         <p>
-                            A 26-storey high-rise with 266 residential units and
-                            mixed use spaces at street level. Located in the
-                            Cabbagetown neighbourhood near Sherbourne subway
-                            station.
+                            A 26-storey mixed use high-rise with 266 residential units. Located near Sherbourne station.
                         </p>
                     </div>
 
@@ -865,19 +856,16 @@
 
                     <div class="stat-container">
                         <div class="stat-line">
-                            <strong
-                                >Current Parking Lot Property Value Assessment
-                                (2025):</strong
-                            > $9,812,000
+                            <div class="stat-bold">Parking Lot Property Value Assessment
+                                (2025)</div> $9,812,000
                         </div>
                         <div class="stat-line">
-                            <strong
-                                >Projected Total Housing Property Value
-                                Assessment:</strong
+                            <div class="stat-bold">Projected Housing Property Value
+                                Assessment (2025)</div
                             > $110,676,444
                         </div>
                         <div class="stat-line">
-                            <strong>Difference in Value:</strong> ⬆ $100,864,444
+                            <div class="stat-bold">Difference in Value</div> ⬆ $100,864,444
                         </div>
                     </div>
                 </div>
@@ -889,11 +877,10 @@
                 <div class="case-study-container">
                     <div class="case-study-text">
                         <h3>50 Wilson Heights Boulevard</h3>
-                        <p>Mixed Use Urban Renewal</p>
                         <p>
-                            A multi-building mixed use urban development up to
+                            A multi-building mixed use urban renewal development up to
                             16 storeys with a total of 1,484 residential units.
-                            Located near Downsview at the Wilson subway station.
+                            Located near Wilson station.
                         </p>
                     </div>
 
@@ -902,20 +889,13 @@
                     </div>
 
                     <div class="stat-container">
-                        <div class="stat-line">
-                            <strong
-                                >Current Parking Lot Property Value Assessment
-                                (2025):</strong
-                            > $9,739,000
+                        <div class="stat-line"><div class="stat-bold">
+                           Parking Lot Property Value Assessment
+                                (2025)</div> $9,739,000
                         </div>
-                        <div class="stat-line">
-                            <strong
-                                >Projected Total Housing Property Value
-                                Assessment:</strong
-                            > $490,599,407
-                        </div>
-                        <div class="stat-line">
-                            <strong>Difference in Value:</strong> ⬆ $480,860,407
+                        <div class="stat-line"><div class="stat-bold">Projected Housing Property Value Assessment (2025)</div> $490,599,407</div>
+                        <div class="stat-line"><div class="stat-bold">
+                            Difference in Value</div>⬆ $480,860,407
                         </div>
                     </div>
                 </div>
@@ -962,8 +942,8 @@
             </div>
         </div>
 
-        <div class="section spacer">
+        <!-- <div class="section spacer">
             <div class="text"></div>
-        </div>
+        </div> -->
     </section>
 </div>

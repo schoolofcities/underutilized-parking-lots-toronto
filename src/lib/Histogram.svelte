@@ -81,9 +81,10 @@
                     y={chartHeight -
                         ((idx * yTickInterval) / maxCount) * chartHeight +
                         5}
-                    font-size="10"
+                    font-size="11"
                     text-anchor="end"
                     fill="#333"
+                    font-family="SourceSerif"
                 >
                     {idx * yTickInterval}
                 </text>
@@ -112,10 +113,11 @@
         />
         <text
             x={medianX + 5}
-            y="10"
-            font-size="11"
+            y="11"
+            font-size="12"
             text-anchor="start"
             fill="grey"
+            font-family="SourceSerif"
         >
             Median: ${median.toFixed(2)}
         </text>
@@ -147,26 +149,16 @@
                 <text
                     x={35 + i * barWidth}
                     y={chartHeight + 15}
-                    font-size="10"
+                    font-size="11"
                     text-anchor="middle"
                     fill="#333"
+                    font-family="SourceSerif"
                 >
                     {i * binSize}
                 </text>
             {/if}
         {/each}
 
-        <!-- X-axis label -->
-        <!-- <text
-            x={(chartWidth + 40) / 2}
-            y={chartHeight + 40}
-            font-size="14"
-            text-anchor="middle"
-            fill="#333"
-            font-weight="bold"
-        >
-            Revenue Per Space Per Day ($)
-        </text> -->
     </svg>
 </div>
 
