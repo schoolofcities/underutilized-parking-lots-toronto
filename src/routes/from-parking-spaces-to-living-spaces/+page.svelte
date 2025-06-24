@@ -120,7 +120,7 @@
     // LEGEND HEIGHT
     let legendHeight = 90;
     function updatelegendHeight() {
-        legendHeight = window.innerWidth < 700 ? 90*2/3 : 90;
+        legendHeight = window.innerWidth < 700 ? (90 * 2) / 3 : 90;
     }
 
     //SECTION SCROLL
@@ -354,7 +354,8 @@
                         const feature = features[0];
                         const address = feature.properties.address;
                         const spaceCount = feature.properties.space_count;
-                        const revenuePerDay = feature.properties.revenue_per_space_per_day;
+                        const revenuePerDay =
+                            feature.properties.revenue_per_space_per_day;
 
                         popup
                             .setLngLat(e.lngLat)
@@ -425,7 +426,7 @@
                 toggleLayer("subway-buffer-mask-layer", 0);
 
                 updateScaledCircleRadius(map);
-                updatelegendHeight()
+                updatelegendHeight();
 
                 map.flyTo({
                     center: currentMapPosition.center,
@@ -449,7 +450,7 @@
                 toggleLayer("case-studies-bldgs-layer", 0);
 
                 updateScaledCircleRadius(map);
-                updatelegendHeight()
+                updatelegendHeight();
 
                 map.flyTo({
                     center: [-79.410235, 43.71175],
@@ -630,7 +631,8 @@
                 href="https://www.linkedin.com/in/scott-christian-mccallum/"
                 target="_blank">Scott McCallum</a
             >,
-            <a href="https://jamaps.github.io/" target="_blank">Jeff Allen</a> |
+            <a href="https://jamaps.github.io/" target="_blank">Jeff Allen</a>,
+            <a href="https://www.linkedin.com/in/mischayoung/" target="_blank">Mischa Young</a> |
             June 2025
         </p>
     </div>
@@ -686,10 +688,10 @@
             <div class="text">
                 <h3>Employment Areas</h3>
                 <p>
-                    The largest clusters of surface parking in Toronto are
-                    located in areas with employment related land use. These
-                    surface parking lots alone account for nearly 4% of
-                    Toronto's total land area.
+                    The largest clusters of surface parking in Toronto are in
+                    areas with employment related land use. These surface
+                    parking lots alone account for nearly 4% of Toronto's total
+                    land area.
                 </p>
                 <p>
                     These areas serve functions like trainyards and industrial
@@ -742,12 +744,12 @@
                 <p>
                     The revenue that these lots bring in varies widely. The
                     higher earning lots are typically located closer to the city
-                    center and bring in as much as $48.32 per space, per day.
+                    center and generate as much as $48.32 per space, per day.
                 </p>
                 <p>
-                    However, the majority of Green P surface lots generate
-                    surprisingly low revenue. With half the lots bringing in
-                    less than $5.87 per space, per day.
+                    However, the majority of Green P surface lots see
+                    surprisingly low revenue. With half bringing in less than
+                    $5.87 per space, per day.
                 </p>
                 <p>Hover over the map to find out how much each lot makes.</p>
                 <div class="histogram-container">
@@ -802,7 +804,7 @@
                     Seeing that these spaces are already well connected by
                     transit, it begs the question:
                 </p>
-                <p><i>Do we need all this parking?</i></p>
+                <p><i>Do we really need all this parking?</i></p>
             </div>
         </div>
 
@@ -825,8 +827,8 @@
                 <p><i>Repurpose surface parking lots for housing.</i></p>
 
                 <p>
-                    Here are the different CreateTO projects we examined that
-                    operate at different urban scales and contexts:
+                    Here are three different CreateTO projects that do just that
+                    at different urban scales in Toronto:
                 </p>
                 <ul>
                     <li>
@@ -848,11 +850,11 @@
                 <h3>Methodology</h3>
 
                 <p>
-                    To understand the relative value of urban space in its use
-                    as surface parking compared to housing, we estimated the new
-                    property value assessments of the buildings proposed by
-                    CreateTO to the property value assessments of their sites
-                    currently used as surface parking.
+                    To evaluate the relative value of urban space as surface
+                    parking versus housing, we compared the property assessments
+                    of CreateTO’s proposed developments with the currents
+                    assessments of the sites in their existing use as surface
+                    parking lots.
                 </p>
                 <p>
                     To do this, we collected the most recent 2025 property value
@@ -860,22 +862,21 @@
                     Archives.
                 </p>
                 <p>
-                    We also collected and averaged property assessments of
-                    similar new-build units within developments nearby each case
-                    study. These figures were then multiplied by the number of
-                    proposed units for each case study.
+                    We also collected property assessments for comparable
+                    new-build units in nearby developments, calculated their
+                    average values, and multiplied these averages by the number
+                    of proposed units in each case study.
                 </p>
                 <p>
                     Finally, we compared the projected property value estimates
-                    to the amount they are currently reporting as surface
-                    parking lots.
+                    with their current reported value as surface parking lots.
                 </p>
                 <p>
-                    What becomes clear is that repurposing underutilized surface
-                    parking for housing not only addresses housing needs but can
-                    also contribute positively to the City’s revenue streams in
-                    the form of higher property taxes on better uses of urban
-                    space.
+                    What becomes clear is that converting underutilized surface
+                    parking lots into housing not only helps address Toronto’s
+                    pressing housing needs but also strengthens the City’s
+                    revenue through increased property taxes from higher-value
+                    land uses.
                 </p>
             </div>
         </div>
