@@ -54,17 +54,24 @@
         range: "",
     };
 
-    function showTooltip(event, count, i) {
-        let width = tooltipEl ? tooltipEl.offsetWidth : 120;
-        let height = tooltipEl ? tooltipEl.offsetHeight : 40;
-        tooltip = {
-            show: true,
-            x: event.clientX - width / 2,
-            y: event.clientY - height - 12,
-            count,
-            range: `$${i * binSize} - $${(i + 1) * binSize}`,
-        };
+function showTooltip(event, count, i) {
+    let width = tooltipEl ? tooltipEl.offsetWidth : 120;
+    let height = tooltipEl ? tooltipEl.offsetHeight : 40;
+    let x, y;
+    if (i === bins.length - 3) {
+        x = event.clientX - width;
+    } else {
+        x = event.clientX - width / 2;
     }
+    y = event.clientY - height - 12;
+    tooltip = {
+        show: true,
+        x,
+        y,
+        count,
+        range: `$${i * binSize} - $${(i + 1) * binSize}`,
+    };
+}
 
     function hideTooltip() {
         tooltip.show = false;
