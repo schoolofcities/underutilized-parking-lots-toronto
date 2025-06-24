@@ -68,6 +68,61 @@
         }
     }
 
+    // UPDATE CIRCLE RADIUS
+    function updateCircleRadius(map) {
+        const width = window.innerWidth;
+        let radius = 6;
+
+        if (width < 700) {
+            radius = 4;
+        } else {
+            radius = 6;
+        }
+        map.setPaintProperty("green-p-stats-layer", "circle-radius", radius);
+    }
+
+    function updateScaledCircleRadius(map) {
+        let minRadius, maxRadius;
+
+        if (window.innerWidth < 700) {
+            minRadius = (3 * 2) / 3;
+            maxRadius = (25 * 2) / 3;
+        } else {
+            minRadius = 3;
+            maxRadius = 25;
+        }
+
+        map.setPaintProperty("revenue-per-space-layer", "circle-radius", [
+            "interpolate",
+            ["linear"],
+            ["get", "revenue_per_space_per_day"],
+            0,
+            minRadius,
+            50,
+            maxRadius,
+        ]);
+
+        map.setPaintProperty(
+            "case-study-revenue-per-space-layer",
+            "circle-radius",
+            [
+                "interpolate",
+                ["linear"],
+                ["get", "revenue_per_space_per_day"],
+                0,
+                minRadius,
+                50,
+                maxRadius,
+            ],
+        );
+    }
+
+    // LEGEND HEIGHT
+    let legendHeight = 90;
+    function updatelegendHeight() {
+        legendHeight = window.innerWidth < 700 ? 90*2/3 : 90;
+    }
+
     //SECTION SCROLL
     let sections = [];
     let currentSection = 0;
@@ -80,7 +135,13 @@
         scrollPlacement = window.innerWidth < 1050 ? 0.8 : 0.4;
     };
 
-    window.addEventListener("resize", handleResize);
+    // window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", () => {
+        handleResize();
+        updateCircleRadius(map);
+        updateScaledCircleRadius(map);
+        updatelegendHeight();
+    });
 
     const handleScroll = () => {
         if (!ticking) {
@@ -255,7 +316,6 @@
         // MAP LOAD
         map.on("load", async function () {
             map.getCanvas().style.cursor = "crosshair";
-
             updateMapView();
 
             // BASE MAP STYLES
@@ -293,14 +353,15 @@
                     if (features && features.length > 0) {
                         const feature = features[0];
                         const address = feature.properties.address;
-                        const revenuePerDay =
-                            feature.properties.revenue_per_space_per_day;
+                        const spaceCount = feature.properties.space_count;
+                        const revenuePerDay = feature.properties.revenue_per_space_per_day;
 
                         popup
                             .setLngLat(e.lngLat)
                             .setHTML(
                                 `
                                 <strong>Address:</strong> ${address}<br>
+                                <strong>Number of Spaces:</strong> ${spaceCount}<br>
                                 <strong>Revenue per Space per Day:</strong> $${revenuePerDay}
                             `,
                             )
@@ -347,6 +408,9 @@
                 toggleLayer("green-p-stats-layer", 0.7, 1);
                 toggleLayer("parking-lots-res-layer", 0);
                 toggleLayer("revenue-per-space-layer", 0);
+
+                updateCircleRadius(map);
+
                 break;
 
             case 4:
@@ -359,6 +423,9 @@
                 toggleLayer("subway-stations-layer", 0);
                 toggleLayer("subway-buffer-all-layer", 0);
                 toggleLayer("subway-buffer-mask-layer", 0);
+
+                updateScaledCircleRadius(map);
+                updatelegendHeight()
 
                 map.flyTo({
                     center: currentMapPosition.center,
@@ -381,6 +448,9 @@
                 toggleLayer("city-mask-layer", 0);
                 toggleLayer("case-studies-bldgs-layer", 0);
 
+                updateScaledCircleRadius(map);
+                updatelegendHeight()
+
                 map.flyTo({
                     center: [-79.410235, 43.71175],
                     zoom: currentMapPosition.zoom * 1.05,
@@ -401,6 +471,8 @@
                 toggleLayer("city-mask-layer", 0);
                 toggleLayer("case-studies-area-layer", 0);
                 toggleLayer("revenue-per-space-layer", 0);
+
+                updateScaledCircleRadius(map);
 
                 // Clear existing popups
                 activePopups.forEach((popup) => popup.remove());
@@ -575,6 +647,7 @@
                     src={RevenueLegend}
                     alt="Revenue Legend"
                     class="revenue-legend"
+                    style="height: {legendHeight}px;"
                 />
             </div>
         {/if}
@@ -700,19 +773,19 @@
                     </div>
 
                     <div class="histogram-title">
-                    <div 
-                        style="margin: 10px; text-align: center; font-size: 14px; font-weight: bold;"
-                    ><strong>
-                        Revenue Per Space Per Day
-                        </strong>
-                    </div>
+                        <div
+                            style="margin: 10px; text-align: center; font-size: 14px; font-weight: bold;"
+                        >
+                            <strong> Revenue Per Space Per Day </strong>
+                        </div>
 
-                    <div
-                        style="margin: 10px; text-align: center; font-size: 14px;"
-                    >
-                        ${values[0].toFixed(2)}
-                        &ndash; ${values[1].toFixed(2)}
-                    </div></div>
+                        <div
+                            style="margin: 10px; text-align: center; font-size: 14px;"
+                        >
+                            ${values[0].toFixed(2)}
+                            &ndash; ${values[1].toFixed(2)}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -813,9 +886,10 @@
                     <div class="case-study-text">
                         <h3>72 Amroth Avenue</h3>
                         <p>
-                            A "missing middle" 6-storey low-rise apartment building and two
-                            3-storey townhouses comprising 34 new residential
-                            units. Located near Main Street station.
+                            A "missing middle" 6-storey low-rise apartment
+                            building and two 3-storey townhouses comprising 34
+                            new residential units. Located near Woodbine
+                            station.
                         </p>
                     </div>
 
@@ -825,15 +899,21 @@
 
                     <div class="stat-container">
                         <div class="stat-line">
-                            <div class="stat-bold">Parking Lot Property Value Assessment
-                                (2025)</div> $2,333,000
-                        </div>
-                        <div class="stat-line"><div class="stat-bold">
-                            Projected Housing Property Value
-                                Assessment (2025)</div> $13,307,852
+                            <div class="stat-bold">
+                                Parking Lot Property Value Assessment (2025)
+                            </div>
+                            $2,333,000
                         </div>
                         <div class="stat-line">
-                            <div class="stat-bold">Difference in Value</div> ⬆ $10,974,852
+                            <div class="stat-bold">
+                                Projected Housing Property Value Assessment
+                                (2025)
+                            </div>
+                            $13,307,852
+                        </div>
+                        <div class="stat-line">
+                            <div class="stat-bold">Difference in Value</div>
+                            ⬆ $10,974,852
                         </div>
                     </div>
                 </div>
@@ -846,7 +926,8 @@
                     <div class="case-study-text">
                         <h3>405 Sherbourne</h3>
                         <p>
-                            A 26-storey mixed use high-rise with 266 residential units. Located near Sherbourne station.
+                            A 26-storey mixed use high-rise with 266 residential
+                            units. Located near Sherbourne station.
                         </p>
                     </div>
 
@@ -856,16 +937,21 @@
 
                     <div class="stat-container">
                         <div class="stat-line">
-                            <div class="stat-bold">Parking Lot Property Value Assessment
-                                (2025)</div> $9,812,000
+                            <div class="stat-bold">
+                                Parking Lot Property Value Assessment (2025)
+                            </div>
+                            $9,812,000
                         </div>
                         <div class="stat-line">
-                            <div class="stat-bold">Projected Housing Property Value
-                                Assessment (2025)</div
-                            > $110,676,444
+                            <div class="stat-bold">
+                                Projected Housing Property Value Assessment
+                                (2025)
+                            </div>
+                            $110,676,444
                         </div>
                         <div class="stat-line">
-                            <div class="stat-bold">Difference in Value</div> ⬆ $100,864,444
+                            <div class="stat-bold">Difference in Value</div>
+                            ⬆ $100,864,444
                         </div>
                     </div>
                 </div>
@@ -878,9 +964,9 @@
                     <div class="case-study-text">
                         <h3>50 Wilson Heights Boulevard</h3>
                         <p>
-                            A multi-building mixed use urban renewal development up to
-                            16 storeys with a total of 1,484 residential units.
-                            Located near Wilson station.
+                            A multi-building mixed use urban renewal development
+                            up to 16 storeys with a total of 1,484 residential
+                            units. Located near Wilson station.
                         </p>
                     </div>
 
@@ -889,13 +975,22 @@
                     </div>
 
                     <div class="stat-container">
-                        <div class="stat-line"><div class="stat-bold">
-                           Parking Lot Property Value Assessment
-                                (2025)</div> $9,739,000
+                        <div class="stat-line">
+                            <div class="stat-bold">
+                                Parking Lot Property Value Assessment (2025)
+                            </div>
+                            $9,739,000
                         </div>
-                        <div class="stat-line"><div class="stat-bold">Projected Housing Property Value Assessment (2025)</div> $490,599,407</div>
-                        <div class="stat-line"><div class="stat-bold">
-                            Difference in Value</div>⬆ $480,860,407
+                        <div class="stat-line">
+                            <div class="stat-bold">
+                                Projected Housing Property Value Assessment
+                                (2025)
+                            </div>
+                            $490,599,407
+                        </div>
+                        <div class="stat-line">
+                            <div class="stat-bold">Difference in Value</div>
+                            ⬆ $480,860,407
                         </div>
                     </div>
                 </div>
