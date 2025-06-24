@@ -54,17 +54,24 @@
         range: "",
     };
 
-    function showTooltip(event, count, i) {
-        let width = tooltipEl ? tooltipEl.offsetWidth : 120;
-        let height = tooltipEl ? tooltipEl.offsetHeight : 40;
-        tooltip = {
-            show: true,
-            x: event.clientX - width / 2,
-            y: event.clientY - height - 12,
-            count,
-            range: `$${i * binSize} - $${(i + 1) * binSize}`,
-        };
+function showTooltip(event, count, i) {
+    let width = tooltipEl ? tooltipEl.offsetWidth : 120;
+    let height = tooltipEl ? tooltipEl.offsetHeight : 40;
+    let x, y;
+    if (i === bins.length - 3) {
+        x = event.clientX - width;
+    } else {
+        x = event.clientX - width / 2;
     }
+    y = event.clientY - height - 12;
+    tooltip = {
+        show: true,
+        x,
+        y,
+        count,
+        range: `$${i * binSize} - $${(i + 1) * binSize}`,
+    };
+}
 
     function hideTooltip() {
         tooltip.show = false;
@@ -81,9 +88,10 @@
                     y={chartHeight -
                         ((idx * yTickInterval) / maxCount) * chartHeight +
                         5}
-                    font-size="10"
+                    font-size="11"
                     text-anchor="end"
                     fill="#333"
+                    font-family="SourceSerif"
                 >
                     {idx * yTickInterval}
                 </text>
@@ -112,10 +120,11 @@
         />
         <text
             x={medianX + 5}
-            y="10"
-            font-size="11"
+            y="11"
+            font-size="12"
             text-anchor="start"
             fill="grey"
+            font-family="SourceSerif"
         >
             Median: ${median.toFixed(2)}
         </text>
@@ -147,26 +156,16 @@
                 <text
                     x={35 + i * barWidth}
                     y={chartHeight + 15}
-                    font-size="10"
+                    font-size="11"
                     text-anchor="middle"
                     fill="#333"
+                    font-family="SourceSerif"
                 >
                     {i * binSize}
                 </text>
             {/if}
         {/each}
 
-        <!-- X-axis label -->
-        <!-- <text
-            x={(chartWidth + 40) / 2}
-            y={chartHeight + 40}
-            font-size="14"
-            text-anchor="middle"
-            fill="#333"
-            font-weight="bold"
-        >
-            Revenue Per Space Per Day ($)
-        </text> -->
     </svg>
 </div>
 

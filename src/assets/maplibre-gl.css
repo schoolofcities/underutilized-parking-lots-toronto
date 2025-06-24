@@ -570,6 +570,11 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
     display: flex;
     will-change: transform;
     pointer-events: none;
+    font-family: SourceSerif;
+}
+
+.maplibregl-popup strong {
+    font-family: SourceSerifBold;
 }
 
 .maplibregl-popup-anchor-top,
@@ -670,7 +675,7 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
     background: #fff;
     border-radius: 3px;
     box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
-    padding: 15px 10px;
+    padding: 5px 10px;
     pointer-events: auto;
 }
 

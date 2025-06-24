@@ -159,7 +159,7 @@ export const layers = {
                     ["linear"],
                     ["get", "revenue_per_space_per_day"],
                     0, 3,
-                    50, 30
+                    50, 25
                 ]
             ,
             "circle-stroke-color": "white",
