@@ -632,7 +632,7 @@
                 target="_blank">Scott McCallum</a
             >,
             <a href="https://jamaps.github.io/" target="_blank">Jeff Allen</a>,
-            <a href="https://www.linkedin.com/in/mischayoung/" target="_blank">Mischa Young</a> |
+            <a href="https://www.mischayoung.com/" target="_blank">Mischa Young</a> |
             June 2025
         </p>
     </div>
