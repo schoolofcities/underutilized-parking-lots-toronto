@@ -113,7 +113,7 @@ main {
     position: relative;
     text-align: center;
     color: white;
-    font-size: calc(56px + (110 - 56) * ((100vw - 300px) / (1600 - 300)));
+    font-size: calc(40px + (110 - 56) * ((100vw - 300px) / (1600 - 300)));
 
 }
 
@@ -251,11 +251,17 @@ ul strong {
     font-family: SourceSerifBold;
 }
 
-
 a {
     text-decoration: underline;
+    color: var(--brandMedBlue);
+}
+
+.title a {
+    text-decoration: none;
     color: var(--brandLightBlue);
 }
+
+
 
 a:hover {
     color: var(--brandMedGreen);

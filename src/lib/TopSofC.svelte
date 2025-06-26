@@ -42,7 +42,7 @@
 	#logo {
 		margin: auto;
 		max-width: 260px;
-		height: 50px;
+		height: 45px;
 		z-index: 99999;
 	}
 
@@ -55,7 +55,7 @@
 
 	img {
 		color: blue;
-		height: 50px;
+		height: 45px;
 		width: auto;
 	}
 	img:hover {

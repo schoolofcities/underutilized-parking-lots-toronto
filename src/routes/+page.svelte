@@ -694,8 +694,8 @@
                     land area.
                 </p>
                 <p>
-                    These areas serve functions like trainyards and industrial
-                    zones that are core to the city's employment and economy.
+                    These areas serve functions like warehouses and industrial
+                    uses that are core to the city's employment and economy.
                 </p>
             </div>
         </div>
@@ -726,11 +726,10 @@
                 </p>
                 <p>
                     Since the City has control over what happens to these lots,
-                    they represent low-hanging fruit and offer a valuable
-                    opportunity to be transformed in ways that better serve the
+                    they represent low-hanging fruit and offer <a href="https://www.toronto.ca/legdocs/mmis/2025/ex/comm/communicationfile-192571.pdf" target="_blank">a valuable
+                    opportunity</a> to be transformed in ways that better serve the
                     neighbourhoods they occupy.
                 </p>
-
                 <p>
                     Let’s look at how much revenue they currently generate as
                     surface parking lots.
