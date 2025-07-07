@@ -200,23 +200,6 @@ export const layers = {
             "circle-stroke-opacity": 0,
         }
     },
-    subwayStationsTextLayer: {
-        id: 'subway-stations-text-layer',
-        type: 'symbol',
-        source: 'SubwayStations',
-        layout: {
-            "text-field": ["get", "LOCATION_N"],
-            "text-size": 9,
-            "text-font": ["TradeGothic LT Regular"],
-            "text-anchor": "center",
-            "text-offset": [0, 1.5]
-        },
-        paint: {
-            "text-color": "black",
-            "text-opacity": 0,
-            "text-halo-color": "white",
-        }
-    },
     cityMaskLayer: {
         id: 'city-mask-layer',
         type: 'fill',
@@ -224,34 +207,6 @@ export const layers = {
         paint: {
             "fill-color": "rgba(255, 255, 255, 0.6)",
             "fill-outline-color": "rgba(0, 0, 0, 1)",
-        }
-    },
-    caseStudiesCircleLayer: {
-        id: 'case-studies-circle-layer',
-        type: 'circle',
-        source: 'CaseStudies',
-        paint: {
-            "circle-color": "white",
-            "circle-opacity": 0,
-            "circle-radius": 8,
-            "circle-stroke-color": "#0D534D",
-            "circle-stroke-width": 1.5,
-            "circle-stroke-opacity": 0,
-        }
-    },
-    caseStudiesTextLayer: {
-        id: 'case-studies-text-layer',
-        type: 'symbol',
-        source: 'CaseStudies',
-        layout: {
-            "text-field": ["get", "order"],
-            "text-size": 12,
-            "text-font": ["TradeGothic LT Bold"],
-            "text-anchor": "center"
-        },
-        paint: {
-            "text-color": "#0D534D",
-            "text-opacity": 0
         }
     },
     caseStudiesAreaLayer: {
