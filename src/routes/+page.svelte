@@ -653,8 +653,7 @@
             <div class="text">
                 <h3>Toronto is 9% surface parking</h3>
                 <p>
-                    Across Toronto, surface parking lots cover more than of
-                    land area for a total of 56,943,600 square meters.
+                    Across Toronto surface parking lots cover more than 9% of land area, for a total of 56,943,600 square meters.
                 </p>
 
                 <p>That's 390 Trinity Bellwoods parks.</p>
