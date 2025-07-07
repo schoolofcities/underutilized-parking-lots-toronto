@@ -633,7 +633,7 @@
             >,
             <a href="https://jamaps.github.io/" target="_blank">Jeff Allen</a>,
             <a href="https://www.mischayoung.com/" target="_blank">Mischa Young</a> |
-            June 2025
+            July 2025
         </p>
     </div>
 </div>
@@ -658,20 +658,20 @@
     <section class="content">
         <div class="section">
             <div class="text">
-                <h3>Toronto is 9% Surface Parking</h3>
+                <h3>Toronto is 9% surface parking</h3>
                 <p>
-                    Across the city, surface parking lots cover more than 9% of
-                    Toronto's land area for a total of 56,943,600 square meters.
+                    Across Toronto, surface parking lots cover more than of
+                    land area for a total of 56,943,600 square meters.
                 </p>
 
-                <p>That's 390 Trinity Bellwoods Parks.</p>
+                <p>That's 390 Trinity Bellwoods parks.</p>
 
                 <p>
                     These parking lots represent a significant portion of the
                     urban landscape and are often vacant throughout the day.
                     Consequently, these underutilized spaces contribute little
                     to the vitality or livability of the surrounding
-                    neighborhoods.
+                    neighbourhoods.
                 </p>
 
                 <p>There is an opportunity cost to this underutilization:</p>
@@ -686,15 +686,15 @@
 
         <div class="section">
             <div class="text">
-                <h3>Employment Areas</h3>
+                <h3>Employment areas</h3>
                 <p>
                     The largest clusters of surface parking in Toronto are in
-                    areas with employment related land use. These surface
+                    areas with employment-related land use. These surface
                     parking lots alone account for nearly 4% of Toronto's total
                     land area.
                 </p>
                 <p>
-                    These areas serve functions like warehouses and industrial
+                    These areas serve functions like warehousing and industrial
                     uses that are core to the city's employment and economy.
                 </p>
             </div>
@@ -702,16 +702,16 @@
 
         <div class="section">
             <div class="text">
-                <h3>Residential Areas</h3>
+                <h3>Residential areas</h3>
                 <p>
                     However, our focus is on the underutilization of surface
-                    parking that fragments existing residential areas where the
+                    parking that fragments existing residential areas, where the
                     space could otherwise be dedicated to people instead of
                     cars.
                 </p>
                 <p>
                     Accounting for over 4.5% of Toronto's residential land area,
-                    theses lots are scattered and puncture voids in otherwise
+                    these lots are scattered and represent voids in otherwise
                     vibrant residential areas.
                 </p>
             </div>
@@ -719,7 +719,7 @@
 
         <div class="section">
             <div class="text">
-                <h3>City-Owned Parking Lots</h3>
+                <h3>City-owned parking lots</h3>
                 <p>
                     The City of Toronto owns or manages over 200 of these
                     surface parking lots, branded as Green P.
@@ -739,15 +739,15 @@
 
         <div class="section">
             <div class="text">
-                <h3>What Do They Bring In?</h3>
+                <h3>What do they bring in?</h3>
                 <p>
-                    The revenue that these lots bring in varies widely. The
-                    higher earning lots are typically located closer to the city
-                    center and generate as much as $48.32 per space, per day.
+                    The revenue that these lots brings in varies widely. The
+                    higher-earning lots are typically located closer to the city
+                    centre and generate as much as $48.32 per space, per day.
                 </p>
                 <p>
                     However, the majority of Green P surface lots see
-                    surprisingly low revenue. With half bringing in less than
+                    surprisingly low revenue, with half of them bringing in less than
                     $5.87 per space, per day.
                 </p>
                 <p>Hover over the map to find out how much each lot makes.</p>
@@ -793,14 +793,14 @@
 
         <div class="section">
             <div class="text">
-                <h3>Do We Need All This parking?</h3>
+                <h3>Do we need all this parking?</h3>
                 <p>
-                    Meanwhile, many of these low earning lots are within 1
+                    Many of these low earning lots are within 1
                     kilometre of a TTC subway station. That's about a 15-minute
                     walk.
                 </p>
                 <p>
-                    Seeing that these spaces are already well connected by
+                    Seeing as these spaces are already well connected by
                     transit, it begs the question:
                 </p>
                 <p><i>Do we really need all this parking?</i></p>
@@ -809,7 +809,7 @@
 
         <div class="section">
             <div class="text">
-                <h3>Case Studies: CreateTO</h3>
+                <h3>Case studies: CreateTO</h3>
                 <p>
                     Luckily, we have working examples to help us envision an
                     alternative where underutilized surface parking lots are
@@ -820,14 +820,14 @@
                         href="https://createto.ca/projects/housing"
                         target="_blank">CreateTO</a
                     > is the City of Toronto's real estate agency, managing the portfolio
-                    of city-owned properties. They have several projects that already
+                    of city-owned properties. They have several projects that
                     aim to do what we are proposing here:
                 </p>
                 <p><i>Repurpose surface parking lots for housing.</i></p>
 
                 <p>
-                    Here are three different CreateTO projects that do just that
-                    at different urban scales in Toronto:
+                    Here are three CreateTO projects that aim to do just that,
+                    at different urban scales:
                 </p>
                 <ul>
                     <li>
@@ -851,13 +851,13 @@
                 <p>
                     To evaluate the relative value of urban space as surface
                     parking versus housing, we compared the property assessments
-                    of CreateTO’s proposed developments with the currents
+                    of CreateTO’s proposed developments with the current
                     assessments of the sites in their existing use as surface
                     parking lots.
                 </p>
                 <p>
-                    To do this, we collected the most recent 2025 property value
-                    assessments of the surface parking lots from the Toronto
+                    To do this, we collected the 2025 property value
+                    assessments of surface parking lots from the Toronto
                     Archives.
                 </p>
                 <p>
@@ -884,7 +884,7 @@
             <div class="text">
                 <div class="case-study-container">
                     <div class="case-study-text">
-                        <h3>72 Amroth Avenue</h3>
+                        <h3>72 Amroth Ave.</h3>
                         <p>
                             A "missing middle" 6-storey low-rise apartment
                             building and two 3-storey townhouses comprising 34
@@ -924,7 +924,7 @@
             <div class="text">
                 <div class="case-study-container">
                     <div class="case-study-text">
-                        <h3>405 Sherbourne</h3>
+                        <h3>405 Sherbourne St.</h3>
                         <p>
                             A 26-storey mixed use high-rise with 266 residential
                             units. Located near Sherbourne station.
@@ -962,10 +962,10 @@
             <div class="text">
                 <div class="case-study-container">
                     <div class="case-study-text">
-                        <h3>50 Wilson Heights Boulevard</h3>
+                        <h3>50 Wilson Heights Blvd.</h3>
                         <p>
                             A multi-building mixed use urban renewal development
-                            up to 16 storeys with a total of 1,484 residential
+                            with up to 16 storeys and a total of 1,484 residential
                             units. Located near Wilson station.
                         </p>
                     </div>
@@ -999,27 +999,15 @@
 
         <div class="section">
             <div class="text">
-                <h3>Not Only City-Owned Parking Lots</h3>
+                <h3>Not only city-owned parking lots</h3>
                 <p>
-                    Toronto’s surface parking lots represent one of the city’s
-                    most underleveraged assets. Many are situated in desirable
-                    residential areas near transit stations yet contribute very
-                    little in terms of revenue posing a significant opportunity
-                    costs in a city grappling with an acute shortage of
-                    affordable housing.
+                    Toronto’s surface parking lots represent one of the city’s most underleveraged assets. Many are situated in desirable residential areas and near transit stations, yet contribute very little in terms of revenue – presenting significant opportunity costs in a city grappling with an acute shortage of affordable housing.
                 </p>
                 <p>
-                    The contrast is clear: replacing underutilized surface
-                    parking lots with well-designed housing can dramatically
-                    increase the city's revenue in the form of property taxes,
-                    deliver much-needed homes, and contribute to the development
-                    of more complete and vibrant communities.
+                    The contrast is clear: replacing underutilized surface parking lots with well-designed housing could dramatically increase the city's revenue in the form of property taxes, deliver much-needed homes, and contribute to the development of more complete and vibrant communities.
                 </p>
                 <p>
-                    However, city-owned lots represent only a small fraction of
-                    the surface parking that dot Toronto's neighbourhoods. This
-                    means that for more widespread change, privately-owned lots
-                    must also be studied for housing.
+                    However, city-owned lots represent only a small fraction of the surface parking that dots Toronto's neighbourhoods. This means that for more widespread change, privately-owned lots must also be studied for housing.
                 </p>
                 <p>
                     Stronger urban policy, such as a commercial parking levy, an
@@ -1028,11 +1016,7 @@
                     privately-owned lots.
                 </p>
                 <p>
-                    By expanding these efforts beyond city-owned lots and
-                    adopting policies that encourage private landowners to
-                    follow suit, Toronto can take meaningful steps toward
-                    creating a more equitable, efficient, and human-centred
-                    urban environment.
+                    By expanding these efforts beyond city-owned lots and adopting policies that encourage private landowners to follow suit, Toronto could take meaningful steps toward creating a more equitable, efficient, and human-centred urban environment.
                 </p>
             </div>
         </div>

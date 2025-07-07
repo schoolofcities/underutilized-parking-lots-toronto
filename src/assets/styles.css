@@ -201,6 +201,7 @@ main {
 
 h1 {
     font-family: TradeGothicBold;
+    font-weight: normal;
     color: var(--brandBlack);
     margin-bottom: 40px;
     padding: 0px 30px 0px 30px;
@@ -219,6 +220,7 @@ h2 {
 h3 {
     text-align: left;
     font-family: TradeGothicBold;
+    font-weight: normal;
     font-size: 23px;
     color: var(--brandBlack);
 }
@@ -247,8 +249,14 @@ ul {
     padding-left: 20px;
 }
 
+strong {
+    font-family: SourceSerifBold;
+    font-weight: normal;
+}
+
 ul strong {
     font-family: SourceSerifBold;
+    font-weight: normal;
 }
 
 a {
