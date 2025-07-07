@@ -7,6 +7,7 @@
     import { fade } from "svelte/transition";
     import Top from "$lib/TopSofC.svelte";
     import Histogram from "$lib/Histogram.svelte";
+    import FirefoxMessage from "../lib/FirefoxMessage.svelte";
 
     // IMPORT STYLES
     import "../assets/maplibre-gl.css";
@@ -631,6 +632,7 @@
 
 <div class="main-container">
     <div class="map-container" id="map">
+        <FirefoxMessage />
         {#if showLegend}
             <div
                 class="map-legend-bottom-right"
