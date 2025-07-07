@@ -41,30 +41,29 @@
 
     // TOGGLE LAYER FUNCTION
     function toggleLayer(id, opacity, strokeOpacity = opacity) {
-        const propertyMap = {
-            fill: "fill-opacity",
-            line: "line-opacity",
-            heatmap: "heatmap-opacity",
-            circle: "circle-opacity",
-            "circle-stroke": "circle-stroke-opacity",
-        };
-        for (const [layerType, property] of Object.entries(propertyMap)) {
-            try {
-                if (property === "circle-stroke-opacity") {
-                    map.setPaintProperty(id, property, strokeOpacity, {
-                        duration: 100,
-                    });
-                } else {
-                    map.setPaintProperty(id, property, opacity, {
-                        duration: 100,
-                    });
-                }
-            } catch (error) {
-                console.error(
-                    `Error setting opacity for layer ${id} (${property}):`,
-                    error,
-                );
+        try {
+            const layer = map.getLayer(id);
+            if (!layer) {
+                console.warn(`Layer ${id} not found`);
+                return;
             }
+
+            const layerType = layer.type;
+            const propertyMap = {
+                fill: "fill-opacity",
+                line: "line-opacity", 
+                heatmap: "heatmap-opacity",
+                circle: "circle-opacity"
+            };
+
+            const property = propertyMap[layerType];
+            if (property) {
+                map.setPaintProperty(id, property, opacity, { duration: 100 });
+            }
+            if (layerType === 'circle') {
+                map.setPaintProperty(id, "circle-stroke-opacity", strokeOpacity, { duration: 100 });
+            }
+        } catch (error) {
         }
     }
 
@@ -172,14 +171,6 @@
             });
             ticking = true;
         }
-
-        // CONSOLE LOG SCROLL POSITION
-        console.log("scrollPosition:", scrollPosition);
-        console.log("windowHeight:", windowHeight);
-        console.log("containerTop:", containerTop);
-        console.log("containerHeight:", containerHeight);
-        console.log("start:", start);
-        console.log("end:", end);
     };
 
     let currentMapPosition = {

@@ -1,7 +1,5 @@
 // IMPORTS  
 let PARKING_URL = "/underutilized-parking-lots-toronto/parking-lots.pmtiles";
-let ZONING_EMP = "/underutilized-parking-lots-toronto/zoning-emp.pmtiles";
-let ZONING_RES = "/underutilized-parking-lots-toronto/zoning-res.pmtiles";
 
 import CityMask from "../data/city-mask.geo.json";
 import GreenPStats from "../data/green-p-revenue-and-park-area.geo.json";
@@ -23,14 +21,6 @@ export const sources = {
         type: 'vector',
         url: `pmtiles://${PARKING_URL}`
     },
-    zoningEmployment: {
-        type: 'vector',
-        url: `pmtiles://${ZONING_EMP}`
-    },
-    zoningResidential: {
-        type: 'vector',
-        url: `pmtiles://${ZONING_RES}`
-    },
     cityMask: {
         type: 'geojson',
         data: CityMask
@@ -39,7 +29,6 @@ export const sources = {
         type: 'geojson',
         data: GreenPStats
     },
-
     SubwayLines: {
         type: 'geojson',
         data: SubwayLines
