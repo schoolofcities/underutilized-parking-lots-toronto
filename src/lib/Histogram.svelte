@@ -21,7 +21,7 @@
     });
 
     const maxCount = Math.max(...bins);
-    const chartHeight = 200;
+    const chartHeight = 150;
     const yTickInterval = 10;
 
     let chartWidth = 450;

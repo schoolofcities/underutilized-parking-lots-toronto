@@ -153,7 +153,8 @@ main {
 
 .image-crop-container {
     max-height: 400px;
-    max-width: 400px;
+    max-width: min(400px, 100%);
+    width: 100%;
     display: block;
     overflow: hidden;
     position: relative;
