@@ -192,10 +192,10 @@
 
         if (screenWidth > 950) {
             minZoom = 8.9;
-            maxZoom = 10.7;
+            maxZoom = 10.6;
         } else {
             minZoom = 8.8;
-            maxZoom = 12.1;
+            maxZoom = 11;
         }
 
         const zoom = Math.min(
@@ -446,7 +446,7 @@
 
                 map.flyTo({
                     center: [-79.410235, 43.71175],
-                    zoom: currentMapPosition.zoom * 1.05,
+                    zoom: currentMapPosition.zoom * 1.03,
                     bearing: currentMapPosition.bearing,
                     duration: 1000,
                 });
@@ -505,7 +505,7 @@
 
                 map.flyTo({
                     center: [-79.410235, 43.71175],
-                    zoom: currentMapPosition.zoom * 1.05,
+                    zoom: currentMapPosition.zoom * 1.03,
                     bearing: currentMapPosition.bearing,
                     duration: 1000,
                 });
@@ -526,7 +526,7 @@
 
                 map.flyTo({
                     center: [-79.410235, 43.71175],
-                    zoom: currentMapPosition.zoom * 1.05,
+                    zoom: currentMapPosition.zoom * 1.03,
                     bearing: currentMapPosition.bearing,
                     duration: 1000,
                 });
@@ -546,7 +546,7 @@
 
                 map.flyTo({
                     center: [-79.31183245492291, 43.68529059208628],
-                    zoom: 17.75,
+                    zoom: 17,
                     bearing: -17,
                     duration: 3500,
                 });
@@ -556,7 +556,7 @@
                 // 405 Sherbourne
                 map.flyTo({
                     center: [-79.37313417683629, 43.664663800721115],
-                    zoom: 17.75,
+                    zoom: 17,
                     bearing: -17,
                     duration: 3500,
                 });
@@ -572,7 +572,7 @@
 
                 map.flyTo({
                     center: [-79.449151, 43.735573],
-                    zoom: 15.75,
+                    zoom: 14.75,
                     bearing: -17,
                     duration: 3500,
                     speed: 0.5,
