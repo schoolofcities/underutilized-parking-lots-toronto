@@ -161,6 +161,7 @@ main {
     overflow: hidden;
     position: relative;
     border: 1px solid rgba(189, 189, 189, 0.7);
+    margin: 0 auto;
 }
 
 .image-crop-container img {
@@ -423,8 +424,9 @@ a:hover {
     .image-crop-container {
         height: 300px;
         width: 300px;
-        margin: 1em 0 1em 0;
+        margin: 1em auto;
         grid-area: image-crop-container;
+        justify-self: center;
     }
 
     .case-study-text {
@@ -463,7 +465,6 @@ a:hover {
     .text {
         padding: 0 10px 0;
     }
-
 }
 
 @media (max-width: 499px) {
@@ -502,5 +503,6 @@ a:hover {
         overflow: hidden;
         position: relative;
         border: 1px solid rgba(189, 189, 189, 0.7);
+        margin: 0 auto;
     }
 }
