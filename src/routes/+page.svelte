@@ -823,13 +823,13 @@
                 </p>
                 <ul>
                     <li>
-                        <strong>72 Amroth Avenue:</strong> Missing Middle
+                        <strong><a href="https://createto.ca/projects/72-amroth-avenue" target="_blank">72 Amroth Avenue:</a></strong> Missing Middle
                     </li>
                     <li>
-                        <strong>405 Sherbourne Street:</strong> Mixed Use High-Rise
+                        <strong><a href="https://createto.ca/projects/405-sherbourne-street" target="_blank">405 Sherbourne Street:</a></strong> Mixed Use High-Rise
                     </li>
                     <li>
-                        <strong>50 Wilson Heights Boulevard:</strong> Mixed Use Urban
+                        <strong><a href="https://createto.ca/projects/50-wilson-heights-boulevard" target="_blank">50 Wilson Heights Boulevard:</a></strong> Mixed Use Urban
                         Renewal
                     </li>
                 </ul>
