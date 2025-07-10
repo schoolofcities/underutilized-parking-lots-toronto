@@ -807,11 +807,11 @@
                     alternative where underutilized surface parking lots are
                     repurposed to house people instead of cars.
                 </p>
-                <p>
+                <p><strong>
                     <a
                         href="https://createto.ca/projects/housing"
                         target="_blank">CreateTO</a
-                    > is the City of Toronto's real estate agency, managing the portfolio
+                    ></strong> is the City of Toronto's real estate agency, managing the portfolio
                     of city-owned properties. They have several projects that
                     aim to do what we are proposing here:
                 </p>
