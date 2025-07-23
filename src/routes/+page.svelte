@@ -733,7 +733,7 @@
             <div class="text">
                 <h3>What do they bring in?</h3>
                 <p>
-                    The revenue that these lots brings in varies widely. The
+                    <a href="https://www.toronto.ca/legdocs/mmis/2024/pa/bgrd/backgroundfile-244114.pdf" target="_blank">The revenue that these lots brings in varies widely</a>. The
                     higher-earning lots are typically located closer to the city
                     centre and generate as much as $48.32 per space, per day.
                 </p>
